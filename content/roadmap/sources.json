@@ -538,6 +538,16 @@
     "section": "7."
   },
   {
+    "id": "mdn-abort-signal-timeout",
+    "title": "MDN: AbortSignal.timeout()",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7.",
+    "englishReason": "Актуальная официальная страница MDN точно описывает AbortSignal.timeout(), TimeoutError и объединение timeout с пользовательской отменой через AbortSignal.any()."
+  },
+  {
     "id": "mdn-ru-http-caching",
     "title": "HTTP-кеширование",
     "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Guides/Caching",
@@ -883,6 +893,16 @@
     "englishReason": "OWASP систематизирует текущие требования к аутентификации, повторной проверке и управлению сессией; полного русского первичного руководства нет."
   },
   {
+    "id": "ietf-refresh-token-rotation",
+    "title": "RFC 9700 §4.14.2: Refresh Token Rotation",
+    "url": "https://datatracker.ietf.org/doc/html/rfc9700#section-4.14.2",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "Точный нормативный раздел IETF RFC 9700 описывает refresh-token rotation, обнаружение повторного использования и отзыв активной token family."
+  },
+  {
     "id": "owasp-csrf-prevention",
     "title": "OWASP Cross-Site Request Forgery Prevention Cheat Sheet",
     "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
@@ -931,6 +951,16 @@
     "englishReason": "OWASP поддерживает актуальный набор защитных заголовков, включая CSP и frame-ancestors; полного русского первичного руководства нет."
   },
   {
+    "id": "owasp-unvalidated-redirects",
+    "title": "OWASP Unvalidated Redirects and Forwards Cheat Sheet",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "Точный официальный OWASP Cheat Sheet покрывает open redirect, безопасные фиксированные destinations и строгую проверку недоверенного URL."
+  },
+  {
     "id": "owasp-vulnerable-dependencies",
     "title": "OWASP Vulnerable Dependency Management Cheat Sheet",
     "url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html",
@@ -949,6 +979,16 @@
     "lastVerifiedAt": "2026-07-23",
     "section": "9.",
     "englishReason": "IETF RFC 9700 — действующий Best Current Practice по OAuth 2.0, PKCE, redirect URI и token rotation; русского нормативного аналога нет."
+  },
+  {
+    "id": "ietf-browser-based-apps-bff",
+    "title": "IETF OAuth for Browser-Based Apps §6.1: BFF",
+    "url": "https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#section-6.1",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "Точный текущий документ IETF OAuth WG описывает Backend-for-Frontend как confidential client, server-side token holder и API proxy для browser app."
   },
   {
     "id": "openid-connect-core",

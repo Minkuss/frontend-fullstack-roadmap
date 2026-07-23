@@ -113,7 +113,7 @@ const highRiskTopicContracts = {
     sourceIds: {
       primary: 'github-rest-api-best-practices',
       fallback: 'stripe-idempotent-requests',
-      practice: 'mdn-ru-abort-controller-http',
+      practice: 'mdn-abort-signal-timeout',
     },
     sourceRefs: [
       'L0948',
@@ -251,6 +251,32 @@ const highRiskTopicContracts = {
     },
   },
 } as const
+const exactSourceRoleContracts = [
+  {
+    topicId: 'http-request-resilience',
+    role: 'practice',
+    sourceId: 'mdn-abort-signal-timeout',
+    url: 'https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static',
+  },
+  {
+    topicId: 'frontend-auth-model',
+    role: 'practice',
+    sourceId: 'ietf-refresh-token-rotation',
+    url: 'https://datatracker.ietf.org/doc/html/rfc9700#section-4.14.2',
+  },
+  {
+    topicId: 'security-headers-supply-chain',
+    role: 'fallback',
+    sourceId: 'owasp-unvalidated-redirects',
+    url: 'https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html',
+  },
+  {
+    topicId: 'oauth-oidc-pkce-bff',
+    role: 'primary',
+    sourceId: 'ietf-browser-based-apps-bff',
+    url: 'https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#section-6.1',
+  },
+] as const
 
 function expectLearningCycle(topic: Topic) {
   expect(topic.outcome, topic.id).toMatch(
@@ -427,6 +453,14 @@ describe('Route 2: reliable data flow', () => {
       })
     })
   })
+
+  it.each(exactSourceRoleContracts)(
+    'pins $topicId $role to its exact official source',
+    ({ topicId, role, sourceId, url }) => {
+      expect(topicById.get(topicId)?.sourceIds[role], topicId).toBe(sourceId)
+      expect(sourceById.get(sourceId)?.url, sourceId).toBe(url)
+    },
+  )
 
   it('allocates every declared source-map item exactly once and excludes browser performance', () => {
     const expectedRefs = inventoryJson.items

@@ -140,7 +140,7 @@
           "sourceIds": {
             "primary": "github-rest-api-best-practices",
             "fallback": "stripe-idempotent-requests",
-            "practice": "mdn-ru-abort-controller-http"
+            "practice": "mdn-abort-signal-timeout"
           },
           "obsidianPrompts": [
             "Нарисуй состояние pagination вместе с next-link, 429, Retry-After и исчерпанным retry budget.",
@@ -872,7 +872,7 @@
           "sourceIds": {
             "primary": "owasp-session-management",
             "fallback": "doka-browser-storages-security",
-            "practice": "owasp-authentication"
+            "practice": "ietf-refresh-token-rotation"
           },
           "obsidianPrompts": [
             "Нарисуй session-cookie и access/refresh token модели с доверенными границами.",
@@ -985,7 +985,7 @@
           "dependencies": ["frontend-threat-model-xss"],
           "sourceIds": {
             "primary": "mdn-ru-csp",
-            "fallback": "owasp-http-headers",
+            "fallback": "owasp-unvalidated-redirects",
             "practice": "owasp-vulnerable-dependencies"
           },
           "obsidianPrompts": [
@@ -1042,7 +1042,7 @@
           "estimatedMinutes": [90, 125],
           "dependencies": ["frontend-auth-model", "csrf-cookie-defense"],
           "sourceIds": {
-            "primary": "ietf-oauth-security-bcp",
+            "primary": "ietf-browser-based-apps-bff",
             "fallback": "openid-connect-core",
             "practice": "telegram-mini-apps-init-data"
           },
