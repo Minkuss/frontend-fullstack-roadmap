@@ -1,0 +1,17 @@
+:root {
+  --paper: #f3efe5;
+  --paper-raised: #fffdf7;
+  --ink: #243126;
+  --ink-muted: #59645a;
+  --line: #d9d0be;
+  --accent: #b74f32;
+  --accent-hover: #963f28;
+  --focus: #215b49;
+  --warning-bg: #fff4d6;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --content: 72rem;
+  --font-editorial: Georgia, 'Times New Roman', serif;
+  --font-interface: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+}
