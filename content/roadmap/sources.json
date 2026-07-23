@@ -509,6 +509,26 @@
     "section": "7."
   },
   {
+    "id": "github-rest-api-best-practices",
+    "title": "GitHub REST API: Best practices",
+    "url": "https://docs.github.com/en/rest/using-the-rest-api/best-practices-for-using-the-rest-api",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7.",
+    "englishReason": "Официальное руководство GitHub связывает server-provided pagination, rate-limit headers, Retry-After и ограниченный exponential retry в одном актуальном API-контракте."
+  },
+  {
+    "id": "stripe-idempotent-requests",
+    "title": "Stripe API: Idempotent requests",
+    "url": "https://docs.stripe.com/api/idempotent_requests",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7.",
+    "englishReason": "Официальный Stripe API Reference точно описывает серверную семантику idempotency key для безопасного повтора mutation; равноценного русского первичного источника нет."
+  },
+  {
     "id": "mdn-ru-abort-controller-http",
     "title": "AbortController",
     "url": "https://developer.mozilla.org/ru/docs/Web/API/AbortController",
@@ -626,6 +646,35 @@
     "section": "8."
   },
   {
+    "id": "mdn-service-worker-api",
+    "title": "MDN: Service Worker API",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8.",
+    "englishReason": "Актуальная официальная страница MDN описывает lifecycle, network interception и Cache API service worker; русская версия не даёт сопоставимо полного текущего материала."
+  },
+  {
+    "id": "mdn-web-workers-api",
+    "title": "MDN: Web Workers API",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8.",
+    "englishReason": "Актуальная официальная страница MDN точно разделяет dedicated Web Worker, main thread и отсутствие DOM access; равноценного текущего русского обзора нет."
+  },
+  {
+    "id": "mdn-ru-browser-http-cache",
+    "title": "HTTP-кеширование в браузере",
+    "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Guides/Caching",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8."
+  },
+  {
     "id": "tanstack-query-v5-quick-start",
     "title": "TanStack Query v5: Quick Start",
     "url": "https://tanstack.com/query/latest/docs/framework/react/quick-start",
@@ -714,6 +763,36 @@
     "lastVerifiedAt": "2026-07-23",
     "section": "5.",
     "englishReason": "Официальное руководство TanStack Query v5 актуально описывает prefetchQuery, staleTime и router integration; русского эквивалента нет."
+  },
+  {
+    "id": "tanstack-query-v5-infinite-queries",
+    "title": "TanStack Query v5: Infinite Queries",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/infinite-queries",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальное руководство TanStack Query v5 задаёт текущие pages, pageParams и getNextPageParam для useInfiniteQuery; русского первичного источника нет."
+  },
+  {
+    "id": "tanstack-query-v5-ssr",
+    "title": "TanStack Query v5: Server Rendering & Hydration",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/ssr",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальное руководство TanStack Query v5 актуально описывает per-request QueryClient, prefetch, dehydrate и hydration; русского первичного источника нет."
+  },
+  {
+    "id": "tanstack-query-v5-offline-example",
+    "title": "TanStack Query v5: Offline example",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/examples/offline",
+    "language": "en",
+    "format": "exercise",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальный интерактивный пример TanStack Query v5 показывает paused queries, offline simulation и reconnect; равноценного актуального русского практикума нет."
   },
   {
     "id": "tanstack-query-v5-optimistic-updates",

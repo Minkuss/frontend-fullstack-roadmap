@@ -71,50 +71,46 @@
           ]
         },
         {
-          "id": "http-semantics-resilience",
-          "title": "HTTP-семантика и устойчивые запросы",
-          "outcome": "Спроектировать frontend-обработку методов, status codes, pagination, rate limits, timeout и ограниченного retry с учётом идемпотентности.",
-          "whyNow": "Повтор запроса и реакция интерфейса безопасны только тогда, когда клиент понимает семантику метода и ошибки.",
+          "id": "http-semantics-status",
+          "title": "HTTP-методы, REST и status codes",
+          "outcome": "Различать safe methods, idempotent methods и status codes и сопоставлять REST-ответ с корректным состоянием интерфейса.",
+          "whyNow": "Retry и интерфейсная реакция безопасны только тогда, когда клиент понимает семантику метода и ответа.",
           "priority": "high",
-          "recommendationWeight": 92,
-          "estimatedMinutes": [90, 120],
-          "dependencies": [
-            "http-request-lifecycle",
-            "async-cancellation-races",
-            "async-retry-concurrency"
-          ],
+          "recommendationWeight": 90,
+          "estimatedMinutes": [65, 90],
+          "dependencies": ["http-request-lifecycle"],
           "sourceIds": {
             "primary": "mdn-ru-http-methods",
             "fallback": "mdn-ru-http-status",
-            "practice": "mdn-ru-abort-controller-http"
+            "practice": "firefox-network-monitor"
           },
           "obsidianPrompts": [
-            "Составь матрицу method × safe × idempotent × допустимый retry.",
+            "Составь матрицу method × safe × idempotent для типичного REST API.",
             "Сопоставь 401, 403, 404, 409, 422, 429 и 500 с состояниями UI."
           ],
           "ankiPrompts": [
             "Чем safe method отличается от idempotent method?",
-            "Когда автоматический retry POST опасен?",
+            "Почему GET и DELETE имеют разную семантику безопасности?",
             "Как UI должен различать 401 и 403?",
-            "Зачем серверу и клиенту согласованный idempotency key?"
+            "Когда 409 полезнее общего ответа 400?"
           ],
           "practice": [
             {
-              "id": "cancel-and-ignore-stale-response",
-              "title": "Отмена запроса и защита от устаревшего ответа",
+              "id": "map-http-semantics",
+              "title": "Матрица HTTP-ответов локального API",
               "instructions": [
-                "Сделать локальный поиск с AbortController и отменой предыдущего запроса при новом вводе.",
-                "Добавить request id и не показывать устаревший ответ, даже если тестовый transport игнорирует abort.",
-                "Развести UI для 401, 403, 404, 409, 422, 429 и 500 и ограничить retry идемпотентными запросами."
+                "Для локального синтетического API сопоставить операции чтения, создания, замены и удаления с HTTP methods.",
+                "Вернуть 401, 403, 404, 409, 422, 429 и 500 из тестового transport и проверить method и status в Network.",
+                "Показать отдельное, понятное пользователю состояние UI для каждого класса ответа."
               ],
-              "minimumCompletion": "Локальная демонстрация с переставленным порядком ответов, где отменённый запрос и устаревший ответ не меняют UI.",
-              "estimatedMinutes": 55
+              "minimumCompletion": "Матрица методов и семь синтетических ответов подтверждены в Network и отображаются как различимые состояния UI.",
+              "estimatedMinutes": 40
             }
           ],
           "masteryChecks": [
-            "Не повторяю неидемпотентную операцию без серверного контракта.",
-            "Различаю timeout, отмену и HTTP error.",
-            "Проектирую пагинацию и rate-limit состояние без бесконечного retry."
+            "Различаю safe и idempotent semantics.",
+            "Не смешиваю authentication, authorization и отсутствие ресурса.",
+            "Проектирую REST-ответ вместе с ожидаемым состоянием UI."
           ],
           "quickSteps": [
             "За 15 минут выпиши UI-реакцию на семь обязательных status codes."
@@ -125,14 +121,68 @@
             "L0934",
             "L0935",
             "L0947",
+            "L0965"
+          ]
+        },
+        {
+          "id": "http-request-resilience",
+          "title": "Pagination, rate limits и устойчивый retry",
+          "outcome": "Реализовать pagination, timeout, отмену и ограниченный retry, учитывая rate limits, Retry-After и серверный контракт idempotency key.",
+          "whyNow": "Устойчивый клиент ограничивает повтор, уважает серверные сигналы и не позволяет позднему ответу или дублю операции испортить UI.",
+          "priority": "high",
+          "recommendationWeight": 92,
+          "estimatedMinutes": [90, 120],
+          "dependencies": [
+            "http-semantics-status",
+            "async-cancellation-races",
+            "async-retry-concurrency"
+          ],
+          "sourceIds": {
+            "primary": "github-rest-api-best-practices",
+            "fallback": "stripe-idempotent-requests",
+            "practice": "mdn-ru-abort-controller-http"
+          },
+          "obsidianPrompts": [
+            "Нарисуй состояние pagination вместе с next-link, 429, Retry-After и исчерпанным retry budget.",
+            "Сравни timeout, пользовательскую отмену, сетевую ошибку и повтор mutation с idempotency key."
+          ],
+          "ankiPrompts": [
+            "Почему pagination должна следовать server-provided next link?",
+            "Как Retry-After ограничивает повтор после 429?",
+            "Чем timeout отличается от пользовательской отмены?",
+            "Когда bounded retry должен завершиться ошибкой?",
+            "Как сервер использует idempotency key для безопасного повтора?"
+          ],
+          "practice": [
+            {
+              "id": "cancel-and-ignore-stale-response",
+              "title": "Отмена запроса, pagination и защита от устаревшего ответа",
+              "instructions": [
+                "Сделать локальный paginated поиск с AbortController, timeout и отменой предыдущего запроса при новом вводе.",
+                "Добавить request id и не показывать устаревший ответ, даже если тестовый transport игнорирует abort.",
+                "Для 429 уважать Retry-After и retry budget, а повтор синтетического POST выполнять только с поддерживаемым сервером idempotency key."
+              ],
+              "minimumCompletion": "Локальная демонстрация показывает следующую страницу, ограниченный retry, timeout и переставленные ответы без дубля операции или подмены текущего UI.",
+              "estimatedMinutes": 60
+            }
+          ],
+          "masteryChecks": [
+            "Следую server-provided pagination link вместо ручной сборки URL.",
+            "Останавливаю retry по Retry-After и ограниченному budget.",
+            "Различаю timeout, отмену и HTTP error.",
+            "Не повторяю mutation без серверного idempotency key contract."
+          ],
+          "quickSteps": [
+            "За 15 минут нарисуй state machine для page request, 429, timeout и отмены."
+          ],
+          "sourceRefs": [
             "L0948",
             "L0949",
             "L0950",
             "L0951",
             "L0952",
             "L0961",
-            "L0962",
-            "L0965"
+            "L0962"
           ]
         },
         {
@@ -304,7 +354,6 @@
             "L0985",
             "L0986",
             "L0987",
-            "L1002",
             "L1003"
           ]
         },
@@ -356,12 +405,12 @@
         },
         {
           "id": "browser-navigation-storage",
-          "title": "Навигация, storage и workers",
-          "outcome": "Выбрать History и URL API, localStorage, sessionStorage, IndexedDB, cookies, service worker или web worker по жизненному циклу и области ответственности.",
-          "whyNow": "Разные browser APIs похожи внешне, но радикально различаются синхронностью, объёмом, доступом сервера и моделью выполнения.",
+          "title": "Навигация и browser storage",
+          "outcome": "Выбрать History и URL API, localStorage, sessionStorage, IndexedDB или cookies по жизненному циклу, объёму и доступу сервера.",
+          "whyNow": "Навигация и browser storage похожи простым API, но различаются синхронностью, сроком жизни, размером и областью доступности.",
           "priority": "supporting",
           "recommendationWeight": 76,
-          "estimatedMinutes": [75, 105],
+          "estimatedMinutes": [65, 95],
           "dependencies": ["values-references"],
           "sourceIds": {
             "primary": "doka-browser-environment",
@@ -370,13 +419,13 @@
           },
           "obsidianPrompts": [
             "Составь матрицу storage по lifetime, объёму, sync/async и server access.",
-            "Раздели History API, service worker и web worker по задачам."
+            "Раздели URL, session history и persisted application data по ответственности."
           ],
           "ankiPrompts": [
             "Когда sessionStorage очищается?",
             "Почему localStorage не подходит для больших частых записей?",
             "Что меняет pushState без загрузки документа?",
-            "Чем service worker отличается от web worker?"
+            "Когда cookie нужен серверу, а когда IndexedDB подходит лучше?"
           ],
           "practice": [
             {
@@ -394,7 +443,7 @@
           "masteryChecks": [
             "Не храню секреты в Web Storage.",
             "Различаю session history и persisted application data.",
-            "Выбираю worker по задаче, а не по сходству названий."
+            "Выбираю sync или async storage по объёму и частоте операций."
           ],
           "quickSteps": [
             "За 15 минут распредели пять видов данных между URL, Web Storage, IndexedDB и cookie."
@@ -405,10 +454,56 @@
             "L0996",
             "L0997",
             "L0998",
-            "L0999",
-            "L1000",
-            "L1001"
+            "L0999"
           ]
+        },
+        {
+          "id": "browser-workers-cache",
+          "title": "Service worker, Web Worker и browser cache",
+          "outcome": "Различать service worker и Web Worker и применить versioned Cache API, не смешивая управляемый cache storage с browser HTTP cache.",
+          "whyNow": "Workers решают разные задачи, а неверная модель browser cache приводит к устаревшему app shell или блокировке main thread.",
+          "priority": "supporting",
+          "recommendationWeight": 74,
+          "estimatedMinutes": [90, 120],
+          "dependencies": ["browser-rendering-pipeline", "promise-basics"],
+          "sourceIds": {
+            "primary": "mdn-service-worker-api",
+            "fallback": "mdn-web-workers-api",
+            "practice": "mdn-ru-browser-http-cache"
+          },
+          "obsidianPrompts": [
+            "Сравни service worker и Web Worker по lifecycle, DOM access, network interception и сообщениям.",
+            "Раздели browser HTTP cache, Cache API и данные приложения по владельцу и invalidation."
+          ],
+          "ankiPrompts": [
+            "Почему Web Worker не может напрямую менять DOM?",
+            "Какие install и activate задачи выполняет service worker?",
+            "Чем Cache API отличается от browser HTTP cache?",
+            "Зачем версионировать app-shell cache?"
+          ],
+          "practice": [
+            {
+              "id": "worker-and-versioned-cache",
+              "title": "Worker-вычисление и versioned app-shell cache",
+              "instructions": [
+                "В локальном приложении перенести синтетическое преобразование данных в Web Worker и вернуть результат через postMessage без доступа к DOM.",
+                "На localhost зарегистрировать минимальный service worker с install, activate и versioned Cache API для app shell.",
+                "Проверить offline reload и объяснить отдельно роль Cache API и browser HTTP cache headers."
+              ],
+              "minimumCompletion": "Локальный Web Worker не блокирует UI, service worker обслуживает versioned app shell offline, а схема различает два механизма browser cache.",
+              "estimatedMinutes": 65
+            }
+          ],
+          "masteryChecks": [
+            "Не использую Web Worker как сетевой proxy.",
+            "Не даю service worker прямой доступ к DOM.",
+            "Удаляю старый versioned cache в контролируемом lifecycle.",
+            "Различаю Cache API и browser HTTP cache."
+          ],
+          "quickSteps": [
+            "За 15 минут распредели четыре задачи между main thread, Web Worker, service worker и browser cache."
+          ],
+          "sourceRefs": ["L1000", "L1001", "L1002"]
         }
       ],
       "sourceRefs": ["L0969"]
@@ -535,13 +630,13 @@
         },
         {
           "id": "query-flows-prefetch",
-          "title": "Отмена, зависимые query и prefetch",
-          "outcome": "Реализовать отменяемые dependent и enabled queries, pagination и prefetch без мерцания старых данных и лишних waterfalls.",
-          "whyNow": "Реальные экраны редко состоят из одного запроса: последовательность, переходы и отмена определяют корректность данных.",
+          "title": "Dependent queries, pagination и prefetch",
+          "outcome": "Реализовать dependent и enabled queries, pagination и prefetch без мерцания старых данных и лишних waterfalls.",
+          "whyNow": "Реальные экраны редко состоят из одного запроса: последовательность, переходы и подготовка кеша определяют корректность данных.",
           "priority": "high",
           "recommendationWeight": 87,
-          "estimatedMinutes": [95, 130],
-          "dependencies": ["tanstack-query-basics", "async-cancellation-races"],
+          "estimatedMinutes": [85, 115],
+          "dependencies": ["tanstack-query-basics"],
           "sourceIds": {
             "primary": "tanstack-query-v5-dependent-queries",
             "fallback": "tanstack-query-v5-paginated-queries",
@@ -555,43 +650,89 @@
             "Как enabled останавливает преждевременный query?",
             "Когда использовать placeholderData?",
             "Как prefetch учитывает staleTime?",
-            "Зачем query function получает AbortSignal?"
+            "Почему pagination key должен включать page и filters?"
           ],
           "practice": [
             {
-              "id": "cancel-paginate-and-prefetch",
-              "title": "Отменяемая пагинация и prefetch деталей",
+              "id": "paginate-and-prefetch",
+              "title": "Pagination и prefetch деталей",
               "instructions": [
-                "Передать AbortSignal из query function в локальный fetch.",
-                "Сделать пагинацию истории с placeholderData и защитой от устаревшего ответа при быстрой смене фильтра.",
-                "Prefetch деталей по focus или hover и проверить попадание в правильный key."
+                "Сделать пагинацию истории с placeholderData и защитой от подмены страницы при быстрой смене фильтра.",
+                "Запускать dependent query только после появления id из выбранной строки.",
+                "Prefetch деталей по focus или hover и проверить попадание в правильный query key."
               ],
-              "minimumCompletion": "Пагинация не мерцает, устаревший ответ не заменяет текущие данные, а детали открываются из корректно prefetched query.",
-              "estimatedMinutes": 65
+              "minimumCompletion": "Pagination сохраняет предыдущую страницу, dependent query ждёт id, а детали открываются из корректно prefetched query.",
+              "estimatedMinutes": 55
             }
           ],
           "masteryChecks": [
             "Не запускаю dependent query без входных данных.",
             "Различаю placeholder и initial cache data.",
-            "Проверяю отмену и порядок ответов намеренно."
+            "Не смешиваю страницы или фильтры в одном query key."
           ],
           "quickSteps": [
             "За 15 минут нарисуй keys и enabled-условия цепочки из двух запросов."
           ],
           "sourceRefs": [
-            "L0821",
             "L0822",
             "L0823",
             "L0824",
             "L0825",
             "L0826",
-            "L0827",
             "L0828",
-            "L0833",
-            "L0835",
             "L0845",
             "L0846"
           ]
+        },
+        {
+          "id": "query-runtime-modes",
+          "title": "Infinite queries, SSR hydration и offline mode",
+          "outcome": "Применить useInfiniteQuery, объяснить server rendering через dehydrate/hydrate и предсказать paused-состояние query в offline mode.",
+          "whyNow": "Infinite lists, SSR и потеря сети меняют lifecycle кеша за пределами обычного client-only useQuery и требуют явной модели.",
+          "priority": "supporting",
+          "recommendationWeight": 78,
+          "estimatedMinutes": [95, 125],
+          "dependencies": ["query-flows-prefetch"],
+          "sourceIds": {
+            "primary": "tanstack-query-v5-infinite-queries",
+            "fallback": "tanstack-query-v5-ssr",
+            "practice": "tanstack-query-v5-offline-example"
+          },
+          "obsidianPrompts": [
+            "Нарисуй pages, pageParams, getNextPageParam и состояние fetchNextPage.",
+            "Проследи SSR flow: per-request QueryClient → prefetch → dehydrate → HydrationBoundary → hydrate.",
+            "Сравни pending, fetching и paused при online, offline и reconnect."
+          ],
+          "ankiPrompts": [
+            "Что хранится в data.pages у useInfiniteQuery?",
+            "Зачем getNextPageParam возвращает следующий pageParam?",
+            "Почему QueryClient на сервере создаётся на request?",
+            "Что передаёт dehydrate клиентской hydration boundary?",
+            "Как networkMode влияет на paused query offline?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-query-runtime-modes",
+              "title": "Три runtime-режима server state",
+              "instructions": [
+                "В локальном прототипе сделать Load more через useInfiniteQuery и getNextPageParam без дублирования страниц.",
+                "Составить исполнимый SSR-скелет с per-request QueryClient, prefetchQuery, dehydrate и HydrationBoundary/hydrate.",
+                "Сымитировать offline в TanStack Query Devtools, сравнить networkMode и записать переход paused → fetching после reconnect."
+              ],
+              "minimumCompletion": "Работает infinite list, SSR-скелет показывает полную hydration цепочку, а offline trace содержит ожидаемые status и fetchStatus.",
+              "estimatedMinutes": 70
+            }
+          ],
+          "masteryChecks": [
+            "Не смешиваю обычную pagination data с pages и pageParams.",
+            "Не разделяю один server QueryClient между пользовательскими requests.",
+            "Отличаю paused offline query от завершившейся error query.",
+            "Объясняю, когда offlineFirst оправдан реальным cache layer."
+          ],
+          "quickSteps": [
+            "За 15 минут подпиши переходы infinite page, SSR hydration и offline pause."
+          ],
+          "sourceRefs": ["L0827", "L0833", "L0835"]
         },
         {
           "id": "query-optimistic-updates",
@@ -640,6 +781,7 @@
           ],
           "sourceRefs": [
             "L0814",
+            "L0821",
             "L0829",
             "L0830",
             "L0841",
@@ -780,7 +922,7 @@
         {
           "id": "csrf-cookie-defense",
           "title": "CSRF, SameSite и cookie defense",
-          "outcome": "Проверить cookie attributes и реализовать CSRF token flow, объясняя, почему SameSite и CORS не заменяют полный CSRF-контроль.",
+          "outcome": "Проверить cookie attributes и выбрать stateful synchronizer token или stateless signed session-bound HMAC double-submit token, не полагаясь только на SameSite и CORS.",
           "whyNow": "Cookie-based authentication автоматически участвует в запросах браузера и требует отдельной модели намерения пользователя.",
           "priority": "high",
           "recommendationWeight": 92,
@@ -795,13 +937,16 @@
             "practice": "portswigger-csrf-labs"
           },
           "obsidianPrompts": [
-            "Нарисуй cookie-authenticated CSRF flow и точку проверки token.",
+            "Нарисуй stateful synchronizer token flow и точку server-side проверки.",
+            "Сравни его со stateless signed session-bound HMAC double-submit token.",
             "Сравни SameSite Lax, Strict и None вместе с Secure."
           ],
           "ankiPrompts": [
             "Почему CORS не блокирует отправку каждого CSRF-запроса?",
             "Когда SameSite=None требует Secure?",
-            "Что должен связывать CSRF token?",
+            "Почему stateful server использует synchronizer token?",
+            "Что связывает signed session-bound HMAC в stateless double-submit token?",
+            "Почему naive double-submit небезопасен и должен быть отвергнут?",
             "Почему XSS может обойти CSRF token?"
           ],
           "practice": [
@@ -810,17 +955,19 @@
               "title": "Проверка cookie и CSRF в учебной среде",
               "instructions": [
                 "Для локального синтетического приложения выписать Secure, HttpOnly, SameSite, Path и Domain.",
-                "Добавить double-submit или synchronizer token согласно выбранной server model.",
+                "Для stateful server model реализовать synchronizer token, сохранённый на сервере и проверяемый для unsafe request.",
+                "Для stateless server model разрешить только signed session-bound HMAC double-submit token и явно отклонить naive double-submit.",
                 "Проверить ошибочную конфигурацию только в учебной PortSwigger CSRF lab."
               ],
-              "minimumCompletion": "Локальный cookie checklist, работающий CSRF flow и одна учебная лаборатория с объяснением нарушенного контроля.",
+              "minimumCompletion": "Локальный cookie checklist, выбранный по server model безопасный CSRF flow, тест отказа naive double-submit и одна учебная лаборатория.",
               "estimatedMinutes": 55
             }
           ],
           "masteryChecks": [
             "Не выдаю CORS за CSRF defense.",
             "Обосновываю каждый cookie attribute.",
-            "Связываю CSRF defense с выбранной auth model."
+            "Для stateful выбираю synchronizer token, для stateless — signed session-bound HMAC.",
+            "Не использую naive double-submit из-за cookie injection risk."
           ],
           "quickSteps": [
             "За 10 минут проверь пять attributes у синтетической session cookie."
@@ -1156,7 +1303,7 @@
           "priority": "high",
           "recommendationWeight": 86,
           "estimatedMinutes": [80, 115],
-          "dependencies": ["react-testing-library", "http-semantics-resilience"],
+          "dependencies": ["react-testing-library", "http-semantics-status"],
           "sourceIds": {
             "primary": "msw-node-integration",
             "fallback": "msw-response-resolver",

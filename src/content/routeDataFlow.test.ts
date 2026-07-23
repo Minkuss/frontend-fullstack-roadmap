@@ -92,6 +92,48 @@ const highRiskTopicContracts = {
       'L0964',
     ],
   },
+  'http-semantics-status': {
+    section: '7.',
+    sourceIds: {
+      primary: 'mdn-ru-http-methods',
+      fallback: 'mdn-ru-http-status',
+      practice: 'firefox-network-monitor',
+    },
+    sourceRefs: [
+      'L0932',
+      'L0933',
+      'L0934',
+      'L0935',
+      'L0947',
+      'L0965',
+    ],
+  },
+  'http-request-resilience': {
+    section: '7.',
+    sourceIds: {
+      primary: 'github-rest-api-best-practices',
+      fallback: 'stripe-idempotent-requests',
+      practice: 'mdn-ru-abort-controller-http',
+    },
+    sourceRefs: [
+      'L0948',
+      'L0949',
+      'L0950',
+      'L0951',
+      'L0952',
+      'L0961',
+      'L0962',
+    ],
+  },
+  'browser-workers-cache': {
+    section: '8.',
+    sourceIds: {
+      primary: 'mdn-service-worker-api',
+      fallback: 'mdn-web-workers-api',
+      practice: 'mdn-ru-browser-http-cache',
+    },
+    sourceRefs: ['L1000', 'L1001', 'L1002'],
+  },
   'tanstack-query-basics': {
     section: '5.',
     sourceIds: {
@@ -122,6 +164,7 @@ const highRiskTopicContracts = {
     },
     sourceRefs: [
       'L0814',
+      'L0821',
       'L0829',
       'L0830',
       'L0841',
@@ -129,6 +172,15 @@ const highRiskTopicContracts = {
       'L0843',
       'L0844',
     ],
+  },
+  'query-runtime-modes': {
+    section: '5.',
+    sourceIds: {
+      primary: 'tanstack-query-v5-infinite-queries',
+      fallback: 'tanstack-query-v5-ssr',
+      practice: 'tanstack-query-v5-offline-example',
+    },
+    sourceRefs: ['L0827', 'L0833', 'L0835'],
   },
   'frontend-threat-model-xss': {
     section: '9.',
@@ -237,7 +289,29 @@ describe('Route 2: reliable data flow', () => {
       'frontend-security',
       'testing-stack',
     ])
-    expect(topics).toHaveLength(21)
+    expect(topics).toHaveLength(24)
+    expect(moduleById.get('http-network')?.topics.map(({ id }) => id)).toEqual([
+      'http-request-lifecycle',
+      'http-semantics-status',
+      'http-request-resilience',
+      'http-cache-cors-credentials',
+      'realtime-transports',
+    ])
+    expect(
+      moduleById.get('browser-platform')?.topics.map(({ id }) => id),
+    ).toEqual([
+      'browser-rendering-pipeline',
+      'browser-events-focus',
+      'browser-navigation-storage',
+      'browser-workers-cache',
+    ])
+    expect(moduleById.get('server-state')?.topics.map(({ id }) => id)).toEqual([
+      'tanstack-query-basics',
+      'query-cache-invalidation',
+      'query-flows-prefetch',
+      'query-runtime-modes',
+      'query-optimistic-updates',
+    ])
   })
 
   it('is a valid lane and every topic has a complete, manageable learning cycle', () => {
@@ -278,6 +352,9 @@ describe('Route 2: reliable data flow', () => {
       'promise-basics',
       'http-request-lifecycle',
     ])
+    expect(topicById.get('http-request-resilience')?.dependencies).toContain(
+      'http-semantics-status',
+    )
     expect(topicById.get('query-optimistic-updates')?.dependencies).toContain(
       'query-cache-invalidation',
     )
@@ -294,6 +371,7 @@ describe('Route 2: reliable data flow', () => {
 
     ;[
       ['query-cache-invalidation', 'query-optimistic-updates'],
+      ['http-semantics-status', 'http-request-resilience'],
       ['frontend-auth-model', 'csrf-cookie-defense'],
       ['testing-concepts', 'vitest'],
       ['vitest', 'react-testing-library'],
@@ -396,6 +474,80 @@ describe('Route 2: reliable data flow', () => {
     })
   })
 
+  it('assigns resilience, workers/cache, and advanced query refs to topics that teach them', () => {
+    const sourceRefOwnerById = new Map(
+      topics.flatMap((topic) =>
+        topic.sourceRefs.map((sourceRef) => [sourceRef, topic.id]),
+      ),
+    )
+
+    expect(
+      Object.fromEntries(
+        [
+          'L0948',
+          'L0949',
+          'L0950',
+          'L0951',
+          'L0952',
+          'L0961',
+          'L0962',
+        ].map((sourceRef) => [sourceRef, sourceRefOwnerById.get(sourceRef)]),
+      ),
+    ).toEqual({
+      L0948: 'http-request-resilience',
+      L0949: 'http-request-resilience',
+      L0950: 'http-request-resilience',
+      L0951: 'http-request-resilience',
+      L0952: 'http-request-resilience',
+      L0961: 'http-request-resilience',
+      L0962: 'http-request-resilience',
+    })
+    expect(sourceRefOwnerById.get('L1002')).toBe('browser-workers-cache')
+    expect(
+      Object.fromEntries(
+        ['L0827', 'L0833', 'L0835'].map((sourceRef) => [
+          sourceRef,
+          sourceRefOwnerById.get(sourceRef),
+        ]),
+      ),
+    ).toEqual({
+      L0827: 'query-runtime-modes',
+      L0833: 'query-runtime-modes',
+      L0835: 'query-runtime-modes',
+    })
+
+    const semanticsText = JSON.stringify(topicById.get('http-semantics-status'))
+    expect(semanticsText).toMatch(/safe methods|idempotent methods|status codes/i)
+    expect(semanticsText).not.toMatch(
+      /pagination|rate limits|timeout|idempotency key/i,
+    )
+
+    const resilienceText = JSON.stringify(
+      topicById.get('http-request-resilience'),
+    )
+    expect(resilienceText).toMatch(/pagination/i)
+    expect(resilienceText).toMatch(/rate limits|Retry-After/i)
+    expect(resilienceText).toMatch(/timeout/i)
+    expect(resilienceText).toMatch(/retry/i)
+    expect(resilienceText).toMatch(/idempotency key/i)
+    expect(resilienceText).toMatch(/AbortController|отмен[а-я]*/i)
+
+    const workersCacheText = JSON.stringify(
+      topicById.get('browser-workers-cache'),
+    )
+    expect(workersCacheText).toMatch(/service worker/i)
+    expect(workersCacheText).toMatch(/web worker/i)
+    expect(workersCacheText).toMatch(/browser cache|Cache API/i)
+
+    const queryRuntimeText = JSON.stringify(
+      topicById.get('query-runtime-modes'),
+    )
+    expect(queryRuntimeText).toMatch(/useInfiniteQuery|infinite quer/i)
+    expect(queryRuntimeText).toMatch(/SSR|server rendering/i)
+    expect(queryRuntimeText).toMatch(/dehydrate|hydrate/i)
+    expect(queryRuntimeText).toMatch(/offline|paused|networkMode/i)
+  })
+
   it('uses explicit valid priorities and bounded integer recommendation weights', () => {
     topics.forEach((topic) => {
       expect(allowedPriorities.has(topic.priority), topic.id).toBe(true)
@@ -425,6 +577,18 @@ describe('Route 2: reliable data flow', () => {
         /атакуй|взломай|чуж(?:ой|ую|ие)|боев(?:ой|ую)|реальн(?:ый|ую) систем/i,
       )
     })
+  })
+
+  it('requires the safe CSRF token pattern for each server model', () => {
+    const csrfText = JSON.stringify(topicById.get('csrf-cookie-defense'))
+
+    expect(csrfText).toMatch(/stateful.*synchronizer token/is)
+    expect(csrfText).toMatch(
+      /stateless.*signed.*session-bound HMAC/is,
+    )
+    expect(csrfText).toMatch(
+      /naive double-submit.*(?:небезопас|отверга|не использ)/is,
+    )
   })
 
   it('contains the required frontend-shaped practice work', () => {
