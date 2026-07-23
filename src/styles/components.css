@@ -261,6 +261,11 @@
   font-size: 1.0625rem;
 }
 
+.study-page__recommendation {
+  color: var(--ink);
+  font-weight: 750;
+}
+
 .muted-copy {
   color: var(--ink-muted);
 }

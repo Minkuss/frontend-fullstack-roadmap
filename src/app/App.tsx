@@ -66,18 +66,26 @@ function PlaceholderPage({ route }: { route: HashRoute }) {
 }
 
 interface AppProps {
-  now?: string
+  getNow?: () => string
 }
 
-export function App({ now = new Date().toISOString() }: AppProps) {
+function getSystemNow() {
+  return new Date().toISOString()
+}
+
+export function App({ getNow = getSystemNow }: AppProps) {
   const route = useHashRoute()
   const { storageWarning } = useProgress()
 
   return (
     <AppShell route={route} storageWarning={storageWarning}>
-      {route.page === 'focus' ? <FocusPage now={now} /> : null}
+      {route.page === 'focus' ? <FocusPage getNow={getNow} /> : null}
       {route.page === 'topic' ? (
-        <TopicPage now={now} topicId={route.topicId} />
+        <TopicPage
+          getNow={getNow}
+          key={route.topicId}
+          topicId={route.topicId}
+        />
       ) : null}
       {route.page !== 'focus' && route.page !== 'topic' ? (
         <PlaceholderPage route={route} />

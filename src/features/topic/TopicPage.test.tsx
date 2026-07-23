@@ -20,7 +20,7 @@ function renderTopic(
 
   render(
     <ProgressProvider storage={storage}>
-      <TopicPage now={now} topicId={topicId} />
+      <TopicPage getNow={() => now} topicId={topicId} />
     </ProgressProvider>,
   )
 
@@ -95,6 +95,12 @@ describe('TopicPage', () => {
       screen.getByRole('button', { name: 'Переключить тему' }),
     )
 
+    expect(
+      screen.getByRole('heading', {
+        name: 'Выполнение кода, области видимости и call stack',
+        level: 1,
+      }),
+    ).toHaveFocus()
     expect(storage.setItem.mock.lastCall?.[1]).toContain(
       '"values-references":{"status":"paused"',
     )
@@ -235,5 +241,73 @@ describe('TopicPage', () => {
     expect(
       screen.getByRole('button', { name: 'Сделать текущим фокусом' }),
     ).toBeEnabled()
+  })
+
+  it('takes action timestamps from the clock at click time', async () => {
+    const user = userEvent.setup()
+    let clock = NOW
+    const state = activeProgress('call-stack')
+    const storage = {
+      getItem: vi.fn(() => JSON.stringify(state)),
+      setItem: vi.fn((_key: string, _value: string) => undefined),
+    }
+
+    render(
+      <ProgressProvider storage={storage}>
+        <TopicPage
+          getNow={() => clock}
+          topicId="call-stack"
+        />
+      </ProgressProvider>,
+    )
+
+    clock = '2026-07-25T16:30:00.000Z'
+    await user.click(screen.getByRole('button', { name: 'Источник изучен' }))
+
+    expect(storage.setItem.mock.lastCall?.[1]).toContain(
+      '"source":"2026-07-25T16:30:00.000Z"',
+    )
+  })
+
+  it('schedules review from the self-check click time', async () => {
+    const user = userEvent.setup()
+    let clock = NOW
+    const state = activeProgress('call-stack', {
+      source: '2026-07-20T08:00:00.000Z',
+      obsidian: '2026-07-20T09:00:00.000Z',
+      anki: '2026-07-20T10:00:00.000Z',
+      practice: '2026-07-20T11:00:00.000Z',
+    })
+    const storage = {
+      getItem: vi.fn(() => JSON.stringify(state)),
+      setItem: vi.fn((_key: string, _value: string) => undefined),
+    }
+
+    render(
+      <ProgressProvider storage={storage}>
+        <TopicPage
+          getNow={() => clock}
+          topicId="call-stack"
+        />
+      </ProgressProvider>,
+    )
+
+    const selfCheck = screen.getByRole('region', {
+      name: 'Проверка понимания',
+    })
+    for (const checkbox of within(selfCheck).getAllByRole('checkbox')) {
+      await user.click(checkbox)
+    }
+
+    clock = '2026-07-27T18:45:00.000Z'
+    await user.click(
+      within(selfCheck).getByRole('button', {
+        name: 'Проверка пройдена',
+      }),
+    )
+
+    expect(storage.setItem.mock.lastCall?.[1]).toContain(
+      '"reviewDueAt":"2026-07-30T18:45:00.000Z"',
+    )
   })
 })

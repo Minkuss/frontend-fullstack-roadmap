@@ -15,7 +15,7 @@ function renderFocus(state: ProgressState) {
 
   render(
     <ProgressProvider storage={storage}>
-      <FocusPage now={NOW} />
+      <FocusPage getNow={() => NOW} />
     </ProgressProvider>,
   )
 
@@ -32,6 +32,11 @@ describe('FocusPage', () => {
     expect(screen.getByText(/следующая доступная тема/i)).toBeInTheDocument()
     expect(
       screen.getByRole('button', { name: 'Сделать текущим фокусом' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        /предсказать порядок вызовов и разрешение имён через execution context/i,
+      ),
     ).toBeInTheDocument()
     expect(storage.setItem).not.toHaveBeenCalled()
   })

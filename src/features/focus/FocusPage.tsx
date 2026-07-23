@@ -6,7 +6,7 @@ import { Button } from '../../ui/Button'
 import { EmptyState } from '../../ui/EmptyState'
 
 interface FocusPageProps {
-  now: string
+  getNow: () => string
 }
 
 const STEP_ORDER: StudyStepId[] = [
@@ -50,8 +50,9 @@ function currentStepId(
   return STEP_ORDER.find((step) => !completedSteps[step])
 }
 
-export function FocusPage({ now }: FocusPageProps) {
+export function FocusPage({ getNow }: FocusPageProps) {
   const { state, dispatch } = useProgress()
+  const now = getNow()
   const selection = selectFocus(roadmap, roadmapIndex, state, now)
   const location =
     selection.topicId === null
@@ -95,9 +96,12 @@ export function FocusPage({ now }: FocusPageProps) {
           {route.title} · {module.title}
         </p>
         <h1>{isActive ? topic.title : 'Фокус ещё не выбран'}</h1>
-        <p className="study-page__lead">
-          {isActive ? topic.outcome : `Предлагаю: ${topic.title}`}
-        </p>
+        {!isActive ? (
+          <p className="study-page__recommendation">
+            Предлагаю тему: {topic.title}
+          </p>
+        ) : null}
+        <p className="study-page__lead">{topic.outcome}</p>
       </header>
 
       <section className="focus-action" aria-labelledby="focus-action-title">
@@ -123,7 +127,7 @@ export function FocusPage({ now }: FocusPageProps) {
                 dispatch({
                   type: 'topic/activate',
                   topicId: topic.id,
-                  at: now,
+                  at: getNow(),
                 })
               }
             >

@@ -3,6 +3,7 @@ import {
   useId,
   useRef,
   type KeyboardEvent,
+  type RefObject,
   type ReactNode,
 } from 'react'
 import { Button } from './Button'
@@ -11,6 +12,7 @@ interface ConfirmDialogProps {
   cancelLabel?: string
   children: ReactNode
   confirmLabel: string
+  fallbackFocusRef?: RefObject<HTMLElement | null>
   onCancel: () => void
   onConfirm: () => void
   open: boolean
@@ -21,6 +23,7 @@ export function ConfirmDialog({
   cancelLabel = 'Отмена',
   children,
   confirmLabel,
+  fallbackFocusRef,
   onCancel,
   onConfirm,
   open,
@@ -39,8 +42,13 @@ export function ConfirmDialog({
     const previouslyFocused = document.activeElement as HTMLElement | null
     cancelRef.current?.focus()
 
-    return () => previouslyFocused?.focus()
-  }, [open])
+    return () => {
+      const focusTarget = previouslyFocused?.isConnected
+        ? previouslyFocused
+        : fallbackFocusRef?.current
+      focusTarget?.focus()
+    }
+  }, [fallbackFocusRef, open])
 
   if (!open) {
     return null

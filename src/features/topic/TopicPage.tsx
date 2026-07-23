@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from 'react'
@@ -19,7 +20,7 @@ import {
 import { EmptyState } from '../../ui/EmptyState'
 
 interface TopicPageProps {
-  now: string
+  getNow: () => string
   topicId: string
 }
 
@@ -151,14 +152,16 @@ function StagePanel({
   )
 }
 
-export function TopicPage({ now, topicId }: TopicPageProps) {
+export function TopicPage({ getNow, topicId }: TopicPageProps) {
   const { state, dispatch } = useProgress()
+  const now = getNow()
   const location = roadmapIndex.topics.get(topicId)
   const progress = state.topics[topicId]
   const [switchDialogOpen, setSwitchDialogOpen] = useState(false)
   const [obsidianUrl, setObsidianUrl] = useState(progress?.obsidianUrl ?? '')
   const [practiceConfirmed, setPracticeConfirmed] = useState(false)
   const [masteryChecks, setMasteryChecks] = useState<boolean[]>([])
+  const titleRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
     setObsidianUrl(progress?.obsidianUrl ?? '')
@@ -212,11 +215,11 @@ export function TopicPage({ now, topicId }: TopicPageProps) {
       return
     }
 
-    dispatch({ type: 'topic/activate', topicId, at: now })
+    dispatch({ type: 'topic/activate', topicId, at: getNow() })
   }
 
   function confirmSwitch() {
-    dispatch({ type: 'topic/activate', topicId, at: now })
+    dispatch({ type: 'topic/activate', topicId, at: getNow() })
     setSwitchDialogOpen(false)
   }
 
@@ -225,7 +228,7 @@ export function TopicPage({ now, topicId }: TopicPageProps) {
       type: 'topic/complete-step',
       topicId,
       step,
-      at: now,
+      at: getNow(),
     })
   }
 
@@ -246,7 +249,9 @@ export function TopicPage({ now, topicId }: TopicPageProps) {
         <p className="study-page__eyebrow">
           {route.title} · {module.title}
         </p>
-        <h1>{topic.title}</h1>
+        <h1 ref={titleRef} tabIndex={-1}>
+          {topic.title}
+        </h1>
         <p className="study-page__lead">{topic.outcome}</p>
         <div className="topic-page__meta">
           <span>{progress ? STATUS_COPY[progress.status] : 'Тема ещё не начата'}</span>
@@ -543,6 +548,7 @@ export function TopicPage({ now, topicId }: TopicPageProps) {
       <ConfirmDialog
         cancelLabel="Остаться здесь"
         confirmLabel="Переключить тему"
+        fallbackFocusRef={titleRef}
         onCancel={() => setSwitchDialogOpen(false)}
         onConfirm={confirmSwitch}
         open={switchDialogOpen}
