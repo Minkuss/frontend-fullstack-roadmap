@@ -205,7 +205,7 @@ export function selectFocus(
       (candidate): candidate is OrderedTopic =>
         candidate !== undefined &&
         candidate.topic.id !== selectedId &&
-        canEnterAutomaticFocus(candidate, progress),
+        canUseManualQueue(candidate, progress),
     )
   const nextTopicIds = [
     ...remainingQueue,

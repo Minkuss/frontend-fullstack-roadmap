@@ -286,6 +286,28 @@ describe('selectFocus', () => {
     })
   })
 
+  it('keeps a deferred manual queue item in next topics after the focus', () => {
+    const normalTopic = topic('normal', 50)
+    const deferredTopic = topic('not-now', 0)
+    const mixedRoadmap: Roadmap = {
+      ...roadmap,
+      routes: [
+        lane('normal-route', 'primary-route', 1, [normalTopic]),
+      ],
+      deferred: lane('deferred-only', 'deferred', 7, [deferredTopic]),
+    }
+    const mixedIndex = buildRoadmapIndex(mixedRoadmap)
+    const state = progress({}, { queue: ['normal', 'not-now'] })
+
+    expect(
+      selectFocus(mixedRoadmap, mixedIndex, state, now),
+    ).toMatchObject({
+      topicId: 'normal',
+      reason: 'queue',
+      nextTopicIds: ['not-now'],
+    })
+  })
+
   it('ignores an unknown active ID and falls through to a known candidate', () => {
     const state = progress(
       {
