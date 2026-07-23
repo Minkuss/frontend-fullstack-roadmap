@@ -1,7 +1,6 @@
 {
   "sourceRefs": [
     "L0001",
-    "L0019",
     "L0021",
     "L0025",
     "L0026",
@@ -130,7 +129,7 @@
       "frontend-threat-model-xss",
       "csrf-cookie-defense",
       "postgres-indexes-explain",
-      "postgres-runtime-migrations",
+      "postgres-migrations-tooling",
       "deployment-pipeline",
       "frontend-error-tracing",
       "structured-logging-correlation",

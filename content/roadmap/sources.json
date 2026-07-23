@@ -1155,7 +1155,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "6. Архитектура frontend"
+    "section": "«Основные понятия»: слои, слайсы и сегменты"
   },
   {
     "id": "fsd-public-api-ru",
@@ -1164,7 +1164,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "6. Архитектура frontend"
+    "section": "«Что делает публичный API хорошим?» и «Проблемы с индексными файлами»"
   },
   {
     "id": "vite-features",
@@ -1173,7 +1173,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.7. Модули и сборка",
+    "section": "Dynamic Import и Glob Import",
     "englishReason": "Официальная документация точнее всего описывает текущие dynamic import, glob import, assets и production build Vite."
   },
   {
@@ -1183,7 +1183,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.7. Модули и сборка",
+    "section": "Tree-shaking и code splitting",
     "englishReason": "Официальное руководство сборщика объясняет статический анализ ES modules, tree-shaking и code splitting без устаревших пересказов."
   },
   {
@@ -1193,7 +1193,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.8. Память и производительность",
+    "section": "Investigate memory problems: heap snapshots и detached elements",
     "englishReason": "Официальное руководство DevTools даёт актуальный рабочий процесс heap snapshot, detached DOM и listener leak."
   },
   {
@@ -1203,7 +1203,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8. Производительность",
+    "section": "Record runtime performance и analyze a performance recording",
     "englishReason": "Официальное руководство соответствует текущему интерфейсу Performance panel и анализу long tasks."
   },
   {
@@ -1213,7 +1213,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.6. Производительность React",
+    "section": "<Profiler>: Usage и onRender callback",
     "englishReason": "Официальная документация React описывает актуальную семантику измерений Profiler и стоимость профилирования."
   },
   {
@@ -1223,7 +1223,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8. Производительность",
+    "section": "Core Web Vitals: LCP, INP и CLS",
     "englishReason": "Первичный материал команды Chrome поддерживает актуальный набор LCP, INP и CLS и различает field и lab data."
   },
   {
@@ -1233,7 +1233,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "11. HTML"
+    "section": "Структурирование содержимого: семантика документа и формы"
   },
   {
     "id": "mdn-ru-css-layout",
@@ -1242,7 +1242,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "11. CSS"
+    "section": "CSS layout: normal flow, flexbox и grid"
   },
   {
     "id": "webdev-accessibility",
@@ -1251,7 +1251,7 @@
     "language": "en",
     "format": "course",
     "lastVerifiedAt": "2026-07-23",
-    "section": "11. Accessibility",
+    "section": "HTML accessibility, keyboard focus и ARIA",
     "englishReason": "Курс web.dev связывает семантику, keyboard, focus, ARIA и testing в актуальный практический маршрут."
   },
   {
@@ -1261,7 +1261,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "11. HTML и Accessibility",
+    "section": "Labeling Controls, Form Instructions и Validating Input",
     "englishReason": "Первичный материал W3C WAI показывает корректные labels, instructions, validation и notifications для доступных форм."
   },
   {
@@ -1271,7 +1271,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "17. Frontend observability",
+    "section": "React SDK setup, error monitoring и source maps",
     "englishReason": "Официальная документация соответствует текущему SDK, source maps, releases, tracing и privacy-настройкам."
   },
   {
@@ -1281,7 +1281,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "12. Основы Node.js",
+    "section": "Introduction to Node.js: runtime и non-blocking I/O",
     "englishReason": "Официальный учебник Node.js актуально объясняет runtime, process и неблокирующую модель."
   },
   {
@@ -1291,7 +1291,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "12. Основы Node.js",
+    "section": "The Node.js Event Loop и process.nextTick",
     "englishReason": "Официальный материал точнее пересказов показывает фазы event loop, timers и process.nextTick."
   },
   {
@@ -1301,7 +1301,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "12. Framework",
+    "section": "Getting Started: first server, plugins и validation",
     "englishReason": "Официальное руководство соответствует текущему Fastify и связывает routes, plugins, validation и logging."
   },
   {
@@ -1311,7 +1311,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "12. Framework",
+    "section": "Validation and Serialization: body и response schemas",
     "englishReason": "Официальный reference описывает текущий JSON Schema pipeline и безопасную сериализацию ответов."
   },
   {
@@ -1321,7 +1321,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "12. Авторизация",
+    "section": "Password Hashing Algorithms и Work Factors",
     "englishReason": "OWASP поддерживает актуальные рекомендации по Argon2id, salts и параметрам password hashing."
   },
   {
@@ -1331,7 +1331,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "12. Авторизация",
+    "section": "Deny by Default, Least Privilege и authorization tests",
     "englishReason": "OWASP даёт проверяемые правила deny-by-default, least privilege и ownership checks."
   },
   {
@@ -1341,7 +1341,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "13. SQL и PostgreSQL"
+    "section": "Учебник: язык SQL, запросы, JOIN и транзакции"
   },
   {
     "id": "postgrespro-indexes",
@@ -1350,7 +1350,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "13. PostgreSQL"
+    "section": "Типы индексов, составные индексы и проверка использования"
   },
   {
     "id": "postgres-explain",
@@ -1359,7 +1359,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "13. PostgreSQL",
+    "section": "Using EXPLAIN: plan nodes, costs и EXPLAIN ANALYZE",
     "englishReason": "Официальная текущая документация PostgreSQL точнее всего объясняет plan nodes, costs и EXPLAIN ANALYZE."
   },
   {
@@ -1369,7 +1369,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "14. Docker",
+    "section": "Use multi-stage builds, build cache и .dockerignore",
     "englishReason": "Официальная документация актуально описывает multi-stage build, cache, .dockerignore и non-root USER."
   },
   {
@@ -1379,7 +1379,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "14. Docker",
+    "section": "Compose application model: services, networks и volumes",
     "englishReason": "Официальная документация задаёт текущую Compose Specification для services, networks, volumes и configs."
   },
   {
@@ -1389,7 +1389,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "14. Docker",
+    "section": "Docker daemon attack surface и Linux kernel capabilities",
     "englishReason": "Официальный материал объясняет реальную границу контейнера, daemon attack surface и least privilege."
   },
   {
@@ -1399,7 +1399,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "15. Caddy и nginx",
+    "section": "reverse_proxy: upstreams, headers и health checks",
     "englishReason": "Официальная документация соответствует текущим proxy headers, health checks, WebSocket и upstream transport Caddy."
   },
   {
@@ -1409,7 +1409,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "15. Caddy и nginx",
+    "section": "file_server: root, precompressed files и SPA assets",
     "englishReason": "Официальная документация показывает актуальные static files, precompressed assets и SPA routing primitives."
   },
   {
@@ -1419,7 +1419,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "16. CI/CD",
+    "section": "Workflows, jobs, steps, runners, variables и secrets",
     "englishReason": "Официальная документация актуально описывает workflow, jobs, steps, runners, artifacts, cache и secrets."
   },
   {
@@ -1429,7 +1429,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "16. CI/CD",
+    "section": "Deployment environments, protection rules и approvals",
     "englishReason": "Официальный reference описывает environments, approvals, branch rules и безопасное управление deploy."
   },
   {
@@ -1439,7 +1439,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "17. Backend observability",
+    "section": "Enable Logging, Request ID Tracking и Log Redaction",
     "englishReason": "Официальная документация описывает встроенный Pino, request serializers, redaction и request IDs."
   },
   {
@@ -1449,7 +1449,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "18. Git и командная разработка"
+    "section": "Ветвление в Git, rebase и распределённые рабочие процессы"
   },
   {
     "id": "google-code-review",
@@ -1458,7 +1458,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "19. Code review",
+    "section": "What to look for in a code review: design, functionality и tests",
     "englishReason": "Практика Google даёт первичные критерии корректности, сложности, тестов и ясной обратной связи."
   },
   {
@@ -1468,7 +1468,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "20. Работа с AI-агентами",
+    "section": "How Codex discovers guidance и scope of AGENTS.md files",
     "englishReason": "Официальное руководство Codex актуально описывает repository instructions и область действия AGENTS.md."
   },
   {
@@ -1478,7 +1478,7 @@
     "language": "en",
     "format": "course",
     "lastVerifiedAt": "2026-07-23",
-    "section": "21. Технический английский",
+    "section": "Self-study и pre-class lessons: clear technical sentences",
     "englishReason": "Курс рассчитан на инженеров и одновременно тренирует ясный английский, README, PR и объяснение решений."
   },
   {
@@ -1488,7 +1488,7 @@
     "language": "ru",
     "format": "course",
     "lastVerifiedAt": "2026-07-23",
-    "section": "22. Алгоритмы и структуры данных"
+    "section": "Сложность алгоритмов и базовые структуры данных"
   },
   {
     "id": "kubernetes-basics",
@@ -1497,7 +1497,7 @@
     "language": "en",
     "format": "course",
     "lastVerifiedAt": "2026-07-23",
-    "section": "Не сейчас",
+    "section": "Deploy an app, explore it, expose it publicly и scale it",
     "englishReason": "Официальный tutorial нужен только как ориентир deferred-направления; изучение не входит в текущий фокус."
   },
   {
@@ -1507,7 +1507,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "Не сейчас",
+    "section": "Schemas and Types, Queries, Mutations и execution",
     "englishReason": "Официальный обзор нужен только для справочного deferred-каталога."
   },
   {
@@ -1517,7 +1517,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "Не сейчас",
+    "section": "Module Federation: low-level concepts и building blocks",
     "englishReason": "Официальная документация фиксирует реальную модель remote modules; направление пока не входит в автофокус."
   },
   {
@@ -1527,6 +1527,386 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "Не сейчас"
+    "section": "Что такое WebAssembly и как он сочетается с JavaScript"
+  },
+  {
+    "id": "fowler-modularizing-react",
+    "title": "Modularizing React Applications with Established UI Patterns",
+    "url": "https://martinfowler.com/articles/modularizing-react-apps.html",
+    "language": "en",
+    "format": "article",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Apart from the user interface, Layered frontend application и benefits of layers",
+    "englishReason": "Практическая статья показывает разделение view, domain и data, направление зависимостей и adapters на одном React-примере."
+  },
+  {
+    "id": "fowler-layering-principles",
+    "title": "Martin Fowler: Layering Principles",
+    "url": "https://martinfowler.com/bliki/LayeringPrinciples.html",
+    "language": "en",
+    "format": "article",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Low coupling between layers, high cohesion within them",
+    "englishReason": "Короткая первичная формулировка фиксирует cohesion, coupling и направление знания между слоями."
+  },
+  {
+    "id": "openfeature-introduction",
+    "title": "OpenFeature: Introduction",
+    "url": "https://openfeature.dev/docs/reference/intro/",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "What are feature flags? и Evaluation API",
+    "englishReason": "Официальная спецификация отделяет runtime feature flags от build-time configuration."
+  },
+  {
+    "id": "vite-env-variables",
+    "title": "Vite: Env Variables and Modes",
+    "url": "https://vite.dev/guide/env-and-mode.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Env Variables, Modes и Security Notes",
+    "englishReason": "Официальная документация объясняет build-time replacement и почему VITE_* не подходит для secrets."
+  },
+  {
+    "id": "turborepo-internal-packages",
+    "title": "Turborepo: Structuring a repository",
+    "url": "https://turborepo.com/docs/crafting-your-repository/structuring-a-repository",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Package boundaries и Internal Packages",
+    "englishReason": "Официальное руководство связывает workspace, package boundary и способы публикации внутренних packages."
+  },
+  {
+    "id": "adr-madr",
+    "title": "Markdown Architectural Decision Records",
+    "url": "https://adr.github.io/madr/",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Overview, Example и Applying MADR to your project",
+    "englishReason": "MADR даёт компактную актуальную структуру для одного проверяемого архитектурного решения."
+  },
+  {
+    "id": "adr-templates",
+    "title": "Architectural Decision Records: ADR Templates",
+    "url": "https://adr.github.io/adr-templates/",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Markdown Architectural Decision Records и Nygard ADR",
+    "englishReason": "Каталог первичного сообщества сравнивает структуры ADR и подчёркивает context, decision и consequences."
+  },
+  {
+    "id": "vite-bundle-visualizer",
+    "title": "vite-bundle-visualizer",
+    "url": "https://www.npmjs.com/package/vite-bundle-visualizer",
+    "language": "en",
+    "format": "exercise",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Usage, Visualizer Templates и sourcemap option",
+    "englishReason": "README инструмента даёт точную команду для treemap production bundle Vite и режим расчёта по source maps."
+  },
+  {
+    "id": "tanstack-virtual",
+    "title": "TanStack Virtual: React Virtual",
+    "url": "https://tanstack.com/virtual/latest/docs/framework/react/react-virtual",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "useVirtualizer и React-specific options",
+    "englishReason": "Официальная текущая документация React-adapter показывает API виртуализации длинных списков."
+  },
+  {
+    "id": "react-lazy",
+    "title": "React: lazy",
+    "url": "https://react.dev/reference/react/lazy",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "lazy(load) и Lazy-loading components with Suspense",
+    "englishReason": "Официальная документация задаёт точную семантику lazy import."
+  },
+  {
+    "id": "react-suspense",
+    "title": "React: Suspense",
+    "url": "https://react.dev/reference/react/Suspense",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Displaying a fallback while content is loading",
+    "englishReason": "Официальный reference объясняет границу fallback и её ограничения."
+  },
+  {
+    "id": "react-use-transition",
+    "title": "React: useTransition",
+    "url": "https://react.dev/reference/react/useTransition",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Marking a state update as a non-blocking Transition",
+    "englishReason": "Официальный reference описывает приоритет update и pending state."
+  },
+  {
+    "id": "react-use-deferred-value",
+    "title": "React: useDeferredValue",
+    "url": "https://react.dev/reference/react/useDeferredValue",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Showing stale content while fresh content is loading",
+    "englishReason": "Официальный reference объясняет deferred value и отличие от фиксированной задержки."
+  },
+  {
+    "id": "node-fs",
+    "title": "Node.js: File system",
+    "url": "https://nodejs.org/api/fs.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Promises API и FileHandle.createReadStream()",
+    "englishReason": "Официальный Node.js reference покрывает async file I/O и закрытие ресурсов."
+  },
+  {
+    "id": "node-streams",
+    "title": "Node.js: Streams",
+    "url": "https://nodejs.org/api/stream.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Types of streams, Backpressuring и stream.pipeline()",
+    "englishReason": "Официальный reference объясняет backpressure, pipeline и распространение stream errors."
+  },
+  {
+    "id": "node-errors",
+    "title": "Node.js: Errors",
+    "url": "https://nodejs.org/api/errors.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Error propagation and interception: throw, Promise rejection и error event",
+    "englishReason": "Официальный reference различает способы доставки ошибок синхронных, Promise и EventEmitter API."
+  },
+  {
+    "id": "fastify-swagger",
+    "title": "Fastify Swagger plugin",
+    "url": "https://github.com/fastify/fastify-swagger",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Dynamic mode и route schemas to OpenAPI",
+    "englishReason": "Официальный Fastify plugin генерирует OpenAPI из тех же JSON schemas, которыми проверяется route."
+  },
+  {
+    "id": "nestjs-providers",
+    "title": "NestJS: Providers",
+    "url": "https://docs.nestjs.com/providers",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Services, Dependency injection и provider registration",
+    "englishReason": "Официальная документация задаёт базовую модель providers и DI NestJS."
+  },
+  {
+    "id": "nestjs-first-steps",
+    "title": "NestJS: First steps",
+    "url": "https://docs.nestjs.com/first-steps",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Platform, Controllers, Providers и Modules",
+    "englishReason": "Официальный вводный маршрут показывает дополнительную структуру NestJS целиком."
+  },
+  {
+    "id": "fastify-lifecycle",
+    "title": "Fastify: Lifecycle",
+    "url": "https://fastify.dev/docs/latest/Reference/Lifecycle/",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Request Lifecycle, Reply Lifecycle и Shutdown Lifecycle",
+    "englishReason": "Официальная схема показывает порядок hooks, handler, serialization и error branch."
+  },
+  {
+    "id": "fastify-errors",
+    "title": "Fastify: Errors",
+    "url": "https://fastify.dev/docs/latest/Reference/Errors/",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Errors in Fastify и Error Propagation",
+    "englishReason": "Официальный reference фиксирует обработку application и framework errors."
+  },
+  {
+    "id": "fastify-rate-limit",
+    "title": "Fastify rate-limit plugin",
+    "url": "https://github.com/fastify/fastify-rate-limit",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Usage, Options и Testing",
+    "englishReason": "Официальный plugin показывает локальные и route-level лимиты и ответы при превышении."
+  },
+  {
+    "id": "fastify-multipart",
+    "title": "Fastify multipart plugin",
+    "url": "https://github.com/fastify/fastify-multipart",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Usage, stream handling и upload limits",
+    "englishReason": "Официальный plugin документирует stream uploads и безопасные ограничения размера."
+  },
+  {
+    "id": "fastify-under-pressure",
+    "title": "Fastify under-pressure plugin",
+    "url": "https://github.com/fastify/under-pressure",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Usage, healthCheck и pressure limits",
+    "englishReason": "Официальный plugin связывает health endpoint с event-loop и resource pressure."
+  },
+  {
+    "id": "bullmq-guide",
+    "title": "BullMQ Guide",
+    "url": "https://docs.bullmq.io/guide/introduction",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Queue, Workers, Jobs и retry",
+    "englishReason": "Официальное руководство даёт минимальную модель producer/queue/worker для фоновых jobs."
+  },
+  {
+    "id": "postgres-transaction-iso",
+    "title": "PostgreSQL: Transaction Isolation",
+    "url": "https://www.postgresql.org/docs/current/transaction-iso.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Read Committed Isolation Level и Serializable Isolation Level",
+    "englishReason": "Официальная текущая документация точно описывает видимость данных и anomalies."
+  },
+  {
+    "id": "postgres-locking",
+    "title": "PostgreSQL: Explicit Locking",
+    "url": "https://www.postgresql.org/docs/current/explicit-locking.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Row-Level Locks и Deadlocks",
+    "englishReason": "Официальный reference объясняет lock conflicts, waits и deadlocks."
+  },
+  {
+    "id": "node-postgres-pool",
+    "title": "node-postgres: Pooling",
+    "url": "https://node-postgres.com/features/pooling",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Why?, Checkout/use/return и Shutdown",
+    "englishReason": "Официальный client guide показывает ограниченный pool и обязательный release."
+  },
+  {
+    "id": "drizzle-migrations",
+    "title": "Drizzle ORM: Migrations",
+    "url": "https://orm.drizzle.team/docs/migrations",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Migrations fundamentals и generate/migrate workflow",
+    "englishReason": "Официальная документация показывает варианты schema-first/database-first и создаваемый SQL."
+  },
+  {
+    "id": "prisma-query-optimization",
+    "title": "Prisma: Query optimization",
+    "url": "https://docs.prisma.io/docs/orm/prisma-client/queries/advanced/query-optimization-performance",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Solving the n+1 problem",
+    "englishReason": "Официальное руководство даёт узнаваемый N+1-сценарий и варианты его устранения."
+  },
+  {
+    "id": "postgres-json-types",
+    "title": "PostgreSQL: JSON Types",
+    "url": "https://www.postgresql.org/docs/current/datatype-json.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "JSON Input and Output Syntax и jsonb indexing",
+    "englishReason": "Официальный reference задаёт возможности и ограничения JSON/JSONB."
+  },
+  {
+    "id": "kubernetes-probes",
+    "title": "Kubernetes: Liveness, Readiness, and Startup Probes",
+    "url": "https://kubernetes.io/docs/concepts/workloads/pods/probes/",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Types of probe и When to use each probe",
+    "englishReason": "Официальная документация чётко разделяет restart liveness и допуск трафика readiness."
+  },
+  {
+    "id": "opentelemetry-metrics",
+    "title": "OpenTelemetry: Metrics",
+    "url": "https://opentelemetry.io/docs/concepts/signals/metrics/",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Metric Instruments, Aggregation и Cardinality limits",
+    "englishReason": "Официальная модель объясняет метрики, instruments, aggregation и риск высокой cardinality."
+  },
+  {
+    "id": "uptime-kuma",
+    "title": "Uptime Kuma",
+    "url": "https://github.com/louislam/uptime-kuma",
+    "language": "en",
+    "format": "exercise",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "How to install, monitor types и notifications",
+    "englishReason": "Официальный репозиторий даёт простой self-hosted способ проверить uptime и тестовое уведомление."
+  },
+  {
+    "id": "fowler-test-driven-development",
+    "title": "Martin Fowler: Test-Driven Development",
+    "url": "https://martinfowler.com/bliki/TestDrivenDevelopment.html",
+    "language": "en",
+    "format": "article",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Red/green/refactor cycle и self-testing code",
+    "englishReason": "Короткая первичная формулировка задаёт проверяемый цикл работы до реализации."
+  },
+  {
+    "id": "star-method",
+    "title": "National Careers Service: The STAR method",
+    "url": "https://nationalcareers.service.gov.uk/careers-advice/interview-advice/the-star-method",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Situation, Task, Action, Result и interview examples",
+    "englishReason": "Государственный карьерный сервис даёт практическую структуру устного ответа об опыте."
+  },
+  {
+    "id": "europass-cv",
+    "title": "Europass: Create your CV",
+    "url": "https://europass.europa.eu/en/create-europass-cv",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Create a CV и tailor experience to the opportunity",
+    "englishReason": "Официальный сервис ЕС помогает превратить те же истории опыта в краткие CV bullets."
+  },
+  {
+    "id": "microsoft-microservices-introduction",
+    "title": "Microsoft: Microservices architecture style",
+    "url": "https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Context, Benefits, Challenges и When to choose microservices",
+    "englishReason": "Официальное архитектурное руководство перечисляет не только выгоды, но и распределённые operational costs."
   }
 ]

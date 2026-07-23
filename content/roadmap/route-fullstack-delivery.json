@@ -36,7 +36,7 @@
           "recommendationWeight": 73,
           "estimatedMinutes": [55, 80],
           "dependencies": ["node-runtime-process", "promise-basics"],
-          "sourceIds": { "primary": "node-introduction", "fallback": "node-event-loop" },
+          "sourceIds": { "primary": "node-fs", "fallback": "node-streams", "practice": "node-errors" },
           "obsidianPrompts": ["Опиши async file I/O и stream backpressure на базовом уровне.", "Раздели operational и programmer errors."],
           "ankiPrompts": ["Почему sync I/O блокирует?", "Когда нужен stream?", "Куда должна дойти ошибка?", "Что даёт package manager lockfile?"],
           "practice": [{ "id": "node-stream-errors", "title": "Безопасно обработать тестовый файл", "instructions": ["Создать локальный синтетический файл.", "Прочитать его stream и посчитать строки.", "Обработать отсутствующий файл без падения процесса."], "minimumCompletion": "Тестовый файл обработан stream, ошибка имеет ожидаемый результат.", "estimatedMinutes": 25 }],
@@ -53,30 +53,81 @@
           "recommendationWeight": 82,
           "estimatedMinutes": [70, 105],
           "dependencies": ["node-io-errors", "http-semantics-status", "api-boundaries"],
-          "sourceIds": { "primary": "fastify-getting-started", "fallback": "fastify-validation" },
+          "sourceIds": { "primary": "fastify-getting-started", "fallback": "fastify-validation", "practice": "fastify-swagger" },
           "obsidianPrompts": ["Опиши route, controller, service и schema responsibilities.", "Свяжи validation, serialization, OpenAPI и API test."],
           "ankiPrompts": ["Где валидировать body?", "Зачем response schema?", "Что проверяет inject test?", "Когда нужен service?", "Чем Fastify plugin полезен?"],
           "practice": [{ "id": "fastify-vertical-route", "title": "Vertical slice создания тренировки", "instructions": ["Использовать локальный Fastify и синтетические данные.", "Создать POST route с body и response schema.", "Добавить success и invalid-body API tests."], "minimumCompletion": "Локальный route проходит два теста и отражён в OpenAPI.", "estimatedMinutes": 40 }],
           "masteryChecks": ["Спроектировать schema.", "Проверить 400 и 201.", "Объяснить serialization boundary."],
           "quickSteps": ["За 15 минут написать body schema одного route."],
-          "sourceRefs": ["L1330", "L1334", "L1335", "L1339", "L1340", "L1341", "L1342", "L1343", "L1352", "L1353"]
+          "sourceRefs": ["L1330", "L1334", "L1339", "L1340", "L1342", "L1352", "L1353"]
         },
         {
-          "id": "fastify-service-resilience",
-          "title": "Hooks, ошибки и устойчивость API",
-          "outcome": "Провести запрос через hooks, service, error handler, logging, rate limit и healthcheck.",
-          "whyNow": "Cross-cutting поведение должно быть единообразным и тестируемым.",
-          "priority": "high",
-          "recommendationWeight": 76,
-          "estimatedMinutes": [65, 95],
+          "id": "nestjs-dependency-injection",
+          "title": "NestJS и dependency injection",
+          "outcome": "Объяснить, когда структурированность NestJS и его DI-контейнер окупают дополнительную сложность.",
+          "whyNow": "NestJS нужен как осознанная альтернатива для вакансий, а не как часть Fastify-контракта.",
+          "priority": "supporting",
+          "recommendationWeight": 52,
+          "estimatedMinutes": [40, 60],
           "dependencies": ["fastify-api-contracts"],
-          "sourceIds": { "primary": "fastify-getting-started", "fallback": "fastify-logging" },
-          "obsidianPrompts": ["Нарисуй request lifecycle и места hooks.", "Опиши единый error envelope, logging и healthcheck."],
-          "ankiPrompts": ["Когда hook, когда service?", "Где обработать error?", "Что проверяет healthcheck?", "Зачем rate limit?", "Как логировать request?"],
-          "practice": [{ "id": "fastify-resilient-slice", "title": "Устойчивый локальный API slice", "instructions": ["Использовать локальный сервис и синтетический upload metadata.", "Добавить error handler, request log и rate-limit test.", "Добавить health route и background-job stub."], "minimumCompletion": "Тесты подтверждают success, controlled error, rate limit и healthcheck.", "estimatedMinutes": 40 }],
-          "masteryChecks": ["Провести request по lifecycle.", "Отличить expected error.", "Проверить health без внешних систем."],
+          "sourceIds": { "primary": "nestjs-providers", "fallback": "nestjs-first-steps" },
+          "obsidianPrompts": ["Сравни явную композицию Fastify и DI providers NestJS.", "Запиши триггер выбора NestJS для проекта или вакансии."],
+          "ankiPrompts": ["Что такое provider?", "Как работает injection token?", "Зачем module в NestJS?", "Когда DI-контейнер избыточен?"],
+          "practice": [{ "id": "nestjs-di-sketch", "title": "Схема DI без миграции проекта", "instructions": ["Взять один локальный service.", "Нарисовать provider, token и consumer.", "Сравнить с явной композицией Fastify, не меняя приложение."], "minimumCompletion": "Есть схема и решение, нужен ли NestJS в этом случае.", "estimatedMinutes": 20 }],
+          "masteryChecks": ["Объяснить provider.", "Назвать цену container magic.", "Сформулировать trigger выбора."],
+          "quickSteps": ["За 10 минут сравнить две композиции одного service."],
+          "sourceRefs": ["L1335", "L1341"]
+        },
+        {
+          "id": "fastify-request-lifecycle",
+          "title": "Fastify lifecycle, ошибки и logging",
+          "outcome": "Провести запрос через hooks и единообразно обработать и залогировать ожидаемую ошибку.",
+          "whyNow": "Request lifecycle задаёт места для cross-cutting поведения и диагностики.",
+          "priority": "high",
+          "recommendationWeight": 78,
+          "estimatedMinutes": [55, 80],
+          "dependencies": ["fastify-api-contracts"],
+          "sourceIds": { "primary": "fastify-lifecycle", "fallback": "fastify-errors", "practice": "fastify-logging" },
+          "obsidianPrompts": ["Нарисуй request и reply lifecycle и места hooks.", "Опиши единый error envelope и request-scoped logging."],
+          "ankiPrompts": ["Когда hook, когда service?", "Где обработать error?", "Как проходит reply?", "Как логировать request ID?"],
+          "practice": [{ "id": "fastify-lifecycle-error", "title": "Ошибка через request lifecycle", "instructions": ["Использовать локальный Fastify и синтетический запрос.", "Добавить hook, controlled error и error handler.", "Проверить response envelope и request log тестом."], "minimumCompletion": "Тест подтверждает порядок hook, ответ ошибки и связанный log.", "estimatedMinutes": 30 }],
+          "masteryChecks": ["Провести request по lifecycle.", "Отличить expected error.", "Найти request ID в логе."],
           "quickSteps": ["За 10 минут нарисовать Fastify lifecycle одного route."],
-          "sourceRefs": ["L1344", "L1345", "L1346", "L1347", "L1348", "L1349", "L1350", "L1351"]
+          "sourceRefs": ["L1343", "L1346", "L1347"]
+        },
+        {
+          "id": "fastify-operational-plugins",
+          "title": "Uploads, rate limit и health plugin",
+          "outcome": "Ограничить upload и частоту запросов и отдать health signal через официальные Fastify plugins.",
+          "whyNow": "Operational limits должны быть явными, локально проверяемыми и отделёнными от business service.",
+          "priority": "supporting",
+          "recommendationWeight": 69,
+          "estimatedMinutes": [55, 85],
+          "dependencies": ["fastify-request-lifecycle"],
+          "sourceIds": { "primary": "fastify-rate-limit", "fallback": "fastify-multipart", "practice": "fastify-under-pressure" },
+          "obsidianPrompts": ["Опиши границы upload, rate limiting и health pressure.", "Запиши fail-safe значения и ожидаемые статусы."],
+          "ankiPrompts": ["Что ограничивает rate limit?", "Как ограничить multipart?", "Что измеряет under-pressure?", "Как проверить plugin через inject?"],
+          "practice": [{ "id": "fastify-operations-test", "title": "Operational plugin tests", "instructions": ["Использовать локальный сервис и синтетический файл.", "Добавить upload limit и rate limit.", "Проверить health route и ответы превышения лимитов."], "minimumCompletion": "Три локальных API-теста подтверждают заданные границы.", "estimatedMinutes": 35 }],
+          "masteryChecks": ["Выбрать limit.", "Отклонить большой upload.", "Проверить health без внешних систем."],
+          "quickSteps": ["За 10 минут записать лимиты одного route."],
+          "sourceRefs": ["L1348", "L1350", "L1351"]
+        },
+        {
+          "id": "backend-background-jobs",
+          "title": "Фоновые jobs и очередь",
+          "outcome": "Вынести долгую операцию из request lifecycle в повторяемую job с явным статусом.",
+          "whyNow": "HTTP-запрос не должен ждать долгую или повторяемую фоновую работу.",
+          "priority": "supporting",
+          "recommendationWeight": 62,
+          "estimatedMinutes": [45, 70],
+          "dependencies": ["fastify-request-lifecycle"],
+          "sourceIds": { "primary": "bullmq-guide" },
+          "obsidianPrompts": ["Опиши producer, queue, worker и job state.", "Запиши требования идемпотентности и retry."],
+          "ankiPrompts": ["Когда нужна queue?", "Что делает worker?", "Зачем job ID?", "Почему retry требует идемпотентности?"],
+          "practice": [{ "id": "background-job-stub", "title": "Локальная job без production queue", "instructions": ["Создать локальный in-memory stub очереди.", "Вернуть job ID из тестового route.", "Проверить success и повторный запуск на синтетических данных."], "minimumCompletion": "API не ждёт job, статус читается, повтор не дублирует результат.", "estimatedMinutes": 30 }],
+          "masteryChecks": ["Отделить request от worker.", "Объяснить retry.", "Назвать idempotency boundary."],
+          "quickSteps": ["За 10 минут выбрать одну долгую операцию."],
+          "sourceRefs": ["L1349"]
         },
         {
           "id": "backend-auth-sessions",
@@ -86,14 +137,14 @@
           "priority": "high",
           "recommendationWeight": 79,
           "estimatedMinutes": [75, 110],
-          "dependencies": ["fastify-service-resilience", "frontend-auth-model", "csrf-cookie-defense"],
+          "dependencies": ["fastify-request-lifecycle", "frontend-auth-model", "csrf-cookie-defense"],
           "sourceIds": { "primary": "owasp-session-management", "fallback": "owasp-password-storage", "practice": "mdn-ru-set-cookie" },
           "obsidianPrompts": ["Сравни session и access/refresh tokens.", "Опиши rotation, hashing, CSRF и Secure/HttpOnly/SameSite."],
           "ankiPrompts": ["Что хранит session cookie?", "Зачем refresh rotation?", "Почему password не шифруют?", "Что делает HttpOnly?", "Когда нужен CSRF token?"],
           "practice": [{ "id": "local-auth-session", "title": "Локальный auth lifecycle", "instructions": ["Использовать только локальный контейнер и синтетического пользователя.", "Сделать login, protected route и logout.", "Проверить rotation/reuse rejection либо session invalidation."], "minimumCompletion": "Тесты подтверждают login, protected access, logout и отклонение старого credential.", "estimatedMinutes": 45 }],
           "masteryChecks": ["Нарисовать credential lifecycle.", "Выбрать cookie attributes.", "Объяснить hashing и CSRF."],
           "quickSteps": ["За 15 минут нарисовать session или token sequence."],
-          "sourceRefs": ["L1355", "L1359", "L1360", "L1361", "L1362", "L1366", "L1367"]
+          "sourceRefs": ["L1344", "L1355", "L1359", "L1360", "L1361", "L1362", "L1366", "L1367"]
         },
         {
           "id": "backend-authorization-ownership",
@@ -110,7 +161,7 @@
           "practice": [{ "id": "local-ownership-check", "title": "Проверка владельца ресурса", "instructions": ["Использовать локальную БД и двух синтетических пользователей.", "Разрешить владельцу изменить тренировку.", "Проверить 403 для другого пользователя и поддельного Telegram payload."], "minimumCompletion": "API-тесты доказывают ownership и deny-by-default.", "estimatedMinutes": 35 }],
           "masteryChecks": ["Отделить 401 от 403.", "Найти IDOR-сценарий.", "Проверить подпись Telegram на сервере."],
           "quickSteps": ["За 10 минут выписать ownership rule одного ресурса."],
-          "sourceRefs": ["L1363", "L1364", "L1365"]
+          "sourceRefs": ["L1345", "L1363", "L1364", "L1365"]
         }
       ],
       "sourceRefs": ["L1309"]
@@ -169,7 +220,7 @@
           "practice": [{ "id": "relational-schema", "title": "ER-схема pet-проекта", "instructions": ["Использовать только синтетические требования.", "Нарисовать users, programs, workouts, exercises и approaches.", "Проверить cardinality и одно спорное решение."], "minimumCompletion": "ER-диаграмма содержит пять entities и объяснённые связи.", "estimatedMinutes": 35 }],
           "masteryChecks": ["Назвать cardinality.", "Найти repeating group.", "Защитить одну denormalization."],
           "quickSteps": ["За 10 минут нарисовать одну many-to-many связь."],
-          "sourceRefs": ["L1397", "L1401", "L1402", "L1403", "L1404", "L1405", "L1409", "L1410"]
+          "sourceRefs": ["L1397", "L1401", "L1402", "L1403", "L1404", "L1405", "L1409", "L1410", "L1444", "L1445", "L1446", "L1447", "L1448"]
         },
         {
           "id": "sql-transactions-constraints",
@@ -186,7 +237,7 @@
           "practice": [{ "id": "transactional-workout", "title": "Транзакционное создание тренировки", "instructions": ["Использовать локальную БД и синтетические данные.", "Создать workout и approaches одной transaction.", "Вызвать ошибку посередине и проверить rollback."], "minimumCompletion": "Тест подтверждает отсутствие частичных данных после ошибки.", "estimatedMinutes": 35 }],
           "masteryChecks": ["Выбрать constraint для инварианта.", "Объяснить rollback.", "Найти риск soft delete."],
           "quickSteps": ["За 15 минут добавить один useful constraint."],
-          "sourceRefs": ["L1394", "L1395", "L1406", "L1407", "L1408", "L1411", "L1412", "L1413", "L1414"]
+          "sourceRefs": ["L1394", "L1395", "L1406", "L1407", "L1408", "L1411", "L1412", "L1413", "L1414", "L1451"]
         },
         {
           "id": "postgres-indexes-explain",
@@ -206,21 +257,38 @@
           "sourceRefs": ["L1416", "L1420", "L1421", "L1422", "L1423", "L1424", "L1425", "L1440", "L1449", "L1450"]
         },
         {
-          "id": "postgres-runtime-migrations",
-          "title": "Isolation, locks, migrations и pool",
-          "outcome": "Объяснить конфликт транзакций, провести обратимую migration и настроить ограниченный connection pool.",
-          "whyNow": "Runtime-баги БД часто живут между запросами: locks, isolation, migrations и N+1.",
+          "id": "postgres-concurrency-pool",
+          "title": "Isolation, locks и connection pool",
+          "outcome": "Объяснить конфликт транзакций и настроить ограниченный pool без утечки client.",
+          "whyNow": "Конкурентные запросы взаимодействуют через isolation, locks и ограниченное число соединений.",
           "priority": "high",
-          "recommendationWeight": 79,
-          "estimatedMinutes": [80, 115],
+          "recommendationWeight": 82,
+          "estimatedMinutes": [60, 90],
           "dependencies": ["postgres-indexes-explain"],
-          "sourceIds": { "primary": "postgrespro-tutorial", "fallback": "postgres-explain" },
-          "obsidianPrompts": ["Опиши базовый isolation anomaly и lock.", "Свяжи migrations, pool, JSONB и N+1 с эксплуатацией API."],
-          "ankiPrompts": ["Что изолирует transaction?", "Когда возникает lock wait?", "Зачем migration rollback?", "Почему pool ограничен?", "Как распознать N+1?"],
-          "practice": [{ "id": "postgres-runtime-slice", "title": "Migration и конкурентный сценарий", "instructions": ["Использовать локальный PostgreSQL и синтетические данные.", "Сделать migration с обратным шагом.", "Воспроизвести lock wait и найти N+1 в тестовом endpoint."], "minimumCompletion": "Migration обратима, а два runtime-сценария объяснены.", "estimatedMinutes": 45 }],
-          "masteryChecks": ["Объяснить lock wait.", "Проверить migration на копии данных.", "Найти N+1 по логам запросов."],
+          "sourceIds": { "primary": "postgres-transaction-iso", "fallback": "postgres-locking", "practice": "node-postgres-pool" },
+          "obsidianPrompts": ["Опиши READ COMMITTED и один конфликт обновлений.", "Свяжи lock wait, pool size и release client."],
+          "ankiPrompts": ["Что видит READ COMMITTED?", "Когда возникает lock wait?", "Почему pool ограничен?", "Зачем release client?"],
+          "practice": [{ "id": "postgres-concurrency-test", "title": "Lock wait и pool", "instructions": ["Использовать локальный PostgreSQL и синтетические данные.", "Воспроизвести конфликт двух транзакций.", "Проверить release соединений после success и error."], "minimumCompletion": "Конфликт объяснён, pool после тестов не содержит утечки.", "estimatedMinutes": 35 }],
+          "masteryChecks": ["Объяснить lock wait.", "Выбрать isolation осознанно.", "Вернуть client в pool."],
+          "quickSteps": ["За 15 минут провести две конкурентные транзакции."],
+          "sourceRefs": ["L1426", "L1427", "L1428", "L1431"]
+        },
+        {
+          "id": "postgres-migrations-tooling",
+          "title": "Migrations, ORM tooling и N+1",
+          "outcome": "Провести проверяемую migration и обнаружить N+1 в endpoint по фактическим запросам.",
+          "whyNow": "Инструмент должен оставлять понятный SQL и не скрывать стоимость запросов.",
+          "priority": "high",
+          "recommendationWeight": 78,
+          "estimatedMinutes": [65, 95],
+          "dependencies": ["postgres-concurrency-pool"],
+          "sourceIds": { "primary": "drizzle-migrations", "fallback": "prisma-query-optimization", "practice": "postgres-json-types" },
+          "obsidianPrompts": ["Опиши generate, review и apply migration.", "Запиши признаки N+1 и осознанного выбора JSONB."],
+          "ankiPrompts": ["Что хранит migration history?", "Зачем review SQL?", "Как распознать N+1?", "Когда JSONB уместен?"],
+          "practice": [{ "id": "postgres-migration-n-plus-one", "title": "Migration и N+1", "instructions": ["Использовать локальную БД и синтетические данные.", "Сгенерировать и прочитать одну migration.", "Найти и убрать N+1 в тестовом endpoint."], "minimumCompletion": "Migration применима на чистую БД, число запросов endpoint уменьшено.", "estimatedMinutes": 40 }],
+          "masteryChecks": ["Прочитать migration SQL.", "Проверить migration на копии.", "Найти N+1 по логам."],
           "quickSteps": ["За 15 минут просмотреть SQL одной migration."],
-          "sourceRefs": ["L1426", "L1427", "L1428", "L1429", "L1430", "L1431", "L1432", "L1436", "L1437", "L1438", "L1439", "L1444", "L1445", "L1446", "L1447", "L1448", "L1451"]
+          "sourceRefs": ["L1429", "L1430", "L1432", "L1436", "L1437", "L1438", "L1439"]
         }
       ],
       "sourceRefs": ["L1373"]
@@ -245,7 +313,7 @@
           "practice": [{ "id": "docker-multistage-build", "title": "Multi-stage image pet-проекта", "instructions": ["Собрать локальный image только из тестового pet-проекта.", "Разделить build и runtime stages.", "Сравнить размер с одностадийным вариантом."], "minimumCompletion": "Локальный image запускается, final stage не содержит dev dependencies.", "estimatedMinutes": 35 }],
           "masteryChecks": ["Объяснить layer cache.", "Уменьшить context.", "Прочитать multi-stage Dockerfile."],
           "quickSteps": ["За 10 минут проверить размер build context."],
-          "sourceRefs": ["L1461", "L1463", "L1464", "L1465", "L1466", "L1467", "L1468", "L1469", "L1470", "L1471", "L1472", "L1473"]
+          "sourceRefs": ["L1461", "L1463", "L1464", "L1465", "L1466", "L1467", "L1468", "L1469", "L1470"]
         },
         {
           "id": "docker-compose-runtime",
@@ -255,14 +323,14 @@
           "priority": "high",
           "recommendationWeight": 80,
           "estimatedMinutes": [70, 100],
-          "dependencies": ["docker-image-build", "postgres-runtime-migrations"],
+          "dependencies": ["docker-image-build", "postgres-migrations-tooling"],
           "sourceIds": { "primary": "docker-compose", "fallback": "docker-build-best-practices" },
           "obsidianPrompts": ["Опиши services, networks, volumes и bind mounts.", "Сравни healthcheck, restart policy, env и secret."],
           "ankiPrompts": ["Volume или bind mount?", "Как service находит другой?", "Что проверяет healthcheck?", "Когда restart помогает?", "Где не хранить secret?"],
           "practice": [{ "id": "docker-compose-stack", "title": "Локальный Compose vertical slice", "instructions": ["Использовать синтетические данные без production secrets.", "Запустить frontend, backend и PostgreSQL.", "Добавить internal network, named volume и healthchecks."], "minimumCompletion": "Локальный stack переживает restart и сохраняет тестовые данные.", "estimatedMinutes": 45 }],
           "masteryChecks": ["Объяснить DNS service name.", "Выбрать volume.", "Диагностировать unhealthy service."],
           "quickSteps": ["За 15 минут нарисовать Compose networks и ports."],
-          "sourceRefs": ["L1474", "L1475", "L1476", "L1477", "L1478", "L1479", "L1480", "L1481", "L1482", "L1483"]
+          "sourceRefs": ["L1471", "L1472", "L1473", "L1474", "L1475", "L1476", "L1477"]
         },
         {
           "id": "docker-secure-delivery",
@@ -279,7 +347,7 @@
           "practice": [{ "id": "docker-security-pass", "title": "Безопасный локальный container", "instructions": ["Использовать локальный image и синтетическую конфигурацию.", "Запустить non-root и проверить writable paths.", "Просканировать image и убрать один лишний пакет или secret."], "minimumCompletion": "Локальный container non-root, healthcheck зелёный, secret отсутствует в image.", "estimatedMinutes": 35 }],
           "masteryChecks": ["Проверить runtime user.", "Найти secret в layer risk.", "Объяснить base-image tradeoff."],
           "quickSteps": ["За 10 минут проверить USER и exposed ports."],
-          "sourceRefs": ["L1484", "L1488", "L1489", "L1490", "L1491", "L1492", "L1493", "L1494", "L1495"]
+          "sourceRefs": ["L1478", "L1479", "L1480", "L1481", "L1482", "L1483", "L1484", "L1488", "L1489", "L1490", "L1491", "L1492", "L1493", "L1494", "L1495"]
         }
       ],
       "sourceRefs": ["L1457"]
@@ -390,7 +458,7 @@
           "priority": "high",
           "recommendationWeight": 85,
           "estimatedMinutes": [90, 140],
-          "dependencies": ["ci-delivery-controls", "docker-secure-delivery", "proxy-operations", "postgres-runtime-migrations"],
+          "dependencies": ["ci-delivery-controls", "docker-secure-delivery", "proxy-operations", "postgres-concurrency-pool"],
           "sourceIds": { "primary": "github-actions-deployments", "fallback": "docker-build-best-practices" },
           "obsidianPrompts": ["Нарисуй stages и gates полного pipeline.", "Опиши migration, backup, healthcheck и rollback order."],
           "ankiPrompts": ["Что проверять до build?", "Когда запускать E2E?", "Когда migration?", "Что проверяет post-deploy health?", "Как откатить image и schema?"],
@@ -415,7 +483,7 @@
           "priority": "high",
           "recommendationWeight": 81,
           "estimatedMinutes": [65, 95],
-          "dependencies": ["fastify-service-resilience", "proxy-operations"],
+          "dependencies": ["fastify-request-lifecycle", "proxy-operations"],
           "sourceIds": { "primary": "fastify-logging", "fallback": "sentry-react" },
           "obsidianPrompts": ["Опиши structured log, levels, request и correlation IDs.", "Раздели error, audit и diagnostic logs и privacy."],
           "ankiPrompts": ["Зачем JSON log?", "Когда error level?", "Request ID или correlation ID?", "Что не логировать?", "Зачем audit log?"],
@@ -433,7 +501,7 @@
           "recommendationWeight": 76,
           "estimatedMinutes": [60, 90],
           "dependencies": ["structured-logging-correlation", "deployment-pipeline"],
-          "sourceIds": { "primary": "fastify-logging", "fallback": "github-actions-deployments" },
+          "sourceIds": { "primary": "kubernetes-probes", "fallback": "opentelemetry-metrics", "practice": "uptime-kuma" },
           "obsidianPrompts": ["Сравни healthcheck, readiness, liveness и uptime.", "Опиши минимальные metrics и alert с actionable context."],
           "ankiPrompts": ["Liveness или readiness?", "Что проверяет uptime?", "Когда metric полезна?", "Что должен содержать alert?", "Когда Prometheus пока лишний?"],
           "practice": [{ "id": "local-health-uptime", "title": "Health endpoint и test outage", "instructions": ["Использовать локальный или тестовый сервис и синтетическую зависимость.", "Разделить alive и ready состояния.", "Вызвать тестовое падение, проверить uptime check и уведомление."], "minimumCompletion": "Health states различаются, тестовое падение обнаружено и объяснимо.", "estimatedMinutes": 35 }],

@@ -36,7 +36,7 @@
             "priority": "supporting",
             "recommendationWeight": 50,
             "estimatedMinutes": [140, 210],
-            "dependencies": ["fastify-api-contracts", "postgres-runtime-migrations", "structured-logging-correlation"],
+            "dependencies": ["fastify-api-contracts", "postgres-migrations-tooling", "structured-logging-correlation"],
             "sourceIds": { "primary": "fastify-getting-started", "fallback": "postgrespro-tutorial" },
             "obsidianPrompts": ["Опиши API contract, transaction и schema change.", "Запиши решение Node/Fastify или допустимый FastAPI без переписывания существующего проекта."],
             "ankiPrompts": ["Где проходит API boundary?", "Что делает migration?", "Как связать request log?", "Когда не нужно переписывать сервис?"],
@@ -190,7 +190,7 @@
             "recommendationWeight": 44,
             "estimatedMinutes": [60, 90],
             "dependencies": ["agent-task-contract", "systematic-code-review"],
-            "sourceIds": { "primary": "openai-agents-md", "fallback": "google-code-review" },
+            "sourceIds": { "primary": "google-code-review", "fallback": "fowler-test-driven-development", "practice": "openai-agents-md" },
             "obsidianPrompts": ["Опиши review, testing и security loop.", "Запиши риски prompt injection, dependency, migration и shell command."],
             "ankiPrompts": ["Что проверять в diff?", "Почему dependency требует проверки?", "Как контролировать migration?", "Что опасно в shell?", "Как распознать prompt injection?"],
             "practice": [{ "id": "agent-safety-review", "title": "Проверить generated change", "instructions": ["Взять небольшой AI-generated diff.", "Проверить tests, types, dependencies и shell history.", "Записать decision log: принято, изменено, отклонено."], "minimumCompletion": "Каждая принятая часть diff объяснена и покрыта проверкой.", "estimatedMinutes": 35 }],
@@ -207,7 +207,7 @@
             "recommendationWeight": 38,
             "estimatedMinutes": [55, 85],
             "dependencies": ["agent-verification-safety"],
-            "sourceIds": { "primary": "openai-agents-md" },
+            "sourceIds": { "primary": "fowler-test-driven-development", "fallback": "google-code-review", "practice": "openai-agents-md" },
             "obsidianPrompts": ["Запиши собственный plan до запроса агенту.", "Отметь, что сделал сам и что проверил после агента."],
             "ankiPrompts": ["Что понять до delegation?", "Зачем small parts?", "Что проверить после tests?", "Как доказать понимание diff?"],
             "practice": [{ "id": "agent-independent-session", "title": "Сессия deliberate practice", "instructions": ["Выбрать маленькую задачу и сначала решить без AI-generation.", "Самостоятельно написать первые tests или DB schema.", "После проверки агентом объяснить каждый итоговый diff."], "minimumCompletion": "Одна сессия завершена, собственный plan и explanation сохранены.", "estimatedMinutes": 40 }],
@@ -232,7 +232,7 @@
             "recommendationWeight": 39,
             "estimatedMinutes": [55, 80],
             "dependencies": [],
-            "sourceIds": { "primary": "google-technical-writing" },
+            "sourceIds": { "primary": "star-method", "fallback": "europass-cv", "practice": "google-technical-writing" },
             "obsidianPrompts": ["Напиши пять коротких stories context-action-result.", "Выпиши точные термины legacy, digital signature, tradeoff и incident."],
             "ankiPrompts": ["Как начать self-introduction?", "Как описать legacy constraint?", "Как объяснить architecture decision?", "Как рассказать production issue?"],
             "practice": [{ "id": "english-five-stories", "title": "Пять инженерных stories", "instructions": ["Записать stories о проекте, legacy, ЭЦП, review и incident.", "Проговорить каждую до двух минут.", "Убрать неясные слова и лишние детали."], "minimumCompletion": "Пять понятных stories записаны и произнесены без чтения.", "estimatedMinutes": 35 }],
@@ -335,21 +335,38 @@
         "outcome": "Понимать, когда направление может стать релевантным, не начинать его без задачи.",
         "topics": [
           {
-            "id": "deferred-platform-complexity",
-            "title": "Не сейчас: Kubernetes, Kafka и сложный DevOps",
-            "outcome": "Распознать задачу масштаба, при которой orchestration, messaging или глубокий DevOps станут оправданы.",
-            "whyNow": "Сейчас это не даёт достаточной отдачи для личного frontend-heavy fullstack пути.",
+            "id": "deferred-kubernetes-devops",
+            "title": "Не сейчас: Kubernetes и сложный DevOps",
+            "outcome": "Распознать задачу масштаба, при которой orchestration и глубокий DevOps станут оправданы.",
+            "whyNow": "Для личного приложения Compose и простой deploy дают больше отдачи.",
             "priority": "deferred",
             "recommendationWeight": 0,
             "estimatedMinutes": [20, 30],
             "dependencies": [],
             "sourceIds": { "primary": "kubernetes-basics" },
-            "obsidianPrompts": ["Запиши триггеры возврата к orchestration или messaging.", "Отдели текущую задачу deploy от сложной platform engineering."],
-            "ankiPrompts": ["Когда нужен orchestrator?", "Какой symptom требует queue?", "Почему пока не приоритет?"],
-            "practice": [{ "id": "deferred-platform-trigger", "title": "Сформулировать trigger, не внедрять", "instructions": ["Описать гипотетическую нагрузку.", "Записать критерий возврата к теме.", "Не менять текущую инфраструктуру."], "minimumCompletion": "Есть один измеримый trigger и причина «Не сейчас».", "estimatedMinutes": 10 }],
+            "obsidianPrompts": ["Запиши триггеры возврата к orchestration.", "Отдели текущую задачу deploy от platform engineering."],
+            "ankiPrompts": ["Когда нужен orchestrator?", "Что добавляет Kubernetes?", "Почему пока не приоритет?"],
+            "practice": [{ "id": "deferred-kubernetes-trigger", "title": "Сформулировать trigger, не внедрять", "instructions": ["Описать гипотетическую нагрузку и несколько сервисов.", "Записать критерий возврата к теме.", "Не менять текущую инфраструктуру."], "minimumCompletion": "Есть один измеримый trigger и причина «Не сейчас».", "estimatedMinutes": 10 }],
             "masteryChecks": ["Назвать trigger.", "Объяснить стоимость.", "Отказаться от преждевременного внедрения."],
             "quickSteps": ["За 10 минут записать один trigger возврата."],
-            "sourceRefs": ["L0055", "L0062", "L0063"]
+            "sourceRefs": ["L0053", "L0062", "L0063"]
+          },
+          {
+            "id": "deferred-microservices-messaging",
+            "title": "Не сейчас: microservices и Kafka",
+            "outcome": "Назвать конкретную границу независимого deploy или messaging-нагрузку, которые оправдают распределённую систему.",
+            "whyNow": "Монолит личного приложения проще изучать, тестировать и разворачивать.",
+            "priority": "deferred",
+            "recommendationWeight": 0,
+            "estimatedMinutes": [20, 30],
+            "dependencies": [],
+            "sourceIds": { "primary": "microsoft-microservices-introduction" },
+            "obsidianPrompts": ["Запиши triggers независимого deploy и асинхронной очереди.", "Сравни их с текущим модульным монолитом."],
+            "ankiPrompts": ["Когда нужен microservice?", "Какой symptom требует broker?", "Почему пока достаточно монолита?"],
+            "practice": [{ "id": "deferred-microservices-trigger", "title": "Описать trigger без реализации", "instructions": ["Выбрать гипотетическую границу сервиса.", "Записать цену сети, данных и эксплуатации.", "Не разделять текущий pet-проект."], "minimumCompletion": "Есть один измеримый trigger и три добавленные стоимости.", "estimatedMinutes": 10 }],
+            "masteryChecks": ["Назвать deploy boundary.", "Объяснить distributed cost.", "Отказаться от преждевременного split."],
+            "quickSteps": ["За 10 минут записать один trigger messaging."],
+            "sourceRefs": ["L0054", "L0055"]
           },
           {
             "id": "deferred-graphql",
@@ -420,9 +437,9 @@
             "sourceRefs": ["L0061"]
           }
         ],
-        "sourceRefs": ["L0053", "L0054"]
+        "sourceRefs": ["L0049"]
       }
     ],
-    "sourceRefs": ["L0049"]
+    "sourceRefs": ["L0019"]
   }
 }
