@@ -1,0 +1,157 @@
+{
+  "sourceRefs": [
+    "L0001",
+    "L0019",
+    "L0021",
+    "L0025",
+    "L0026",
+    "L0027",
+    "L0028",
+    "L0029",
+    "L0030",
+    "L0032",
+    "L0036",
+    "L0037",
+    "L0038",
+    "L0039",
+    "L0040",
+    "L0042",
+    "L0044",
+    "L0045",
+    "L0046",
+    "L0047",
+    "L0069",
+    "L0362",
+    "L0547",
+    "L1879",
+    "L1881",
+    "L1885",
+    "L1886",
+    "L1887",
+    "L1888",
+    "L1889",
+    "L1890",
+    "L1891",
+    "L1892",
+    "L1893",
+    "L1894",
+    "L1895",
+    "L1897",
+    "L1901",
+    "L1902",
+    "L1903",
+    "L1904",
+    "L1905",
+    "L1906",
+    "L1907",
+    "L1908",
+    "L1909",
+    "L1911",
+    "L1915",
+    "L1916",
+    "L1917",
+    "L1918",
+    "L1919",
+    "L1920",
+    "L1921",
+    "L1922",
+    "L1923",
+    "L1927",
+    "L1931",
+    "L1932",
+    "L1933",
+    "L1934",
+    "L1935",
+    "L1936",
+    "L1937",
+    "L1941",
+    "L1945",
+    "L1946",
+    "L1947",
+    "L1948",
+    "L1949",
+    "L1950",
+    "L1951",
+    "L1952",
+    "L1953",
+    "L1954",
+    "L1955",
+    "L1956"
+  ],
+  "recommendation": {
+    "principle": "Порядок — ориентир pull-based обучения, а не календарный план и не источник долга.",
+    "priorityBands": {
+      "critical": [
+        "JavaScript execution model, React и TypeScript",
+        "HTTP, браузер и frontend-безопасность",
+        "Самостоятельное тестирование",
+        "TanStack Query и server state"
+      ],
+      "high": [
+        "Frontend-архитектура",
+        "Node.js, SQL и PostgreSQL",
+        "Docker и CI/CD",
+        "Production-диагностика и observability"
+      ],
+      "supporting": [
+        "HTML, CSS и accessibility",
+        "Git и командная разработка",
+        "Технический английский",
+        "Работа с AI-агентами"
+      ]
+    },
+    "sequenceSignals": [
+      {
+        "stage": 1,
+        "focus": "JavaScript/TypeScript/React mental model, TanStack Query basics и первые самостоятельные тесты"
+      },
+      {
+        "stage": 2,
+        "focus": "HTTP, browser, security, testing stack, React performance и архитектура pet-проекта"
+      },
+      {
+        "stage": 3,
+        "focus": "Node.js, PostgreSQL, Docker, CI/CD, observability, deploy и интервью"
+      }
+    ],
+    "careerImpact": [
+      "event-loop",
+      "closures",
+      "functions-this",
+      "react-render-commit",
+      "react-state-model",
+      "react-effects",
+      "narrowing",
+      "generics",
+      "tanstack-query-basics",
+      "vitest",
+      "react-testing-library",
+      "playwright",
+      "frontend-threat-model-xss",
+      "csrf-cookie-defense",
+      "postgres-indexes-explain",
+      "postgres-runtime-migrations",
+      "deployment-pipeline",
+      "frontend-error-tracing",
+      "structured-logging-correlation",
+      "pet-project-delivery-slice",
+      "english-experience-stories"
+    ]
+  },
+  "routeGoals": {
+    "frontend-model": [
+      "Объяснять поведение JavaScript без случайного запуска.",
+      "Использовать TypeScript как систему моделирования границ.",
+      "Точно объяснять render, state, Effects и ownership React UI."
+    ]
+  },
+  "masteryTemplate": [
+    "Объяснить модель без конспекта.",
+    "Написать минимальный пример.",
+    "Найти ошибку в чужом коде.",
+    "Применить тему в pet-проекте.",
+    "Написать или обновить тест.",
+    "Ответить на уточняющие вопросы.",
+    "Вернуться к основной модели на первом повторении; дальше интервалы ведёт Anki."
+  ]
+}
