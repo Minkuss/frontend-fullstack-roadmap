@@ -323,7 +323,7 @@
           "priority": "high",
           "recommendationWeight": 75,
           "estimatedMinutes": [55, 85],
-          "dependencies": ["core-web-vitals", "http-cache-cors-credentials", "bundle-analysis"],
+          "dependencies": ["core-web-vitals", "http-cache-validation", "bundle-analysis"],
           "sourceIds": { "primary": "chrome-performance", "fallback": "webdev-core-web-vitals" },
           "obsidianPrompts": ["Опиши waterfall критического пути.", "Сравни lazy loading, preload и prefetch."],
           "ankiPrompts": ["Когда preload оправдан?", "Когда prefetch вреден?", "Как responsive images уменьшают transfer?", "Что искать в waterfall?"],

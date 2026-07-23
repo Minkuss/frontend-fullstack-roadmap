@@ -66,25 +66,6 @@ const highRiskTopicContracts = {
       'L0960',
     ],
   },
-  'http-cache-cors-credentials': {
-    section: '7.',
-    sourceIds: {
-      primary: 'mdn-ru-http-caching',
-      fallback: 'doka-cors',
-      practice: 'mdn-ru-cache-control',
-    },
-    sourceRefs: [
-      'L0939',
-      'L0940',
-      'L0941',
-      'L0942',
-      'L0943',
-      'L0944',
-      'L0945',
-      'L0946',
-      'L0964',
-    ],
-  },
   'http-semantics-status': {
     section: '7.',
     sourceIds: {
@@ -117,15 +98,6 @@ const highRiskTopicContracts = {
       'L0961',
       'L0962',
     ],
-  },
-  'browser-workers-cache': {
-    section: '8.',
-    sourceIds: {
-      primary: 'mdn-service-worker-api',
-      fallback: 'mdn-web-workers-api',
-      practice: 'mdn-ru-browser-http-cache',
-    },
-    sourceRefs: ['L1000', 'L1001', 'L1002'],
   },
   'tanstack-query-basics': {
     section: '5.',
@@ -165,15 +137,6 @@ const highRiskTopicContracts = {
       'L0843',
       'L0844',
     ],
-  },
-  'query-runtime-modes': {
-    section: '5.',
-    sourceIds: {
-      primary: 'tanstack-query-v5-infinite-queries',
-      fallback: 'tanstack-query-v5-ssr',
-      practice: 'tanstack-query-v5-offline-example',
-    },
-    sourceRefs: ['L0827', 'L0833', 'L0835'],
   },
   'frontend-threat-model-xss': {
     section: '9.',
@@ -258,13 +221,13 @@ const exactSourceRoleContracts = [
     url: 'https://datatracker.ietf.org/doc/html/rfc9700#section-4.14.2',
   },
   {
-    topicId: 'security-headers-supply-chain',
-    role: 'fallback',
+    topicId: 'open-redirect-defense',
+    role: 'primary',
     sourceId: 'owasp-unvalidated-redirects',
     url: 'https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html',
   },
   {
-    topicId: 'oauth-oidc-pkce-bff',
+    topicId: 'bff-session',
     role: 'primary',
     sourceId: 'ietf-browser-based-apps-bff',
     url: 'https://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps#section-6.1',
@@ -308,12 +271,13 @@ describe('Route 2: reliable data flow', () => {
       'frontend-security',
       'testing-stack',
     ])
-    expect(topics).toHaveLength(24)
+    expect(topics).toHaveLength(34)
     expect(moduleById.get('http-network')?.topics.map(({ id }) => id)).toEqual([
       'http-request-lifecycle',
       'http-semantics-status',
       'http-request-resilience',
-      'http-cache-cors-credentials',
+      'http-cache-validation',
+      'http-cors-credentials',
       'realtime-transports',
     ])
     expect(
@@ -322,13 +286,17 @@ describe('Route 2: reliable data flow', () => {
       'browser-rendering-pipeline',
       'browser-events-focus',
       'browser-navigation-storage',
-      'browser-workers-cache',
+      'browser-service-worker-cache',
+      'browser-web-worker',
+      'browser-http-cache',
     ])
     expect(moduleById.get('server-state')?.topics.map(({ id }) => id)).toEqual([
       'tanstack-query-basics',
       'query-cache-invalidation',
       'query-flows-prefetch',
-      'query-runtime-modes',
+      'query-infinite-lists',
+      'query-ssr-hydration',
+      'query-offline-mode',
       'query-optimistic-updates',
     ])
   })
@@ -526,7 +494,11 @@ describe('Route 2: reliable data flow', () => {
       L0961: 'http-request-resilience',
       L0962: 'http-request-resilience',
     })
-    expect(sourceRefOwnerById.get('L1002')).toBe('browser-workers-cache')
+    expect(sourceRefOwnerById.get('L1000')).toBe(
+      'browser-service-worker-cache',
+    )
+    expect(sourceRefOwnerById.get('L1001')).toBe('browser-web-worker')
+    expect(sourceRefOwnerById.get('L1002')).toBe('browser-http-cache')
     expect(
       Object.fromEntries(
         ['L0827', 'L0833', 'L0835'].map((sourceRef) => [
@@ -535,9 +507,9 @@ describe('Route 2: reliable data flow', () => {
         ]),
       ),
     ).toEqual({
-      L0827: 'query-runtime-modes',
-      L0833: 'query-runtime-modes',
-      L0835: 'query-runtime-modes',
+      L0827: 'query-infinite-lists',
+      L0833: 'query-ssr-hydration',
+      L0835: 'query-offline-mode',
     })
 
     const semanticsText = JSON.stringify(topicById.get('http-semantics-status'))
@@ -556,20 +528,25 @@ describe('Route 2: reliable data flow', () => {
     expect(resilienceText).toMatch(/idempotency key/i)
     expect(resilienceText).toMatch(/AbortController|отмен[а-я]*/i)
 
-    const workersCacheText = JSON.stringify(
-      topicById.get('browser-workers-cache'),
+    expect(
+      JSON.stringify(topicById.get('browser-service-worker-cache')),
+    ).toMatch(/service worker.*Cache API/is)
+    expect(JSON.stringify(topicById.get('browser-web-worker'))).toMatch(
+      /web worker/i,
     )
-    expect(workersCacheText).toMatch(/service worker/i)
-    expect(workersCacheText).toMatch(/web worker/i)
-    expect(workersCacheText).toMatch(/browser cache|Cache API/i)
+    expect(JSON.stringify(topicById.get('browser-http-cache'))).toMatch(
+      /browser.*HTTP cache/i,
+    )
 
-    const queryRuntimeText = JSON.stringify(
-      topicById.get('query-runtime-modes'),
+    expect(JSON.stringify(topicById.get('query-infinite-lists'))).toMatch(
+      /useInfiniteQuery|infinite quer/i,
     )
-    expect(queryRuntimeText).toMatch(/useInfiniteQuery|infinite quer/i)
-    expect(queryRuntimeText).toMatch(/SSR|server rendering/i)
-    expect(queryRuntimeText).toMatch(/dehydrate|hydrate/i)
-    expect(queryRuntimeText).toMatch(/offline|paused|networkMode/i)
+    expect(JSON.stringify(topicById.get('query-ssr-hydration'))).toMatch(
+      /dehydrate|hydrate/i,
+    )
+    expect(JSON.stringify(topicById.get('query-offline-mode'))).toMatch(
+      /offline|paused|networkMode/i,
+    )
   })
 
   it('uses explicit valid priorities and bounded integer recommendation weights', () => {

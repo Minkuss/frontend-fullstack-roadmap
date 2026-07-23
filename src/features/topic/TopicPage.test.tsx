@@ -229,6 +229,34 @@ describe('TopicPage', () => {
     expect(screen.getByText('Тема освоена')).toBeInTheDocument()
   })
 
+  it('shows review dates in the browser local day around Vladivostok midnight', () => {
+    vi.stubEnv('TZ', 'Asia/Vladivostok')
+    const state: ProgressState = {
+      ...createInitialProgress(),
+      topics: {
+        'call-stack': {
+          status: 'awaiting_review',
+          completedSteps: {
+            source: '2026-07-20T08:00:00.000Z',
+            obsidian: '2026-07-20T09:00:00.000Z',
+            anki: '2026-07-20T10:00:00.000Z',
+            practice: '2026-07-20T11:00:00.000Z',
+            selfCheck: '2026-07-20T12:00:00.000Z',
+          },
+          startedAt: '2026-07-20T07:00:00.000Z',
+          reviewDueAt: '2026-07-23T14:30:00.000Z',
+        },
+      },
+    }
+
+    try {
+      renderTopic('call-stack', state, '2026-07-23T13:00:00.000Z')
+      expect(screen.getByText(/24 июля 2026/i)).toBeInTheDocument()
+    } finally {
+      vi.unstubAllEnvs()
+    }
+  })
+
   it('warns about missing dependencies without blocking manual focus', () => {
     renderTopic('closures')
 

@@ -536,7 +536,7 @@
   width: 100%;
   min-height: 2.75rem;
   padding: 0.625rem 0.75rem;
-  border: 0.0625rem solid var(--line);
+  border: 0.0625rem solid var(--control-border);
   border-radius: var(--radius-sm);
   background: var(--paper-raised);
 }
@@ -682,7 +682,7 @@
   width: 100%;
   min-height: 2.75rem;
   padding: 0.625rem 0.75rem;
-  border: 0.0625rem solid var(--line);
+  border: 0.0625rem solid var(--control-border);
   border-radius: var(--radius-sm);
   color: var(--ink);
   background: var(--paper-raised);
@@ -933,7 +933,7 @@
 .file-field input {
   min-height: 2.75rem;
   padding: 0.5rem;
-  border: 0.0625rem solid var(--line);
+  border: 0.0625rem solid var(--control-border);
   border-radius: var(--radius-sm);
   background: var(--paper-raised);
 }
@@ -942,7 +942,7 @@
   min-height: 2.25rem;
   margin-right: 0.75rem;
   padding-inline: 0.75rem;
-  border: 0.0625rem solid var(--line);
+  border: 0.0625rem solid var(--control-border);
   border-radius: var(--radius-sm);
   color: var(--ink);
   background: var(--paper-raised);

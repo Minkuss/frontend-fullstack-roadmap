@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import {
   ProgressDomainError,
   createInitialProgress,
@@ -138,6 +138,41 @@ describe('progressReducer', () => {
       },
     })
     expect(result.activeTopicId).toBeNull()
+  })
+
+  it('adds three browser-local calendar days instead of 72 UTC hours', () => {
+    vi.stubEnv('TZ', 'America/New_York')
+    const state: ProgressState = {
+      ...createInitialProgress(),
+      activeTopicId: 'event-loop',
+      topics: {
+        'event-loop': {
+          status: 'active',
+          startedAt: '2026-03-07T20:00:00.000Z',
+          completedSteps: {
+            source: '2026-03-07T20:30:00.000Z',
+            obsidian: '2026-03-07T21:00:00.000Z',
+            anki: '2026-03-07T21:30:00.000Z',
+            practice: '2026-03-07T22:00:00.000Z',
+          },
+        },
+      },
+    }
+
+    try {
+      const result = progressReducer(state, {
+        type: 'topic/complete-step',
+        topicId: 'event-loop',
+        step: 'selfCheck',
+        at: '2026-03-08T04:30:00.000Z',
+      })
+
+      expect(result.topics['event-loop']?.reviewDueAt).toBe(
+        '2026-03-11T03:30:00.000Z',
+      )
+    } finally {
+      vi.unstubAllEnvs()
+    }
   })
 
   it('completing first review masters the topic and clears active focus', () => {

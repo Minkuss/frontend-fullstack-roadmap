@@ -48,6 +48,7 @@ test('completes, pauses, resumes, and reviews event-loop with keyboard and mobil
   await expect(
     page.getByRole('heading', { level: 1, name: 'Фокус ещё не выбран' }),
   ).toBeVisible()
+  await expect(page).toHaveTitle('Фокус — Frontend Path')
   await expectLogicalHeadings(page)
 
   const navigation = page.getByRole('navigation', {
@@ -72,10 +73,20 @@ test('completes, pauses, resumes, and reviews event-loop with keyboard and mobil
   await page.keyboard.press('Tab')
   await expect(focusAction).toBeFocused()
 
+  await navigation.getByRole('link', { name: 'Roadmap' }).focus()
+  await page.keyboard.press('Enter')
+  await expect(page).toHaveURL(/#\/roadmap$/)
+  await expect(page).toHaveTitle('Roadmap — Frontend Path')
+  await expect(
+    page.getByRole('heading', { level: 1, name: 'Roadmap' }),
+  ).toBeVisible()
+  await expect(page.getByRole('main')).toBeFocused()
+
   await page.goto('/#/topic/event-loop')
   await expect(
     page.getByRole('heading', { level: 1, name: EVENT_LOOP_TITLE }),
   ).toBeVisible()
+  await expect(page).toHaveTitle(`${EVENT_LOOP_TITLE} — Frontend Path`)
   await page
     .getByRole('button', { name: 'Сделать текущим фокусом' })
     .click()

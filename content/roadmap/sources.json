@@ -6,7 +6,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.1."
+    "section": "Область видимости переменных, замыкание"
   },
   {
     "id": "mdn-ru-call-stack",
@@ -15,7 +15,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.1."
+    "section": "Call stack"
   },
   {
     "id": "javascript-info-object-copy",
@@ -24,7 +24,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.2."
+    "section": "Копирование объектов и ссылки"
   },
   {
     "id": "javascript-info-object-methods",
@@ -33,7 +33,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.3."
+    "section": "Методы объекта, this"
   },
   {
     "id": "javascript-info-prototype-inheritance",
@@ -42,7 +42,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.4."
+    "section": "Прототипное наследование"
   },
   {
     "id": "mdn-ru-classes",
@@ -51,7 +51,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.4."
+    "section": "Классы"
   },
   {
     "id": "mdn-en-using-classes",
@@ -60,7 +60,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.4.",
+    "section": "MDN: Using classes",
     "englishReason": "Актуальное официальное руководство отдельно показывает композицию классов и mixin-подход; русская справочная страница покрывает синтаксис, private и static, но не этот проектный выбор."
   },
   {
@@ -70,7 +70,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5."
+    "section": "Промисы"
   },
   {
     "id": "javascript-info-event-loop",
@@ -79,7 +79,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5."
+    "section": "Событийный цикл: микрозадачи и макрозадачи"
   },
   {
     "id": "mdn-ru-execution-model",
@@ -97,7 +97,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5."
+    "section": "Async/await"
   },
   {
     "id": "javascript-info-fetch-abort",
@@ -106,7 +106,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5."
+    "section": "Fetch: прерывание запроса"
   },
   {
     "id": "mdn-ru-abort-controller",
@@ -115,7 +115,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5."
+    "section": "AbortController"
   },
   {
     "id": "react-use-effect-race-condition",
@@ -124,7 +124,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5.",
+    "section": "React useEffect: Fetching data without race conditions",
     "englishReason": "Официальный React 19 reference прямо показывает гонку ответов из-за разного порядка завершения запросов и защиту от устаревшего результата; точного русского первичного источника нет."
   },
   {
@@ -134,7 +134,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5.",
+    "section": "MDN Glossary: Debounce",
     "englishReason": "У текущего MDN нет эквивалентной русской страницы, а официальный glossary точно фиксирует leading/trailing debounce и отличие от throttle."
   },
   {
@@ -144,7 +144,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5.",
+    "section": "MDN Glossary: Throttle",
     "englishReason": "У текущего MDN нет эквивалентной русской страницы, а официальный glossary описывает частотный лимит и его связь с debounce."
   },
   {
@@ -154,7 +154,7 @@
     "language": "en",
     "format": "article",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5.",
+    "section": "AWS Builders' Library: Timeouts, retries and backoff with jitter",
     "englishReason": "Официальный инженерный материал AWS подробно связывает ограниченные retry, exponential backoff, jitter и риск перегрузки; сопоставимого первичного русскоязычного источника нет."
   },
   {
@@ -164,7 +164,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5.",
+    "section": "p-limit: Limit promise concurrency",
     "englishReason": "Официальный README текущей библиотеки показывает минимальный API ограничения числа одновременно выполняемых Promise; точного русскоязычного первичного источника нет."
   },
   {
@@ -174,7 +174,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.6."
+    "section": "Методы массивов"
   },
   {
     "id": "javascript-info-map-set",
@@ -183,7 +183,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.6."
+    "section": "Map и Set"
   },
   {
     "id": "javascript-info-weakmap-weakset",
@@ -192,7 +192,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.6."
+    "section": "WeakMap и WeakSet"
   },
   {
     "id": "javascript-info-iterable",
@@ -201,7 +201,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.6."
+    "section": "Перебираемые объекты"
   },
   {
     "id": "javascript-info-generators",
@@ -210,7 +210,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.6."
+    "section": "Генераторы"
   },
   {
     "id": "typescript-handbook-everyday-types",
@@ -219,7 +219,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "3.1.",
+    "section": "TypeScript Handbook: Everyday Types",
     "englishReason": "Официальный Handbook актуальнее неполных русских переводов и точно описывает современную систему типов."
   },
   {
@@ -229,7 +229,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "3.2.",
+    "section": "TypeScript Handbook: Narrowing",
     "englishReason": "Официальная глава содержит полную актуальную модель control-flow narrowing и exhaustive checking."
   },
   {
@@ -239,7 +239,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "3.3.",
+    "section": "TypeScript Handbook: Generics",
     "englishReason": "Официальная глава является первичным и наиболее точным источником по выводу и ограничениям generic-параметров."
   },
   {
@@ -249,7 +249,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "3.4.",
+    "section": "TypeScript Handbook: Creating Types from Types",
     "englishReason": "Официальный индекс связывает utility, mapped, conditional и template literal types без расхождений между версиями."
   },
   {
@@ -259,7 +259,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "3.5.",
+    "section": "Zod: Basic usage",
     "englishReason": "Официальная документация Zod 4 точно показывает runtime-проверку недоверенных данных и вывод TypeScript-типа."
   },
   {
@@ -269,7 +269,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "3.6.",
+    "section": "React: Using TypeScript",
     "englishReason": "Официальная документация React 19 содержит актуальные типы событий, хуков и JSX; русские материалы часто описывают старые версии."
   },
   {
@@ -279,7 +279,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "3.7.",
+    "section": "TypeScript TSConfig Reference",
     "englishReason": "Официальный справочник синхронизирован с текущим компилятором и является источником истины для строгих опций."
   },
   {
@@ -299,7 +299,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.1.",
+    "section": "React: Preserving and Resetting State",
     "englishReason": "Официальная глава актуально объясняет component identity, позицию в дереве и роль key."
   },
   {
@@ -309,7 +309,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.2.",
+    "section": "React: Choosing the State Structure",
     "englishReason": "Официальная глава даёт текущие правила минимального состояния и устранения противоречивых данных."
   },
   {
@@ -319,7 +319,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.4.",
+    "section": "React: Sharing State Between Components",
     "englishReason": "Официальная глава точно описывает controlled-компоненты, lifting state up и single source of truth в современной React-модели."
   },
   {
@@ -329,7 +329,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.3.",
+    "section": "React: Synchronizing with Effects",
     "englishReason": "Официальная документация React 19 отражает текущую семантику Effects, cleanup и Strict Mode."
   },
   {
@@ -339,7 +339,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.4.",
+    "section": "React: Passing Props to a Component",
     "englishReason": "Официальная документация React 19 прямо показывает children как композиционный слот и актуальную модель props; равного текущего русского первичного источника нет."
   },
   {
@@ -349,7 +349,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.4.",
+    "section": "React: Reusing Logic with Custom Hooks",
     "englishReason": "Официальная глава показывает актуальную границу между переиспользованием UI через композицию и логики через Hooks."
   },
   {
@@ -359,7 +359,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.5.",
+    "section": "React: Scaling Up with Reducer and Context",
     "englishReason": "Официальный пример даёт современную базовую модель Context, provider и reducer без привязки к стороннему store."
   },
   {
@@ -369,7 +369,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.5.",
+    "section": "TanStack Query: Overview",
     "englishReason": "Официальная документация TanStack Query v5 точно разграничивает удалённый server state и синхронный client state."
   },
   {
@@ -389,7 +389,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.7.",
+    "section": "TanStack Query: Queries",
     "englishReason": "Официальная документация TanStack Query v5 задаёт актуальные pending, error и success-состояния результата; русская документация текущей версии отсутствует."
   },
   {
@@ -399,7 +399,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.7.",
+    "section": "TanStack Query: Network Mode",
     "englishReason": "Официальная документация TanStack Query v5 точно описывает offline и paused-состояния запросов; русская документация текущей версии отсутствует."
   },
   {
@@ -409,7 +409,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.7.",
+    "section": "TanStack Query: Important Defaults",
     "englishReason": "Официальная документация TanStack Query v5 объясняет stale data, background refetch и cache defaults; русская документация текущей версии отсутствует."
   },
   {
@@ -419,7 +419,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.7.",
+    "section": "TanStack Query: Query Retries",
     "englishReason": "Официальная документация TanStack Query v5 показывает ограничение числа повторов и exponential retry delay; русская документация текущей версии отсутствует."
   },
   {
@@ -429,7 +429,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.7.",
+    "section": "TanStack Query: Optimistic Updates",
     "englishReason": "Официальная документация TanStack Query v5 показывает optimistic update, rollback и refetch при ошибке; русская документация текущей версии отсутствует."
   },
   {
@@ -439,7 +439,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.8.",
+    "section": "React DOM: input",
     "englishReason": "Официальный React 19 reference содержит актуальные правила controlled и uncontrolled inputs и доступной разметки."
   },
   {
@@ -449,7 +449,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.8.",
+    "section": "React Hook Form: useForm",
     "englishReason": "Официальная документация библиотеки актуально описывает register, formState, schema resolver и server errors; равного текущего русскоязычного первичного источника нет."
   },
   {
@@ -459,7 +459,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.8.",
+    "section": "React Hook Form: useFieldArray",
     "englishReason": "Официальная документация библиотеки является точным текущим источником по динамическим строкам, операциям field array и стабильному field.id; русского первичного источника нет."
   },
   {
@@ -469,7 +469,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "Обзор протокола HTTP"
   },
   {
     "id": "mdn-ru-url",
@@ -478,7 +478,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "URI и устройство URL"
   },
   {
     "id": "firefox-network-monitor",
@@ -487,7 +487,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7.",
+    "section": "Firefox DevTools: Network Monitor",
     "englishReason": "Официальная документация Firefox DevTools актуально описывает поля и последовательность запросов в Network Monitor; равноценного текущего русского руководства нет."
   },
   {
@@ -497,7 +497,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "Методы HTTP-запроса"
   },
   {
     "id": "mdn-ru-http-status",
@@ -506,7 +506,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "Коды состояния ответа HTTP"
   },
   {
     "id": "github-rest-api-best-practices",
@@ -515,7 +515,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7.",
+    "section": "GitHub REST API: Best practices",
     "englishReason": "Официальное руководство GitHub связывает server-provided pagination, rate-limit headers, Retry-After и ограниченный exponential retry в одном актуальном API-контракте."
   },
   {
@@ -525,7 +525,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7.",
+    "section": "Stripe API: Idempotent requests",
     "englishReason": "Официальный Stripe API Reference точно описывает серверную семантику idempotency key для безопасного повтора mutation; равноценного русского первичного источника нет."
   },
   {
@@ -535,7 +535,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "AbortController"
   },
   {
     "id": "mdn-abort-signal-timeout",
@@ -544,7 +544,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7.",
+    "section": "MDN: AbortSignal.timeout()",
     "englishReason": "Актуальная официальная страница MDN точно описывает AbortSignal.timeout(), TimeoutError и объединение timeout с пользовательской отменой через AbortSignal.any()."
   },
   {
@@ -554,7 +554,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "HTTP-кеширование"
   },
   {
     "id": "doka-cors",
@@ -563,7 +563,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "Что такое CORS"
   },
   {
     "id": "mdn-ru-cache-control",
@@ -572,7 +572,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "Cache-Control"
   },
   {
     "id": "mdn-ru-websockets",
@@ -581,7 +581,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "WebSockets API"
   },
   {
     "id": "mdn-ru-server-sent-events",
@@ -590,7 +590,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "7."
+    "section": "Использование Server-Sent Events"
   },
   {
     "id": "mdn-ru-rendering-fundamentals",
@@ -599,7 +599,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8."
+    "section": "Основы браузерного рендеринга"
   },
   {
     "id": "mdn-ru-dom",
@@ -608,7 +608,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8."
+    "section": "Объектная модель документа"
   },
   {
     "id": "doka-events",
@@ -617,7 +617,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8."
+    "section": "Событийная модель"
   },
   {
     "id": "doka-focus-event",
@@ -626,7 +626,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8."
+    "section": "Событие focus"
   },
   {
     "id": "doka-browser-environment",
@@ -635,7 +635,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8."
+    "section": "Браузерное окружение и BOM"
   },
   {
     "id": "doka-browser-storages",
@@ -644,7 +644,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8."
+    "section": "Хранение данных в браузере"
   },
   {
     "id": "mdn-ru-indexeddb",
@@ -653,7 +653,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8."
+    "section": "IndexedDB"
   },
   {
     "id": "mdn-service-worker-api",
@@ -662,7 +662,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8.",
+    "section": "MDN: Service Worker API",
     "englishReason": "Актуальная официальная страница MDN описывает lifecycle, network interception и Cache API service worker; русская версия не даёт сопоставимо полного текущего материала."
   },
   {
@@ -672,7 +672,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8.",
+    "section": "MDN: Web Workers API",
     "englishReason": "Актуальная официальная страница MDN точно разделяет dedicated Web Worker, main thread и отсутствие DOM access; равноценного текущего русского обзора нет."
   },
   {
@@ -682,7 +682,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "8."
+    "section": "HTTP-кеширование в браузере"
   },
   {
     "id": "tanstack-query-v5-quick-start",
@@ -701,7 +701,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Queries",
     "englishReason": "Официальное руководство TanStack Query v5 точно описывает query functions и состояния useQuery; русская документация текущей версии отсутствует."
   },
   {
@@ -711,7 +711,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Query Keys",
     "englishReason": "Официальное руководство TanStack Query v5 задаёт актуальные правила сериализации и состава query keys; русского первичного источника нет."
   },
   {
@@ -721,7 +721,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Important Defaults",
     "englishReason": "Официальное руководство TanStack Query v5 актуально объясняет staleTime, gcTime, retries и background refetch; русского эквивалента нет."
   },
   {
@@ -731,7 +731,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Query Invalidation",
     "englishReason": "Официальная документация TanStack Query v5 является текущим источником по invalidateQueries и совпадению ключей; русского первичного источника нет."
   },
   {
@@ -741,7 +741,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Caching Examples",
     "englishReason": "Официальный пример TanStack Query v5 показывает переходы fresh, stale, inactive и garbage-collected cache; русского актуального аналога нет."
   },
   {
@@ -751,7 +751,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Dependent Queries",
     "englishReason": "Официальное руководство TanStack Query v5 актуально описывает enabled и зависимые запросы; русского первичного источника нет."
   },
   {
@@ -761,7 +761,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Paginated Queries",
     "englishReason": "Официальная документация TanStack Query v5 показывает placeholderData и устойчивый интерфейс пагинации; русского актуального источника нет."
   },
   {
@@ -771,7 +771,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Prefetching",
     "englishReason": "Официальное руководство TanStack Query v5 актуально описывает prefetchQuery, staleTime и router integration; русского эквивалента нет."
   },
   {
@@ -781,7 +781,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Infinite Queries",
     "englishReason": "Официальное руководство TanStack Query v5 задаёт текущие pages, pageParams и getNextPageParam для useInfiniteQuery; русского первичного источника нет."
   },
   {
@@ -791,7 +791,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Server Rendering & Hydration",
     "englishReason": "Официальное руководство TanStack Query v5 актуально описывает per-request QueryClient, prefetch, dehydrate и hydration; русского первичного источника нет."
   },
   {
@@ -801,7 +801,7 @@
     "language": "en",
     "format": "exercise",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Offline example",
     "englishReason": "Официальный интерактивный пример TanStack Query v5 показывает paused queries, offline simulation и reconnect; равноценного актуального русского практикума нет."
   },
   {
@@ -811,7 +811,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Optimistic Updates",
     "englishReason": "Официальное руководство TanStack Query v5 содержит текущий алгоритм cancel, snapshot, rollback и invalidation; русского первичного источника нет."
   },
   {
@@ -821,7 +821,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Mutations",
     "englishReason": "Официальная документация TanStack Query v5 точно описывает жизненный цикл useMutation и обработчики ошибок; русского актуального аналога нет."
   },
   {
@@ -831,7 +831,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "TanStack Query v5: Query Cancellation",
     "englishReason": "Официальное руководство TanStack Query v5 задаёт актуальную передачу AbortSignal и отмену запросов; русского первичного источника нет."
   },
   {
@@ -841,7 +841,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "OWASP Cross Site Scripting Prevention Cheat Sheet",
     "englishReason": "OWASP даёт первичные актуальные защитные правила по контекстному экранированию, sanitization и опасным DOM sinks; русского равноценного источника нет."
   },
   {
@@ -851,7 +851,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9."
+    "section": "Веб-безопасность"
   },
   {
     "id": "portswigger-xss-labs",
@@ -860,7 +860,7 @@
     "language": "en",
     "format": "exercise",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "Web Security Academy: XSS labs",
     "englishReason": "PortSwigger Web Security Academy предоставляет специально изолированные законные XSS-лаборатории с синтетической жертвой; русского эквивалента такого качества нет."
   },
   {
@@ -880,7 +880,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9."
+    "section": "Хранение данных в браузере: риски Web Storage"
   },
   {
     "id": "owasp-authentication",
@@ -889,7 +889,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "OWASP Authentication Cheat Sheet",
     "englishReason": "OWASP систематизирует текущие требования к аутентификации, повторной проверке и управлению сессией; полного русского первичного руководства нет."
   },
   {
@@ -899,7 +899,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "RFC 9700 §4.14.2: Refresh Token Rotation",
     "englishReason": "Точный нормативный раздел IETF RFC 9700 описывает refresh-token rotation, обнаружение повторного использования и отзыв активной token family."
   },
   {
@@ -909,7 +909,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "OWASP Cross-Site Request Forgery Prevention Cheat Sheet",
     "englishReason": "OWASP является актуальным первичным источником по CSRF tokens, SameSite и ограничениям CORS как защиты; русского эквивалента нет."
   },
   {
@@ -928,7 +928,7 @@
     "language": "en",
     "format": "exercise",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "Web Security Academy: CSRF labs",
     "englishReason": "PortSwigger Web Security Academy даёт специально созданные безопасные CSRF-лаборатории и проверяемые упражнения; русского равноценного практикума нет."
   },
   {
@@ -938,7 +938,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9."
+    "section": "Content Security Policy"
   },
   {
     "id": "owasp-http-headers",
@@ -957,7 +957,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "OWASP Unvalidated Redirects and Forwards Cheat Sheet",
     "englishReason": "Точный официальный OWASP Cheat Sheet покрывает open redirect, безопасные фиксированные destinations и строгую проверку недоверенного URL."
   },
   {
@@ -967,7 +967,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "OWASP Vulnerable Dependency Management Cheat Sheet",
     "englishReason": "OWASP даёт актуальный защитный процесс dependency audit и управления supply-chain риском; равноценного русского первичного источника нет."
   },
   {
@@ -977,7 +977,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "RFC 9700: Best Current Practice for OAuth 2.0 Security",
     "englishReason": "IETF RFC 9700 — действующий Best Current Practice по OAuth 2.0, PKCE, redirect URI и token rotation; русского нормативного аналога нет."
   },
   {
@@ -987,7 +987,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "IETF OAuth for Browser-Based Apps §6.1: BFF",
     "englishReason": "Точный текущий документ IETF OAuth WG описывает Backend-for-Frontend как confidential client, server-side token holder и API proxy для browser app."
   },
   {
@@ -997,7 +997,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "OpenID Connect Core 1.0",
     "englishReason": "Официальная спецификация OpenID Foundation точно отделяет identity layer и ID Token от OAuth authorization; русского нормативного источника нет."
   },
   {
@@ -1017,7 +1017,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.1."
+    "section": "Как и зачем писать тесты"
   },
   {
     "id": "doka-testing-doubles",
@@ -1026,7 +1026,7 @@
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.1."
+    "section": "Фиктивные объекты и данные, моки, стабы"
   },
   {
     "id": "vitest-guide",
@@ -1035,7 +1035,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.2.",
+    "section": "Vitest Guide",
     "englishReason": "Официальное руководство Vitest 4 отражает текущий test runner, setup и environments; актуального русского первичного источника нет."
   },
   {
@@ -1045,7 +1045,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.2.",
+    "section": "Vitest: Mocking",
     "englishReason": "Официальная документация Vitest 4 точно описывает vi.fn, spies, module mocks и очистку состояния; русского эквивалента нет."
   },
   {
@@ -1055,7 +1055,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.2.",
+    "section": "Vitest: Timers",
     "englishReason": "Официальное руководство Vitest 4 содержит актуальный API fake timers и управление временем; русского первичного источника нет."
   },
   {
@@ -1075,7 +1075,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.3.",
+    "section": "Testing Library: user-event",
     "englishReason": "Официальная документация user-event 14 описывает актуальную симуляцию пользовательских взаимодействий; русского первичного руководства нет."
   },
   {
@@ -1085,7 +1085,7 @@
     "language": "en",
     "format": "exercise",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.3.",
+    "section": "React Testing Library: Example",
     "englishReason": "Официальный пример React Testing Library показывает render, userEvent и async role assertions вместе; равноценного актуального русского примера нет."
   },
   {
@@ -1095,7 +1095,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.4.",
+    "section": "MSW 2: Node.js integration",
     "englishReason": "Официальная документация MSW 2 актуально показывает setupServer и изоляцию handlers между Vitest-тестами; русского первичного источника нет."
   },
   {
@@ -1105,7 +1105,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.4.",
+    "section": "MSW 2: Response resolver",
     "englishReason": "Официальная документация MSW 2 задаёт текущие http handlers, HttpResponse и response resolver; русского первичного источника нет."
   },
   {
@@ -1115,7 +1115,7 @@
     "language": "en",
     "format": "exercise",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.4.",
+    "section": "MSW 2: Network behavior overrides",
     "englishReason": "Официальная документация MSW 2 показывает локальные success, error и delayed overrides с resetHandlers; русского актуального практикума нет."
   },
   {
@@ -1135,7 +1135,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.5.",
+    "section": "Playwright: Locators",
     "englishReason": "Официальная документация Playwright задаёт текущий приоритет getByRole и пользовательских локаторов; русского первичного источника нет."
   },
   {
@@ -1145,7 +1145,7 @@
     "language": "en",
     "format": "exercise",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.5.",
+    "section": "Playwright: Trace Viewer",
     "englishReason": "Официальная документация Playwright актуально показывает запись и разбор trace локального E2E-теста; русского первичного руководства нет."
   },
   {

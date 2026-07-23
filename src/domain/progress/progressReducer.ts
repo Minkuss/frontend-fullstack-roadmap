@@ -39,7 +39,7 @@ function assertTimestamp(at: string) {
 
 function addThreeDays(at: string) {
   const dueAt = new Date(at)
-  dueAt.setUTCDate(dueAt.getUTCDate() + 3)
+  dueAt.setDate(dueAt.getDate() + 3)
   return dueAt.toISOString()
 }
 

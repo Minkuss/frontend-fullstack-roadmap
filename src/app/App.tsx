@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+import { roadmapIndex } from '../content/loadRoadmap'
 import { EmptyState } from '../ui/EmptyState'
 import { FocusPage } from '../features/focus/FocusPage'
 import { RoadmapPage } from '../features/roadmap/RoadmapPage'
@@ -79,6 +81,26 @@ function getSystemNow() {
 export function App({ getNow = getSystemNow }: AppProps) {
   const route = useHashRoute()
   const { storageWarning } = useProgress()
+  const routeKey =
+    route.page === 'topic' ? `topic:${route.topicId}` : route.page
+  const previousRouteKey = useRef<string | null>(null)
+  const pageTitle =
+    route.page === 'topic'
+      ? roadmapIndex.topics.get(route.topicId)?.topic.title ?? 'Тема'
+      : PAGE_COPY[route.page].title
+
+  useEffect(() => {
+    document.title = `${pageTitle} — Frontend Path`
+
+    if (
+      previousRouteKey.current !== null &&
+      previousRouteKey.current !== routeKey
+    ) {
+      document.getElementById('main-content')?.focus({ preventScroll: true })
+    }
+
+    previousRouteKey.current = routeKey
+  }, [pageTitle, routeKey])
 
   return (
     <AppShell route={route} storageWarning={storageWarning}>

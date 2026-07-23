@@ -17,8 +17,13 @@
           "whyNow": "Без этой модели CORS, кеширование, отмена запросов и server state выглядят набором несвязанных настроек.",
           "priority": "critical",
           "recommendationWeight": 98,
-          "estimatedMinutes": [75, 105],
-          "dependencies": ["promise-basics"],
+          "estimatedMinutes": [
+            75,
+            105
+          ],
+          "dependencies": [
+            "promise-basics"
+          ],
           "sourceIds": {
             "primary": "mdn-ru-http-overview",
             "fallback": "mdn-ru-url",
@@ -77,8 +82,13 @@
           "whyNow": "Retry и интерфейсная реакция безопасны только тогда, когда клиент понимает семантику метода и ответа.",
           "priority": "high",
           "recommendationWeight": 90,
-          "estimatedMinutes": [65, 90],
-          "dependencies": ["http-request-lifecycle"],
+          "estimatedMinutes": [
+            65,
+            90
+          ],
+          "dependencies": [
+            "http-request-lifecycle"
+          ],
           "sourceIds": {
             "primary": "mdn-ru-http-methods",
             "fallback": "mdn-ru-http-status",
@@ -131,11 +141,14 @@
           "whyNow": "Устойчивый клиент ограничивает повтор, уважает серверные сигналы и не позволяет позднему ответу или дублю операции испортить UI.",
           "priority": "high",
           "recommendationWeight": 92,
-          "estimatedMinutes": [90, 120],
+          "estimatedMinutes": [
+            90,
+            120
+          ],
           "dependencies": [
             "http-semantics-status",
             "async-cancellation-races",
-            "async-retry-concurrency"
+            "async-retry-backoff"
           ],
           "sourceIds": {
             "primary": "github-rest-api-best-practices",
@@ -186,60 +199,116 @@
           ]
         },
         {
-          "id": "http-cache-cors-credentials",
-          "title": "HTTP-кеш, CORS и credentials",
-          "outcome": "Настроить модель Cache-Control и ETag и объяснить CORS, preflight, cookies и credentials без смешения кеша и security policy.",
-          "whyNow": "Ошибки здесь создают устаревшие данные, лишний трафик и небезопасные обходы браузерных ограничений.",
+          "id": "http-cache-validation",
+          "title": "HTTP-кеш и повторная валидация",
+          "outcome": "Настроить Cache-Control, ETag и conditional request для статики и изменяемого ответа.",
+          "whyNow": "Кеширование — отдельный lifecycle свежести данных, не связанный с разрешением cross-origin запросов.",
           "priority": "high",
-          "recommendationWeight": 90,
-          "estimatedMinutes": [80, 110],
-          "dependencies": ["http-request-lifecycle"],
+          "recommendationWeight": 85,
+          "estimatedMinutes": [
+            55,
+            80
+          ],
+          "dependencies": [
+            "http-request-lifecycle"
+          ],
           "sourceIds": {
             "primary": "mdn-ru-http-caching",
-            "fallback": "doka-cors",
             "practice": "mdn-ru-cache-control"
           },
           "obsidianPrompts": [
-            "Сравни freshness и validation через Cache-Control, ETag и conditional request.",
-            "Нарисуй решение браузера: simple CORS request, preflight и credentials."
+            "Нарисуй fresh, stale и revalidated response.",
+            "Сравни Cache-Control для fingerprinted статики и API-ответа."
           ],
           "ankiPrompts": [
-            "Чем no-cache отличается от no-store?",
-            "Как ETag приводит к ответу 304?",
-            "Когда браузер отправляет preflight?",
-            "Почему CORS не является CSRF-защитой?"
+            "Объяснить max-age.",
+            "Назвать роль ETag.",
+            "Предсказать ответ 304.",
+            "Различить no-cache и no-store."
           ],
           "practice": [
             {
-              "id": "cache-static-and-cors",
-              "title": "Кеш статики и CORS-контракт",
+              "id": "exercise-http-cache-validation",
+              "title": "Кеширование двух ресурсов",
               "instructions": [
-                "Для локального набора hashed assets предложить Cache-Control, а для HTML — политику валидации.",
-                "Проверить в Network повторную загрузку и условный запрос с ETag.",
-                "Описать preflight и credentials для одного локального cross-origin API-запроса."
+                "Задать долгий immutable cache для fingerprinted файла.",
+                "Задать ETag и повторную валидацию для изменяемого JSON.",
+                "Проверить заголовки и 304 в Network panel."
               ],
-              "minimumCompletion": "Две обоснованные cache policy и один проверенный CORS-сценарий с ожидаемыми request и response headers.",
-              "estimatedMinutes": 45
+              "minimumCompletion": "Статика берётся из свежего кеша, JSON повторно валидируется, выбор директив объяснён.",
+              "estimatedMinutes": 40
             }
           ],
           "masteryChecks": [
-            "Не считаю 304 ответом с новым телом.",
-            "Объясняю, кто именно применяет CORS.",
-            "Различаю browser cache, server-state cache и cookie storage."
+            "Предсказать использование кеша по заголовкам.",
+            "Объяснить ETag и 304.",
+            "Выбрать политику для нового ресурса."
           ],
           "quickSteps": [
-            "За 10 минут объясни Cache-Control одного hashed asset и одного HTML-документа."
+            "За 10 минут сравнить Cache-Control для JS bundle и API JSON."
           ],
           "sourceRefs": [
-            "L0939",
             "L0940",
             "L0941",
             "L0942",
             "L0943",
+            "L0964"
+          ]
+        },
+        {
+          "id": "http-cors-credentials",
+          "title": "CORS, preflight и credentials",
+          "outcome": "Объяснить CORS-проверку, preflight и отправку cookies через credentials без выдачи CORS за CSRF-защиту.",
+          "whyNow": "Cross-origin policy и cookie transport образуют одну границу браузера, но не определяют свежесть ответа.",
+          "priority": "high",
+          "recommendationWeight": 86,
+          "estimatedMinutes": [
+            55,
+            80
+          ],
+          "dependencies": [
+            "http-request-lifecycle"
+          ],
+          "sourceIds": {
+            "primary": "doka-cors"
+          },
+          "obsidianPrompts": [
+            "Нарисуй origin, simple request и preflight exchange.",
+            "Запиши условия credentials вместе с конкретным Allow-Origin."
+          ],
+          "ankiPrompts": [
+            "Определить origin.",
+            "Назвать причину preflight.",
+            "Объяснить credentials include.",
+            "Почему wildcard несовместим с credentialed response?",
+            "Почему CORS не заменяет CSRF defense?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-http-cors-credentials",
+              "title": "Синтетический cross-origin запрос",
+              "instructions": [
+                "Поднять два локальных origin на разных портах.",
+                "Сравнить simple request и запрос с preflight.",
+                "Проверить cookies при credentials omit и include."
+              ],
+              "minimumCompletion": "В локальном примере видны preflight и credential rules, CORS не описан как CSRF defense.",
+              "estimatedMinutes": 40
+            }
+          ],
+          "masteryChecks": [
+            "Предсказать наличие preflight.",
+            "Объяснить credentialed CORS response.",
+            "Отделить CORS от CSRF."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать preflight и основной запрос."
+          ],
+          "sourceRefs": [
+            "L0939",
             "L0944",
             "L0945",
-            "L0946",
-            "L0964"
+            "L0946"
           ]
         },
         {
@@ -249,8 +318,13 @@
           "whyNow": "Realtime не означает автоматически WebSocket: выбор транспорта должен следовать продуктовой задаче и ограничениям клиента.",
           "priority": "supporting",
           "recommendationWeight": 72,
-          "estimatedMinutes": [55, 80],
-          "dependencies": ["http-request-lifecycle"],
+          "estimatedMinutes": [
+            55,
+            80
+          ],
+          "dependencies": [
+            "http-request-lifecycle"
+          ],
           "sourceIds": {
             "primary": "mdn-ru-websockets",
             "fallback": "mdn-ru-server-sent-events"
@@ -286,10 +360,18 @@
           "quickSteps": [
             "За 10 минут выбери transport для трёх коротких продуктовых сценариев."
           ],
-          "sourceRefs": ["L0953", "L0954", "L0955", "L0956", "L0963"]
+          "sourceRefs": [
+            "L0953",
+            "L0954",
+            "L0955",
+            "L0956",
+            "L0963"
+          ]
         }
       ],
-      "sourceRefs": ["L0918"]
+      "sourceRefs": [
+        "L0918"
+      ]
     },
     {
       "id": "browser-platform",
@@ -303,8 +385,13 @@
           "whyNow": "Эта модель связывает изменение DOM и стилей с видимым результатом и помогает локализовать причины неожиданного поведения UI.",
           "priority": "high",
           "recommendationWeight": 88,
-          "estimatedMinutes": [80, 110],
-          "dependencies": ["event-loop"],
+          "estimatedMinutes": [
+            80,
+            110
+          ],
+          "dependencies": [
+            "event-loop"
+          ],
           "sourceIds": {
             "primary": "mdn-ru-rendering-fundamentals",
             "fallback": "mdn-ru-dom"
@@ -364,8 +451,14 @@
           "whyNow": "Компонентные баги часто возникают не в state, а из-за неверной модели распространения события или вмешательства в поведение браузера.",
           "priority": "high",
           "recommendationWeight": 86,
-          "estimatedMinutes": [70, 100],
-          "dependencies": ["functions-this", "browser-rendering-pipeline"],
+          "estimatedMinutes": [
+            70,
+            100
+          ],
+          "dependencies": [
+            "functions-this",
+            "browser-rendering-pipeline"
+          ],
           "sourceIds": {
             "primary": "doka-events",
             "fallback": "doka-focus-event"
@@ -401,7 +494,14 @@
           "quickSteps": [
             "За 10 минут предскажи порядок пяти capture и bubble handlers."
           ],
-          "sourceRefs": ["L0988", "L0989", "L0990", "L0991", "L0992", "L0993"]
+          "sourceRefs": [
+            "L0988",
+            "L0989",
+            "L0990",
+            "L0991",
+            "L0992",
+            "L0993"
+          ]
         },
         {
           "id": "browser-navigation-storage",
@@ -410,8 +510,13 @@
           "whyNow": "Навигация и browser storage похожи простым API, но различаются синхронностью, сроком жизни, размером и областью доступности.",
           "priority": "supporting",
           "recommendationWeight": 76,
-          "estimatedMinutes": [65, 95],
-          "dependencies": ["values-references"],
+          "estimatedMinutes": [
+            65,
+            95
+          ],
+          "dependencies": [
+            "values-references"
+          ],
           "sourceIds": {
             "primary": "doka-browser-environment",
             "fallback": "doka-browser-storages",
@@ -458,55 +563,166 @@
           ]
         },
         {
-          "id": "browser-workers-cache",
-          "title": "Service worker, Web Worker и browser cache",
-          "outcome": "Различать service worker и Web Worker и применить versioned Cache API, не смешивая управляемый cache storage с browser HTTP cache.",
-          "whyNow": "Workers решают разные задачи, а неверная модель browser cache приводит к устаревшему app shell или блокировке main thread.",
+          "id": "browser-service-worker-cache",
+          "title": "Service Worker и Cache API",
+          "outcome": "Реализовать базовый Service Worker lifecycle и versioned Cache API для одного offline shell.",
+          "whyNow": "Service Worker перехватывает сетевые запросы и управляет Cache API, поэтому требует отдельной модели lifecycle.",
           "priority": "supporting",
-          "recommendationWeight": 74,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["browser-rendering-pipeline", "promise-basics"],
+          "recommendationWeight": 75,
+          "estimatedMinutes": [
+            65,
+            95
+          ],
+          "dependencies": [
+            "browser-navigation-storage",
+            "promise-basics"
+          ],
           "sourceIds": {
-            "primary": "mdn-service-worker-api",
-            "fallback": "mdn-web-workers-api",
-            "practice": "mdn-ru-browser-http-cache"
+            "primary": "mdn-service-worker-api"
           },
           "obsidianPrompts": [
-            "Сравни service worker и Web Worker по lifecycle, DOM access, network interception и сообщениям.",
-            "Раздели browser HTTP cache, Cache API и данные приложения по владельцу и invalidation."
+            "Нарисуй install, activate и fetch события Service Worker.",
+            "Раздели browser HTTP cache и управляемый Cache API."
           ],
           "ankiPrompts": [
-            "Почему Web Worker не может напрямую менять DOM?",
-            "Какие install и activate задачи выполняет service worker?",
-            "Чем Cache API отличается от browser HTTP cache?",
-            "Зачем версионировать app-shell cache?"
+            "Назвать scope Service Worker.",
+            "Объяснить install и activate.",
+            "Назвать причину versioned cache.",
+            "Различить Cache API и HTTP cache."
           ],
           "practice": [
             {
-              "id": "worker-and-versioned-cache",
-              "title": "Worker-вычисление и versioned app-shell cache",
+              "id": "exercise-browser-service-worker-cache",
+              "title": "Offline shell",
               "instructions": [
-                "В локальном приложении перенести синтетическое преобразование данных в Web Worker и вернуть результат через postMessage без доступа к DOM.",
-                "На localhost зарегистрировать минимальный service worker с install, activate и versioned Cache API для app shell.",
-                "Проверить offline reload и объяснить отдельно роль Cache API и browser HTTP cache headers."
+                "Зарегистрировать Service Worker в локальном приложении.",
+                "Сохранить один versioned app shell в Cache API.",
+                "Удалить старую версию cache при activate."
               ],
-              "minimumCompletion": "Локальный Web Worker не блокирует UI, service worker обслуживает versioned app shell offline, а схема различает два механизма browser cache.",
-              "estimatedMinutes": 65
+              "minimumCompletion": "Локальный shell открывается offline, cache имеет версию, старая версия удаляется при activate.",
+              "estimatedMinutes": 50
             }
           ],
           "masteryChecks": [
-            "Не использую Web Worker как сетевой proxy.",
-            "Не даю service worker прямой доступ к DOM.",
-            "Удаляю старый versioned cache в контролируемом lifecycle.",
-            "Различаю Cache API и browser HTTP cache."
+            "Объяснить lifecycle Service Worker.",
+            "Различить Cache API и HTTP cache.",
+            "Найти stale cache без version cleanup."
           ],
           "quickSteps": [
-            "За 15 минут распредели четыре задачи между main thread, Web Worker, service worker и browser cache."
+            "За 15 минут нарисовать install, activate и fetch."
           ],
-          "sourceRefs": ["L1000", "L1001", "L1002"]
+          "sourceRefs": [
+            "L1000"
+          ]
+        },
+        {
+          "id": "browser-web-worker",
+          "title": "Web Worker для вычислений",
+          "outcome": "Реализовать обмен сообщениями с Web Worker и вынести CPU-задачу с main thread.",
+          "whyNow": "Web Worker решает вычислительную задачу и не управляет сетью или offline cache.",
+          "priority": "supporting",
+          "recommendationWeight": 72,
+          "estimatedMinutes": [
+            45,
+            70
+          ],
+          "dependencies": [
+            "browser-rendering-pipeline"
+          ],
+          "sourceIds": {
+            "primary": "mdn-web-workers-api"
+          },
+          "obsidianPrompts": [
+            "Нарисуй границу main thread и worker через postMessage.",
+            "Запиши ограничения доступа worker к DOM."
+          ],
+          "ankiPrompts": [
+            "Почему worker не меняет DOM напрямую?",
+            "Как данные попадают в worker?",
+            "Когда полезен transferable object?",
+            "Чем Web Worker отличается от Service Worker?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-browser-web-worker",
+              "title": "Вычисление вне main thread",
+              "instructions": [
+                "Передать массив чисел в локальный Web Worker.",
+                "Посчитать агрегат и вернуть результат сообщением.",
+                "Проверить отзывчивость кнопки во время вычисления."
+              ],
+              "minimumCompletion": "Результат совпадает с main-thread версией, UI остаётся отзывчивым, DOM не используется в worker.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить message boundary.",
+            "Выбрать задачу для worker.",
+            "Найти попытку доступа к DOM."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать обмен двумя сообщениями с worker."
+          ],
+          "sourceRefs": [
+            "L1001"
+          ]
+        },
+        {
+          "id": "browser-http-cache",
+          "title": "Browser HTTP cache",
+          "outcome": "Объяснить решение browser HTTP cache по freshness и validation на примере навигации и reload.",
+          "whyNow": "Browser cache применяет HTTP-заголовки автоматически и не равен хранилищу Cache API.",
+          "priority": "supporting",
+          "recommendationWeight": 73,
+          "estimatedMinutes": [
+            40,
+            65
+          ],
+          "dependencies": [
+            "http-cache-validation"
+          ],
+          "sourceIds": {
+            "primary": "mdn-ru-browser-http-cache"
+          },
+          "obsidianPrompts": [
+            "Нарисуй путь memory cache, disk cache и network validation.",
+            "Сравни normal reload и disable cache в DevTools."
+          ],
+          "ankiPrompts": [
+            "Кто применяет HTTP cache policy?",
+            "Когда браузер делает validation?",
+            "Различить HTTP cache и Cache API.",
+            "Предсказать запрос после reload."
+          ],
+          "practice": [
+            {
+              "id": "exercise-browser-http-cache",
+              "title": "Наблюдение browser cache",
+              "instructions": [
+                "Открыть локальную статику дважды и изучить Size/Transferred.",
+                "Сравнить normal reload и DevTools disable cache.",
+                "Связать наблюдение с Cache-Control и ETag."
+              ],
+              "minimumCompletion": "Три загрузки сравнены, источник ответа виден в Network panel, поведение объяснено заголовками.",
+              "estimatedMinutes": 30
+            }
+          ],
+          "masteryChecks": [
+            "Предсказать cache reuse.",
+            "Отличить reload от validation.",
+            "Не смешивать HTTP cache с Cache API."
+          ],
+          "quickSteps": [
+            "За 10 минут подписать один cache hit и одну validation."
+          ],
+          "sourceRefs": [
+            "L1002"
+          ]
         }
       ],
-      "sourceRefs": ["L0969"]
+      "sourceRefs": [
+        "L0969"
+      ]
     },
     {
       "id": "server-state",
@@ -520,8 +736,14 @@
           "whyNow": "Базовый контракт Query отделяет server state от effect-кода и создаёт основу для кеша, invalidation и mutations.",
           "priority": "critical",
           "recommendationWeight": 97,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["promise-basics", "http-request-lifecycle"],
+          "estimatedMinutes": [
+            90,
+            120
+          ],
+          "dependencies": [
+            "promise-basics",
+            "http-request-lifecycle"
+          ],
           "sourceIds": {
             "primary": "tanstack-query-v5-quick-start",
             "fallback": "tanstack-query-v5-queries",
@@ -579,8 +801,13 @@
           "whyNow": "Оптимистические изменения безопасны только после понимания того, когда данные считаются stale и какие ключи будут обновлены.",
           "priority": "high",
           "recommendationWeight": 93,
-          "estimatedMinutes": [80, 110],
-          "dependencies": ["tanstack-query-basics"],
+          "estimatedMinutes": [
+            80,
+            110
+          ],
+          "dependencies": [
+            "tanstack-query-basics"
+          ],
           "sourceIds": {
             "primary": "tanstack-query-v5-important-defaults",
             "fallback": "tanstack-query-v5-invalidation",
@@ -635,8 +862,13 @@
           "whyNow": "Реальные экраны редко состоят из одного запроса: последовательность, переходы и подготовка кеша определяют корректность данных.",
           "priority": "high",
           "recommendationWeight": 87,
-          "estimatedMinutes": [85, 115],
-          "dependencies": ["tanstack-query-basics"],
+          "estimatedMinutes": [
+            85,
+            115
+          ],
+          "dependencies": [
+            "tanstack-query-basics"
+          ],
           "sourceIds": {
             "primary": "tanstack-query-v5-dependent-queries",
             "fallback": "tanstack-query-v5-paginated-queries",
@@ -685,54 +917,160 @@
           ]
         },
         {
-          "id": "query-runtime-modes",
-          "title": "Infinite queries, SSR hydration и offline mode",
-          "outcome": "Применить useInfiniteQuery, объяснить server rendering через dehydrate/hydrate и предсказать paused-состояние query в offline mode.",
-          "whyNow": "Infinite lists, SSR и потеря сети меняют lifecycle кеша за пределами обычного client-only useQuery и требуют явной модели.",
+          "id": "query-infinite-lists",
+          "title": "Infinite queries",
+          "outcome": "Реализовать useInfiniteQuery с pages, pageParams и корректным getNextPageParam.",
+          "whyNow": "Infinite list имеет особую форму cache data и отдельный цикл загрузки следующей страницы.",
           "priority": "supporting",
           "recommendationWeight": 78,
-          "estimatedMinutes": [95, 125],
-          "dependencies": ["query-flows-prefetch"],
+          "estimatedMinutes": [
+            55,
+            85
+          ],
+          "dependencies": [
+            "query-flows-prefetch"
+          ],
           "sourceIds": {
-            "primary": "tanstack-query-v5-infinite-queries",
-            "fallback": "tanstack-query-v5-ssr",
-            "practice": "tanstack-query-v5-offline-example"
+            "primary": "tanstack-query-v5-infinite-queries"
           },
           "obsidianPrompts": [
-            "Нарисуй pages, pageParams, getNextPageParam и состояние fetchNextPage.",
-            "Проследи SSR flow: per-request QueryClient → prefetch → dehydrate → HydrationBoundary → hydrate.",
-            "Сравни pending, fetching и paused при online, offline и reconnect."
+            "Нарисуй pages, pageParams и getNextPageParam.",
+            "Раздели initial fetch и fetchNextPage."
           ],
           "ankiPrompts": [
-            "Что хранится в data.pages у useInfiniteQuery?",
-            "Зачем getNextPageParam возвращает следующий pageParam?",
-            "Почему QueryClient на сервере создаётся на request?",
-            "Что передаёт dehydrate клиентской hydration boundary?",
-            "Как networkMode влияет на paused query offline?"
+            "Что хранится в data.pages?",
+            "Зачем нужен pageParam?",
+            "Как вычислить hasNextPage?",
+            "Как избежать повторной загрузки страницы?"
           ],
           "practice": [
             {
-              "id": "exercise-query-runtime-modes",
-              "title": "Три runtime-режима server state",
+              "id": "exercise-query-infinite-lists",
+              "title": "Кнопка Load more",
               "instructions": [
-                "В локальном прототипе сделать Load more через useInfiniteQuery и getNextPageParam без дублирования страниц.",
-                "Составить исполнимый SSR-скелет с per-request QueryClient, prefetchQuery, dehydrate и HydrationBoundary/hydrate.",
-                "Сымитировать offline в TanStack Query Devtools, сравнить networkMode и записать переход paused → fetching после reconnect."
+                "Сделать локальный список через useInfiniteQuery.",
+                "Получать следующий cursor из последнего ответа.",
+                "Защитить кнопку от двойного fetchNextPage."
               ],
-              "minimumCompletion": "Работает infinite list, SSR-скелет показывает полную hydration цепочку, а offline trace содержит ожидаемые status и fetchStatus.",
-              "estimatedMinutes": 70
+              "minimumCompletion": "Три страницы добавляются без дублей, pageParams корректны, двойной запрос заблокирован.",
+              "estimatedMinutes": 45
             }
           ],
           "masteryChecks": [
-            "Не смешиваю обычную pagination data с pages и pageParams.",
-            "Не разделяю один server QueryClient между пользовательскими requests.",
-            "Отличаю paused offline query от завершившейся error query.",
-            "Объясняю, когда offlineFirst оправдан реальным cache layer."
+            "Объяснить форму infinite data.",
+            "Вычислить следующий pageParam.",
+            "Найти дублирование страниц."
           ],
           "quickSteps": [
-            "За 15 минут подпиши переходы infinite page, SSR hydration и offline pause."
+            "За 10 минут нарисовать pages и pageParams для трёх ответов."
           ],
-          "sourceRefs": ["L0827", "L0833", "L0835"]
+          "sourceRefs": [
+            "L0827"
+          ]
+        },
+        {
+          "id": "query-ssr-hydration",
+          "title": "SSR hydration server state",
+          "outcome": "Объяснить SSR flow TanStack Query через per-request QueryClient, dehydrate и HydrationBoundary.",
+          "whyNow": "Server rendering переносит готовый cache между средами и требует отдельной границы на каждый request.",
+          "priority": "supporting",
+          "recommendationWeight": 76,
+          "estimatedMinutes": [
+            55,
+            85
+          ],
+          "dependencies": [
+            "tanstack-query-basics"
+          ],
+          "sourceIds": {
+            "primary": "tanstack-query-v5-ssr"
+          },
+          "obsidianPrompts": [
+            "Нарисуй server prefetch, dehydrate и client hydration.",
+            "Объясни, почему QueryClient создаётся на каждый request."
+          ],
+          "ankiPrompts": [
+            "Что передаёт dehydrate?",
+            "Где используется HydrationBoundary?",
+            "Почему server QueryClient не глобальный?",
+            "Как staleTime влияет на refetch после hydration?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-query-ssr-hydration",
+              "title": "SSR-скелет query cache",
+              "instructions": [
+                "Составить локальный исполнимый скелет server prefetch.",
+                "Передать dehydrated state в HydrationBoundary.",
+                "Проверить отсутствие немедленного двойного запроса."
+              ],
+              "minimumCompletion": "Скелет содержит per-request client, prefetch, dehydrate и hydration без общего server cache.",
+              "estimatedMinutes": 45
+            }
+          ],
+          "masteryChecks": [
+            "Воспроизвести hydration flow.",
+            "Объяснить per-request boundary.",
+            "Найти глобальный server QueryClient."
+          ],
+          "quickSteps": [
+            "За 15 минут подписать четыре этапа SSR hydration."
+          ],
+          "sourceRefs": [
+            "L0833"
+          ]
+        },
+        {
+          "id": "query-offline-mode",
+          "title": "Offline network mode",
+          "outcome": "Предсказать status и fetchStatus запроса TanStack Query при offline, pause и reconnect.",
+          "whyNow": "Offline behavior меняет выполнение запроса, но не форму infinite data и не SSR hydration.",
+          "priority": "supporting",
+          "recommendationWeight": 74,
+          "estimatedMinutes": [
+            40,
+            65
+          ],
+          "dependencies": [
+            "tanstack-query-basics"
+          ],
+          "sourceIds": {
+            "primary": "tanstack-query-v5-offline-example"
+          },
+          "obsidianPrompts": [
+            "Нарисуй переход online, paused offline и reconnect.",
+            "Сравни online, always и offlineFirst networkMode."
+          ],
+          "ankiPrompts": [
+            "Что означает fetchStatus paused?",
+            "Чем paused отличается от error?",
+            "Когда запрос продолжится?",
+            "Когда оправдан offlineFirst?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-query-offline-mode",
+              "title": "Offline trace",
+              "instructions": [
+                "Сымитировать offline в локальном приложении.",
+                "Записать status и fetchStatus до и после reconnect.",
+                "Сравнить два networkMode без удаления последних данных."
+              ],
+              "minimumCompletion": "Trace содержит online, paused и reconnect, последний полезный результат не исчезает.",
+              "estimatedMinutes": 30
+            }
+          ],
+          "masteryChecks": [
+            "Отличить paused от error.",
+            "Предсказать reconnect transition.",
+            "Выбрать networkMode по cache layer."
+          ],
+          "quickSteps": [
+            "За 10 минут подписать status и fetchStatus offline-запроса."
+          ],
+          "sourceRefs": [
+            "L0835"
+          ]
         },
         {
           "id": "query-optimistic-updates",
@@ -741,8 +1079,14 @@
           "whyNow": "Optimistic UI ускоряет ощущение интерфейса, но без снимка и отката временное состояние превращается в ложные данные.",
           "priority": "high",
           "recommendationWeight": 92,
-          "estimatedMinutes": [90, 125],
-          "dependencies": ["query-cache-invalidation", "values-references"],
+          "estimatedMinutes": [
+            90,
+            125
+          ],
+          "dependencies": [
+            "query-cache-invalidation",
+            "values-references"
+          ],
           "sourceIds": {
             "primary": "tanstack-query-v5-optimistic-updates",
             "fallback": "tanstack-query-v5-mutations",
@@ -791,7 +1135,9 @@
           ]
         }
       ],
-      "sourceRefs": ["L0799"]
+      "sourceRefs": [
+        "L0799"
+      ]
     },
     {
       "id": "frontend-security",
@@ -805,8 +1151,13 @@
           "whyNow": "Без модели источников, контекстов и sinks совет «санитизировать ввод» не объясняет, где именно возникает исполнение кода.",
           "priority": "high",
           "recommendationWeight": 94,
-          "estimatedMinutes": [90, 125],
-          "dependencies": ["browser-rendering-pipeline"],
+          "estimatedMinutes": [
+            90,
+            125
+          ],
+          "dependencies": [
+            "browser-rendering-pipeline"
+          ],
           "sourceIds": {
             "primary": "owasp-xss-prevention",
             "fallback": "mdn-ru-web-security",
@@ -864,9 +1215,12 @@
           "whyNow": "CSRF и cookie-практика имеют смысл только после выбора модели аутентификации и доверенных границ.",
           "priority": "critical",
           "recommendationWeight": 96,
-          "estimatedMinutes": [90, 125],
+          "estimatedMinutes": [
+            90,
+            125
+          ],
           "dependencies": [
-            "http-cache-cors-credentials",
+            "http-cors-credentials",
             "browser-navigation-storage"
           ],
           "sourceIds": {
@@ -926,10 +1280,13 @@
           "whyNow": "Cookie-based authentication автоматически участвует в запросах браузера и требует отдельной модели намерения пользователя.",
           "priority": "high",
           "recommendationWeight": 92,
-          "estimatedMinutes": [80, 115],
+          "estimatedMinutes": [
+            80,
+            115
+          ],
           "dependencies": [
             "frontend-auth-model",
-            "http-cache-cors-credentials"
+            "http-cors-credentials"
           ],
           "sourceIds": {
             "primary": "owasp-csrf-prevention",
@@ -972,123 +1329,394 @@
           "quickSteps": [
             "За 10 минут проверь пять attributes у синтетической session cookie."
           ],
-          "sourceRefs": ["L1050", "L1051", "L1052", "L1053", "L1079"]
+          "sourceRefs": [
+            "L1050",
+            "L1051",
+            "L1052",
+            "L1053",
+            "L1079"
+          ]
         },
         {
-          "id": "security-headers-supply-chain",
-          "title": "Security headers и dependency risk",
-          "outcome": "Настроить CSP и framing defense, проверить open redirect и провести локальный dependency audit с приоритизацией реального риска.",
-          "whyNow": "Защита frontend включает не только код компонента, но и browser policy, навигацию и исполняемые зависимости.",
+          "id": "csp-framing-defense",
+          "title": "CSP и framing defense",
+          "outcome": "Настроить Content Security Policy, frame-ancestors и совместимый X-Frame-Options для локального SPA.",
+          "whyNow": "Browser security headers задают политику выполнения и встраивания отдельно от навигации и зависимостей.",
           "priority": "high",
-          "recommendationWeight": 86,
-          "estimatedMinutes": [85, 120],
-          "dependencies": ["frontend-threat-model-xss"],
+          "recommendationWeight": 88,
+          "estimatedMinutes": [
+            55,
+            85
+          ],
+          "dependencies": [
+            "frontend-threat-model-xss"
+          ],
           "sourceIds": {
-            "primary": "mdn-ru-csp",
-            "fallback": "owasp-unvalidated-redirects",
-            "practice": "owasp-vulnerable-dependencies"
+            "primary": "mdn-ru-csp"
           },
           "obsidianPrompts": [
-            "Составь минимальную CSP для локального SPA и объясни каждую директиву.",
-            "Нарисуй supply-chain путь от dependency до исполняемого кода браузера."
+            "Составь минимальную CSP и объясни каждую директиву.",
+            "Сравни frame-ancestors и X-Frame-Options."
           ],
           "ankiPrompts": [
+            "Чем report-only отличается от enforcement?",
             "Как frame-ancestors снижает clickjacking risk?",
-            "Чем CSP report-only отличается от enforcement?",
-            "Что делает open redirect опасным?",
-            "Почему audit severity без reachable path недостаточна?"
+            "Почему CSP не заменяет escaping?",
+            "Как задать запрет встраивания?"
           ],
           "practice": [
             {
-              "id": "local-security-policy-audit",
-              "title": "Локальный security headers и dependency audit",
+              "id": "exercise-csp-framing-defense",
+              "title": "Локальная browser policy",
               "instructions": [
-                "Для локальной сборки составить CSP, frame-ancestors и совместимый X-Frame-Options.",
-                "Проверить синтетический redirect allowlist и отклонить внешний destination.",
-                "Запустить dependency audit локального проекта и классифицировать findings по достижимости и исправлению."
+                "Составить CSP для локального синтетического SPA.",
+                "Добавить frame-ancestors и совместимый X-Frame-Options.",
+                "Проверить report-only перед enforcement."
               ],
-              "minimumCompletion": "Локальный набор заголовков, тест redirect allowlist и таблица audit findings с обоснованным приоритетом.",
-              "estimatedMinutes": 60
+              "minimumCompletion": "Локальные заголовки объяснены по директивам, framing запрещён, report-only не выдан за enforcement.",
+              "estimatedMinutes": 40
             }
           ],
           "masteryChecks": [
-            "Не использую CSP как единственную XSS-защиту.",
-            "Проверяю redirect destination по строгому контракту.",
-            "Отличаю наличие advisory от достижимого риска."
+            "Объяснить четыре директивы CSP.",
+            "Выбрать framing defense.",
+            "Не выдавать CSP за единственную XSS-защиту."
           ],
           "quickSteps": [
-            "За 15 минут объясни четыре директивы CSP локального приложения."
+            "За 15 минут объяснить четыре директивы локальной CSP."
           ],
           "sourceRefs": [
             "L1064",
             "L1065",
             "L1066",
-            "L1067",
-            "L1068",
-            "L1069",
             "L1080",
-            "L1083",
-            "L1087",
             "L1088"
           ]
         },
         {
-          "id": "oauth-oidc-pkce-bff",
-          "title": "OAuth, OIDC, PKCE и BFF",
-          "outcome": "Различать OAuth 2.0 и OpenID Connect, применить Authorization Code с PKCE, оценить BFF и серверно проверить Telegram initData.",
-          "whyNow": "Federated login и Mini Apps добавляют внешнюю identity boundary, где frontend не может сам доказать подлинность данных.",
+          "id": "open-redirect-defense",
+          "title": "Защита от open redirect",
+          "outcome": "Проверить redirect destination по строгому локальному контракту и отклонить внешний адрес.",
+          "whyNow": "Redirect validation — узкая проверка пользовательской навигации, не связанная с CSP или dependency audit.",
           "priority": "high",
           "recommendationWeight": 84,
-          "estimatedMinutes": [90, 125],
-          "dependencies": ["frontend-auth-model", "csrf-cookie-defense"],
+          "estimatedMinutes": [
+            40,
+            65
+          ],
+          "dependencies": [
+            "frontend-threat-model-xss"
+          ],
           "sourceIds": {
-            "primary": "ietf-browser-based-apps-bff",
-            "fallback": "openid-connect-core",
-            "practice": "telegram-mini-apps-init-data"
+            "primary": "owasp-unvalidated-redirects"
           },
           "obsidianPrompts": [
-            "Нарисуй Authorization Code + PKCE и отметь verifier, challenge и redirect URI.",
-            "Раздели OAuth authorization, OIDC authentication, BFF session и Telegram initData."
+            "Нарисуй путь непроверенного returnUrl до redirect.",
+            "Сравни allowlist route id и проверку строкового prefix."
           ],
           "ankiPrompts": [
-            "Что добавляет OIDC поверх OAuth?",
-            "Как PKCE связывает authorization request и code exchange?",
-            "Почему initDataUnsafe нельзя считать проверенным?",
-            "Когда BFF уменьшает доступ frontend JavaScript к tokens?"
+            "Что делает open redirect опасным?",
+            "Почему startsWith недостаточно?",
+            "Какой контракт проще проверить?",
+            "Когда безопасен относительный route id?"
           ],
           "practice": [
             {
-              "id": "local-federated-auth-review",
-              "title": "Локальная проверка внешней аутентификации",
+              "id": "exercise-open-redirect-defense",
+              "title": "Синтетический redirect allowlist",
               "instructions": [
-                "На локальной синтетической диаграмме проверить redirect URI, state/nonce и PKCE S256.",
-                "Сравнить browser-token и BFF варианты по XSS, CSRF и logout.",
-                "На тестовом initData реализовать серверную проверку hash/signature и ограничение auth_date."
+                "Создать локальный allowlist допустимых route id.",
+                "Проверить допустимый внутренний переход.",
+                "Отклонить внешний URL и строку с похожим prefix."
               ],
-              "minimumCompletion": "Локальная схема flow, обоснованный выбор BFF или browser client и тесты valid, tampered и expired initData.",
-              "estimatedMinutes": 65
+              "minimumCompletion": "Локальные тесты принимают внутренний route id и отклоняют два обхода проверки.",
+              "estimatedMinutes": 30
             }
           ],
           "masteryChecks": [
-            "Не использую OAuth access token как доказательство личности без OIDC-контракта.",
-            "Проверяю exact redirect URI и PKCE.",
-            "Не валидирую Telegram initData только на frontend."
+            "Объяснить риск open redirect.",
+            "Найти слабую prefix-проверку.",
+            "Сформулировать строгий redirect contract."
           ],
           "quickSteps": [
-            "За 15 минут подпиши участников Authorization Code + PKCE flow."
+            "За 10 минут выписать allowlist трёх внутренних route id."
+          ],
+          "sourceRefs": [
+            "L1067",
+            "L1087"
+          ]
+        },
+        {
+          "id": "dependency-supply-chain",
+          "title": "Dependency и supply-chain risk",
+          "outcome": "Проверить локальные зависимости и приоритизировать уязвимость по достижимости и исправлению.",
+          "whyNow": "Supply-chain риск начинается в manifest и lockfile и требует отдельного разбора исполняемой зависимости.",
+          "priority": "high",
+          "recommendationWeight": 85,
+          "estimatedMinutes": [
+            50,
+            80
+          ],
+          "dependencies": [
+            "frontend-threat-model-xss"
+          ],
+          "sourceIds": {
+            "primary": "owasp-vulnerable-dependencies",
+            "practice": "github-dependency-review"
+          },
+          "obsidianPrompts": [
+            "Нарисуй путь dependency от registry до browser bundle.",
+            "Раздели advisory severity, достижимость и доступное исправление."
+          ],
+          "ankiPrompts": [
+            "Почему severity без reachable path недостаточна?",
+            "Что фиксирует lockfile?",
+            "Когда обновление требует отдельной проверки?",
+            "Что проверяет dependency review?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-dependency-supply-chain",
+              "title": "Локальный dependency audit",
+              "instructions": [
+                "Запустить audit локального учебного проекта.",
+                "Проверить manifest и lockfile через dependency review.",
+                "Классифицировать findings по достижимости и способу исправления."
+              ],
+              "minimumCompletion": "Локальная таблица findings содержит путь зависимости, достижимость, исправление и обоснованный приоритет.",
+              "estimatedMinutes": 40
+            }
+          ],
+          "masteryChecks": [
+            "Отличить advisory от достижимого риска.",
+            "Объяснить роль lockfile.",
+            "Выбрать безопасное обновление."
+          ],
+          "quickSteps": [
+            "За 15 минут разобрать путь одной транзитивной зависимости."
+          ],
+          "sourceRefs": [
+            "L1068",
+            "L1069",
+            "L1083"
+          ]
+        },
+        {
+          "id": "oauth-pkce",
+          "title": "OAuth 2.0 Authorization Code + PKCE",
+          "outcome": "Объяснить Authorization Code flow с PKCE, exact redirect URI и защитой state для browser client.",
+          "whyNow": "OAuth делегирует доступ, а PKCE связывает authorization request с безопасным обменом code.",
+          "priority": "high",
+          "recommendationWeight": 86,
+          "estimatedMinutes": [
+            55,
+            85
+          ],
+          "dependencies": [
+            "frontend-auth-model"
+          ],
+          "sourceIds": {
+            "primary": "ietf-oauth-security-bcp"
+          },
+          "obsidianPrompts": [
+            "Нарисуй Authorization Code + PKCE от verifier до token endpoint.",
+            "Отметь exact redirect URI и state."
+          ],
+          "ankiPrompts": [
+            "Что делегирует OAuth?",
+            "Как PKCE связывает запросы?",
+            "Зачем нужен state?",
+            "Почему redirect URI должен совпадать точно?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-oauth-pkce",
+              "title": "Локальная OAuth flow review",
+              "instructions": [
+                "Нарисовать локальный синтетический browser flow.",
+                "Проверить state, PKCE S256 и exact redirect URI.",
+                "Отклонить неверный verifier и redirect URI."
+              ],
+              "minimumCompletion": "Локальная схема содержит всех участников, два негативных сценария отклоняются.",
+              "estimatedMinutes": 40
+            }
+          ],
+          "masteryChecks": [
+            "Воспроизвести Authorization Code + PKCE.",
+            "Объяснить state и verifier.",
+            "Найти неточный redirect URI."
+          ],
+          "quickSteps": [
+            "За 15 минут подписать участников OAuth + PKCE flow."
           ],
           "sourceRefs": [
             "L1070",
-            "L1071",
             "L1072",
-            "L1073",
-            "L1074",
-            "L1081",
             "L1089"
+          ]
+        },
+        {
+          "id": "oidc-authentication",
+          "title": "OpenID Connect authentication",
+          "outcome": "Различать OAuth authorization и OpenID Connect authentication через ID Token и claims.",
+          "whyNow": "OIDC добавляет identity contract поверх OAuth и не должен смешиваться с access token.",
+          "priority": "high",
+          "recommendationWeight": 84,
+          "estimatedMinutes": [
+            45,
+            70
+          ],
+          "dependencies": [
+            "oauth-pkce"
+          ],
+          "sourceIds": {
+            "primary": "openid-connect-core"
+          },
+          "obsidianPrompts": [
+            "Раздели access token и ID Token по audience и потребителю.",
+            "Запиши проверки issuer, audience, nonce и срока."
+          ],
+          "ankiPrompts": [
+            "Что добавляет OIDC поверх OAuth?",
+            "Для кого предназначен ID Token?",
+            "Зачем проверять nonce?",
+            "Почему access token не доказывает identity клиенту?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-oidc-authentication",
+              "title": "Синтетическая ID Token проверка",
+              "instructions": [
+                "Разобрать локальные claims тестового ID Token.",
+                "Проверить issuer, audience, expiry и nonce.",
+                "Отклонить token с неверной audience."
+              ],
+              "minimumCompletion": "Локальная проверка принимает корректные claims и отклоняет неверную audience.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Различить OAuth и OIDC.",
+            "Назвать проверки ID Token.",
+            "Не использовать access token как ID Token."
+          ],
+          "quickSteps": [
+            "За 10 минут разделить access token и ID Token."
+          ],
+          "sourceRefs": [
+            "L1071"
+          ]
+        },
+        {
+          "id": "bff-session",
+          "title": "BFF session pattern",
+          "outcome": "Объяснить BFF flow, где tokens остаются на сервере, а browser использует защищённую session cookie.",
+          "whyNow": "BFF меняет место хранения tokens и возвращает browser к cookie и CSRF-модели.",
+          "priority": "high",
+          "recommendationWeight": 83,
+          "estimatedMinutes": [
+            50,
+            80
+          ],
+          "dependencies": [
+            "oauth-pkce",
+            "csrf-cookie-defense"
+          ],
+          "sourceIds": {
+            "primary": "ietf-browser-based-apps-bff"
+          },
+          "obsidianPrompts": [
+            "Нарисуй browser, BFF, authorization server и API.",
+            "Сравни browser-token и BFF по XSS, CSRF и logout."
+          ],
+          "ankiPrompts": [
+            "Где BFF хранит tokens?",
+            "Что получает browser?",
+            "Почему BFF требует CSRF defense?",
+            "Когда BFF оправдан?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-bff-session",
+              "title": "Локальное сравнение auth architectures",
+              "instructions": [
+                "Нарисовать локальные browser-token и BFF схемы.",
+                "Сравнить XSS, CSRF, refresh и logout.",
+                "Выбрать вариант для синтетического SPA и обосновать."
+              ],
+              "minimumCompletion": "Локальная таблица показывает границы tokens и cookies, выбор учитывает XSS и CSRF.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Воспроизвести BFF flow.",
+            "Объяснить server-side token storage.",
+            "Назвать обязательную cookie defense."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать browser, BFF и API."
+          ],
+          "sourceRefs": [
+            "L1073"
+          ]
+        },
+        {
+          "id": "telegram-init-data",
+          "title": "Серверная проверка Telegram initData",
+          "outcome": "Проверить Telegram initData на сервере по hash или signature и ограничить возраст auth_date.",
+          "whyNow": "Telegram Mini App получает внешние данные, подлинность которых frontend сам подтвердить не может.",
+          "priority": "high",
+          "recommendationWeight": 82,
+          "estimatedMinutes": [
+            50,
+            80
+          ],
+          "dependencies": [
+            "frontend-auth-model"
+          ],
+          "sourceIds": {
+            "primary": "telegram-mini-apps-init-data"
+          },
+          "obsidianPrompts": [
+            "Нарисуй передачу initData от Mini App к server verification.",
+            "Запиши data-check-string, hash или signature и проверку auth_date."
+          ],
+          "ankiPrompts": [
+            "Почему initDataUnsafe нельзя доверять?",
+            "Где проверяется initData?",
+            "Что входит в data-check-string?",
+            "Зачем ограничивать auth_date?"
+          ],
+          "practice": [
+            {
+              "id": "exercise-telegram-init-data",
+              "title": "Тестовая проверка initData",
+              "instructions": [
+                "На локальном серверном коде проверить тестовый initData.",
+                "Добавить сценарии valid, tampered и expired.",
+                "Не переносить секрет или доверие в frontend."
+              ],
+              "minimumCompletion": "Локальные тесты принимают valid и отклоняют tampered и expired initData на серверной границе.",
+              "estimatedMinutes": 40
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить server verification.",
+            "Найти доверие к initDataUnsafe.",
+            "Назвать проверку возраста данных."
+          ],
+          "quickSteps": [
+            "За 15 минут подписать server verification initData."
+          ],
+          "sourceRefs": [
+            "L1074",
+            "L1081"
           ]
         }
       ],
-      "sourceRefs": ["L1034"]
+      "sourceRefs": [
+        "L1034"
+      ]
     },
     {
       "id": "testing-stack",
@@ -1102,7 +1730,10 @@
           "whyNow": "Инструменты не компенсируют неверную границу: сначала нужно определить риск и наблюдаемое доказательство.",
           "priority": "critical",
           "recommendationWeight": 96,
-          "estimatedMinutes": [80, 110],
+          "estimatedMinutes": [
+            80,
+            110
+          ],
           "dependencies": [],
           "sourceIds": {
             "primary": "doka-testing-basics",
@@ -1172,8 +1803,13 @@
           "whyNow": "Быстрые детерминированные проверки функций создают базу, на которой компонентные тесты не дублируют бизнес-логику.",
           "priority": "high",
           "recommendationWeight": 90,
-          "estimatedMinutes": [85, 115],
-          "dependencies": ["testing-concepts"],
+          "estimatedMinutes": [
+            85,
+            115
+          ],
+          "dependencies": [
+            "testing-concepts"
+          ],
           "sourceIds": {
             "primary": "vitest-guide",
             "fallback": "vitest-mocking",
@@ -1235,8 +1871,14 @@
           "whyNow": "После тестирования чистой логики можно проверять то, что видит и делает пользователь, сохраняя свободу рефакторинга.",
           "priority": "high",
           "recommendationWeight": 89,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["vitest", "react-state-model"],
+          "estimatedMinutes": [
+            90,
+            120
+          ],
+          "dependencies": [
+            "vitest",
+            "react-state-model"
+          ],
           "sourceIds": {
             "primary": "testing-library-queries",
             "fallback": "testing-library-user-event",
@@ -1302,8 +1944,14 @@
           "whyNow": "Компонентный тест должен обращаться к сети так же, как приложение, но получать управляемые ответы без реального backend.",
           "priority": "high",
           "recommendationWeight": 86,
-          "estimatedMinutes": [80, 115],
-          "dependencies": ["react-testing-library", "http-semantics-status"],
+          "estimatedMinutes": [
+            80,
+            115
+          ],
+          "dependencies": [
+            "react-testing-library",
+            "http-semantics-status"
+          ],
           "sourceIds": {
             "primary": "msw-node-integration",
             "fallback": "msw-response-resolver",
@@ -1362,8 +2010,14 @@
           "whyNow": "E2E завершает стек проверкой браузерного сценария, но остаётся дорогим и полезен только для критических сквозных рисков.",
           "priority": "high",
           "recommendationWeight": 85,
-          "estimatedMinutes": [100, 140],
-          "dependencies": ["msw", "browser-events-focus"],
+          "estimatedMinutes": [
+            100,
+            140
+          ],
+          "dependencies": [
+            "msw",
+            "browser-events-focus"
+          ],
           "sourceIds": {
             "primary": "playwright-best-practices",
             "fallback": "playwright-locators",
@@ -1425,8 +2079,16 @@
           ]
         }
       ],
-      "sourceRefs": ["L1093"]
+      "sourceRefs": [
+        "L1093"
+      ]
     }
   ],
-  "sourceRefs": ["L0918", "L0969", "L0799", "L1034", "L1093"]
+  "sourceRefs": [
+    "L0918",
+    "L0969",
+    "L0799",
+    "L1034",
+    "L1093"
+  ]
 }

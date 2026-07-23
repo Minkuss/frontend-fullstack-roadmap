@@ -23,6 +23,26 @@ function ProgressProbe() {
       >
         Добавить
       </button>
+      <button
+        type="button"
+        onClick={() => dispatch({ type: 'state/reset' })}
+      >
+        Сбросить
+      </button>
+      <button
+        type="button"
+        onClick={() =>
+          dispatch({
+            type: 'state/replace',
+            state: {
+              ...createInitialProgress(),
+              queue: ['call-stack'],
+            },
+          })
+        }
+      >
+        Импортировать
+      </button>
     </>
   )
 }
@@ -67,9 +87,9 @@ describe('ProgressProvider', () => {
     expect(storage.setItem).not.toHaveBeenCalled()
   })
 
-  it('persists reducer changes and clears a recoverable invalid-data warning', async () => {
+  it('does not persist in-memory changes over invalid stored data', async () => {
     const user = userEvent.setup()
-    const storage = createStorage(null)
+    const storage = createStorage('{broken')
 
     render(
       <ProgressProvider storage={storage}>
@@ -81,8 +101,29 @@ describe('ProgressProvider', () => {
 
     await user.click(screen.getByRole('button', { name: 'Добавить' }))
 
+    expect(screen.getByLabelText('Очередь')).toHaveTextContent('event-loop')
+    expect(storage.setItem).not.toHaveBeenCalled()
+    expect(screen.getByLabelText('Предупреждение')).toHaveTextContent('invalid')
+  })
+
+  it.each([
+    ['Сбросить', '[]'],
+    ['Импортировать', 'call-stack'],
+  ])('unlocks persistence after explicit %s', async (action, savedValue) => {
+    const user = userEvent.setup()
+    const storage = createStorage('{broken')
+
+    render(
+      <ProgressProvider storage={storage}>
+        <ProgressProbe />
+      </ProgressProvider>,
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Добавить' }))
+    await user.click(screen.getByRole('button', { name: action }))
+
     expect(storage.setItem).toHaveBeenCalledTimes(1)
-    expect(storage.setItem.mock.calls[0]?.[1]).toContain('"event-loop"')
+    expect(storage.setItem.mock.calls[0]?.[1]).toContain(savedValue)
     expect(screen.getByLabelText('Предупреждение')).toHaveTextContent('нет')
   })
 

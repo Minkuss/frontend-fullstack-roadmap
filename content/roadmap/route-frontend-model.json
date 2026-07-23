@@ -17,7 +17,10 @@
           "whyNow": "Это опорная модель для замыканий, асинхронности, стека ошибок и каждого последующего разбора JavaScript-кода.",
           "priority": "critical",
           "recommendationWeight": 99,
-          "estimatedMinutes": [75, 105],
+          "estimatedMinutes": [
+            75,
+            105
+          ],
           "dependencies": [],
           "sourceIds": {
             "primary": "javascript-info-closure",
@@ -82,8 +85,13 @@
           "whyNow": "Замыкания входят в максимальный карьерный приоритет и напрямую объясняют callbacks, обработчики, хуки и устаревшее состояние.",
           "priority": "critical",
           "recommendationWeight": 100,
-          "estimatedMinutes": [60, 90],
-          "dependencies": ["call-stack"],
+          "estimatedMinutes": [
+            60,
+            90
+          ],
+          "dependencies": [
+            "call-stack"
+          ],
           "sourceIds": {
             "primary": "javascript-info-closure"
           },
@@ -140,7 +148,10 @@
           "whyNow": "React и TypeScript не защищают от общей ссылки: понимание идентичности данных предотвращает тихие ошибки состояния.",
           "priority": "high",
           "recommendationWeight": 84,
-          "estimatedMinutes": [75, 105],
+          "estimatedMinutes": [
+            75,
+            105
+          ],
           "dependencies": [],
           "sourceIds": {
             "primary": "javascript-info-object-copy"
@@ -218,8 +229,13 @@
           "whyNow": "this, callbacks и функции высшего порядка входят в ближайший фокус и нужны для чтения legacy-кода и API библиотек.",
           "priority": "critical",
           "recommendationWeight": 98,
-          "estimatedMinutes": [75, 105],
-          "dependencies": ["call-stack"],
+          "estimatedMinutes": [
+            75,
+            105
+          ],
+          "dependencies": [
+            "call-stack"
+          ],
           "sourceIds": {
             "primary": "javascript-info-object-methods"
           },
@@ -293,8 +309,13 @@
           "whyNow": "Прототипная модель нужна для точного чтения классов, встроенных коллекций и legacy-конструкторов без лишнего углубления.",
           "priority": "high",
           "recommendationWeight": 74,
-          "estimatedMinutes": [60, 90],
-          "dependencies": ["functions-this"],
+          "estimatedMinutes": [
+            60,
+            90
+          ],
+          "dependencies": [
+            "functions-this"
+          ],
           "sourceIds": {
             "primary": "javascript-info-prototype-inheritance",
             "fallback": "mdn-ru-classes",
@@ -360,8 +381,13 @@
           "whyNow": "Promise — обязательная предпосылка event loop, сетевых запросов и асинхронных эффектов React.",
           "priority": "critical",
           "recommendationWeight": 99,
-          "estimatedMinutes": [75, 105],
-          "dependencies": ["functions-this"],
+          "estimatedMinutes": [
+            75,
+            105
+          ],
+          "dependencies": [
+            "functions-this"
+          ],
           "sourceIds": {
             "primary": "javascript-info-promise-basics",
             "fallback": "javascript-info-async-await"
@@ -422,8 +448,14 @@
           "whyNow": "Это база Promise, race conditions и асинхронных React-эффектов и тема с максимальным ожидаемым карьерным приростом.",
           "priority": "critical",
           "recommendationWeight": 100,
-          "estimatedMinutes": [60, 90],
-          "dependencies": ["call-stack", "promise-basics"],
+          "estimatedMinutes": [
+            60,
+            90
+          ],
+          "dependencies": [
+            "call-stack",
+            "promise-basics"
+          ],
           "sourceIds": {
             "primary": "javascript-info-event-loop",
             "fallback": "mdn-ru-execution-model"
@@ -484,8 +516,14 @@
           "whyNow": "Отмена и защита от гонок превращают базовое знание Promise в корректное поведение сетевого интерфейса и напрямую переносятся в React Effects.",
           "priority": "critical",
           "recommendationWeight": 94,
-          "estimatedMinutes": [60, 90],
-          "dependencies": ["event-loop", "promise-basics"],
+          "estimatedMinutes": [
+            60,
+            90
+          ],
+          "dependencies": [
+            "event-loop",
+            "promise-basics"
+          ],
           "sourceIds": {
             "primary": "javascript-info-fetch-abort",
             "fallback": "mdn-ru-abort-controller",
@@ -542,8 +580,14 @@
           "whyNow": "Раздельная практика двух режимов предотвращает лишние запросы и обновления интерфейса без смешения с отменой или повторными попытками.",
           "priority": "high",
           "recommendationWeight": 78,
-          "estimatedMinutes": [45, 70],
-          "dependencies": ["functions-this", "event-loop"],
+          "estimatedMinutes": [
+            45,
+            70
+          ],
+          "dependencies": [
+            "functions-this",
+            "event-loop"
+          ],
           "sourceIds": {
             "primary": "mdn-en-debounce",
             "fallback": "mdn-en-throttle"
@@ -582,56 +626,121 @@
           "quickSteps": [
             "За 10 минут нарисовать debounce и throttle для одной серии из пяти событий."
           ],
-          "sourceRefs": ["L0239", "L0240", "L0258", "L0259"]
+          "sourceRefs": [
+            "L0239",
+            "L0240",
+            "L0258",
+            "L0259"
+          ]
         },
         {
-          "id": "async-retry-concurrency",
-          "title": "Ограниченные retry и параллелизм",
-          "outcome": "Реализовать ограниченный retry с exponential backoff и очередь с заданным пределом одновременно выполняемых операций.",
-          "whyNow": "Ограничения повторов и параллелизма защищают клиент и сервис от лавины запросов и дополняют отмену без скрытого бесконечного ожидания.",
+          "id": "async-retry-backoff",
+          "title": "Ограниченный retry и backoff",
+          "outcome": "Реализовать ограниченный retry с exponential backoff и jitter только для временных ошибок.",
+          "whyNow": "Отдельная модель повторов предотвращает бесконечные циклы и лавину запросов при сбое сервиса.",
           "priority": "high",
           "recommendationWeight": 80,
-          "estimatedMinutes": [60, 90],
-          "dependencies": ["promise-basics", "event-loop"],
+          "estimatedMinutes": [
+            50,
+            75
+          ],
+          "dependencies": [
+            "promise-basics",
+            "event-loop"
+          ],
           "sourceIds": {
-            "primary": "aws-retry-backoff",
-            "fallback": "p-limit-readme"
+            "primary": "aws-retry-backoff"
           },
           "obsidianPrompts": [
-            "Запиши retry policy: допустимые ошибки, максимум попыток и задержка.",
-            "Объясни, зачем exponential backoff добавляет jitter.",
-            "Нарисуй очередь из пяти задач при concurrency равном двум."
+            "Запиши retry policy: повторяемые ошибки, предел попыток и задержка.",
+            "Нарисуй рост backoff и место случайного jitter."
           ],
           "ankiPrompts": [
             "Назвать условие безопасного retry.",
+            "Объяснить предел попыток.",
             "Объяснить exponential backoff.",
-            "Назвать роль jitter.",
-            "Предсказать активные задачи при concurrency limit.",
-            "Найти бесконечный retry."
+            "Назвать роль jitter."
           ],
           "practice": [
             {
-              "id": "bounded-retry-pool",
-              "title": "Retry с пулом запросов",
+              "id": "exercise-async-retry-backoff",
+              "title": "Ограниченный повтор операции",
               "instructions": [
-                "Сделать функцию с максимум двумя повторными попытками для временной ошибки.",
-                "Добавить растущую задержку и тестовый источник предсказуемого jitter.",
-                "Запустить пять задач через лимит двух одновременных операций."
+                "Сделать функцию с максимум двумя повторами для временной ошибки.",
+                "Добавить растущую задержку и предсказуемый источник jitter.",
+                "Проверить успех, постоянную ошибку и исчерпание попыток."
               ],
-              "minimumCompletion": "Число попыток строго ограничено, задержка растёт, а журнал ни в один момент не показывает больше двух активных задач.",
-              "estimatedMinutes": 45
+              "minimumCompletion": "Три сценария проходят, число попыток ограничено, а журнал показывает рассчитанные задержки.",
+              "estimatedMinutes": 35
             }
           ],
           "masteryChecks": [
-            "Сформулировать bounded retry policy.",
-            "Объяснить backoff и jitter без конспекта.",
-            "Нарисовать выполнение очереди с лимитом.",
-            "Найти перегрузку из-за вложенных retry."
+            "Сформулировать retry policy без конспекта.",
+            "Отличить временную ошибку от постоянной.",
+            "Найти бесконечный retry."
           ],
           "quickSteps": [
-            "За 15 минут записать policy повторов для одного учебного API-запроса."
+            "За 10 минут записать retry policy для одного учебного API."
           ],
-          "sourceRefs": ["L0241", "L0242", "L0243", "L0260", "L0262"]
+          "sourceRefs": [
+            "L0241",
+            "L0242",
+            "L0260"
+          ]
+        },
+        {
+          "id": "async-concurrency-limit",
+          "title": "Ограничение параллелизма",
+          "outcome": "Реализовать очередь Promise-задач с заданным пределом одновременно выполняемых операций.",
+          "whyNow": "Лимит параллелизма защищает браузер и сервис независимо от политики повторных попыток.",
+          "priority": "high",
+          "recommendationWeight": 78,
+          "estimatedMinutes": [
+            45,
+            70
+          ],
+          "dependencies": [
+            "promise-basics",
+            "event-loop"
+          ],
+          "sourceIds": {
+            "primary": "p-limit-readme"
+          },
+          "obsidianPrompts": [
+            "Нарисуй очередь из пяти задач при concurrency равном двум.",
+            "Раздели число ожидающих и число выполняемых задач."
+          ],
+          "ankiPrompts": [
+            "Предсказать активные задачи при заданном лимите.",
+            "Объяснить, почему Promise.all сам не ограничивает параллелизм.",
+            "Назвать момент запуска следующей задачи.",
+            "Найти скрытый запуск до попадания в очередь."
+          ],
+          "practice": [
+            {
+              "id": "exercise-async-concurrency-limit",
+              "title": "Пул из двух задач",
+              "instructions": [
+                "Запустить пять отложенных операций через лимит двух.",
+                "Записать начало и завершение каждой операции.",
+                "Проверить максимальное число активных операций."
+              ],
+              "minimumCompletion": "Все пять операций завершены, порядок наблюдаем, одновременно активны не более двух.",
+              "estimatedMinutes": 30
+            }
+          ],
+          "masteryChecks": [
+            "Нарисовать выполнение очереди с лимитом.",
+            "Объяснить отличие очереди от Promise.all.",
+            "Найти превышение лимита в новом примере."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать timeline пяти задач с лимитом два."
+          ],
+          "sourceRefs": [
+            "L0243",
+            "L0262"
+          ]
         },
         {
           "id": "collection-transforms",
@@ -640,8 +749,14 @@
           "whyNow": "Большая часть прикладного frontend-кода — это поиск, фильтрация и агрегация данных до рендера.",
           "priority": "high",
           "recommendationWeight": 78,
-          "estimatedMinutes": [60, 90],
-          "dependencies": ["values-references", "functions-this"],
+          "estimatedMinutes": [
+            60,
+            90
+          ],
+          "dependencies": [
+            "values-references",
+            "functions-this"
+          ],
           "sourceIds": {
             "primary": "javascript-info-array-methods"
           },
@@ -705,8 +820,14 @@
           "whyNow": "Правильная коллекция упрощает преобразования данных, а различие сильных и слабых ссылок предотвращает неверные ожидания от перечисления и хранения ключей.",
           "priority": "supporting",
           "recommendationWeight": 66,
-          "estimatedMinutes": [50, 75],
-          "dependencies": ["collection-transforms", "values-references"],
+          "estimatedMinutes": [
+            50,
+            75
+          ],
+          "dependencies": [
+            "collection-transforms",
+            "values-references"
+          ],
           "sourceIds": {
             "primary": "javascript-info-map-set",
             "fallback": "javascript-info-weakmap-weakset"
@@ -745,7 +866,14 @@
           "quickSteps": [
             "За 10 минут построить Map по id для одного массива из pet-проекта."
           ],
-          "sourceRefs": ["L0283", "L0284", "L0285", "L0286", "L0294", "L0295"]
+          "sourceRefs": [
+            "L0283",
+            "L0284",
+            "L0285",
+            "L0286",
+            "L0294",
+            "L0295"
+          ]
         },
         {
           "id": "iterables-generators",
@@ -754,8 +882,14 @@
           "whyNow": "Протокол итерации объясняет работу for...of и коллекций, а отдельная практика не смешивает его с выбором структуры хранения данных.",
           "priority": "supporting",
           "recommendationWeight": 58,
-          "estimatedMinutes": [45, 70],
-          "dependencies": ["functions-this", "keyed-collections"],
+          "estimatedMinutes": [
+            45,
+            70
+          ],
+          "dependencies": [
+            "functions-this",
+            "keyed-collections"
+          ],
           "sourceIds": {
             "primary": "javascript-info-iterable",
             "fallback": "javascript-info-generators"
@@ -794,10 +928,16 @@
           "quickSteps": [
             "За 10 минут вручную вызвать next у одного generator до done."
           ],
-          "sourceRefs": ["L0287", "L0288", "L0289"]
+          "sourceRefs": [
+            "L0287",
+            "L0288",
+            "L0289"
+          ]
         }
       ],
-      "sourceRefs": ["L0067"]
+      "sourceRefs": [
+        "L0067"
+      ]
     },
     {
       "id": "typescript",
@@ -811,8 +951,14 @@
           "whyNow": "Отказ от any входит в максимальный приоритет, а базовые типы нужны для narrowing, generics и React-компонентов.",
           "priority": "critical",
           "recommendationWeight": 96,
-          "estimatedMinutes": [75, 105],
-          "dependencies": ["values-references", "functions-this"],
+          "estimatedMinutes": [
+            75,
+            105
+          ],
+          "dependencies": [
+            "values-references",
+            "functions-this"
+          ],
           "sourceIds": {
             "primary": "typescript-handbook-everyday-types"
           },
@@ -885,8 +1031,13 @@
           "whyNow": "Narrowing — один из трёх главных TypeScript-навыков и основа типизированных reducers, API-состояний и ошибок.",
           "priority": "critical",
           "recommendationWeight": 100,
-          "estimatedMinutes": [75, 105],
-          "dependencies": ["type-system"],
+          "estimatedMinutes": [
+            75,
+            105
+          ],
+          "dependencies": [
+            "type-system"
+          ],
           "sourceIds": {
             "primary": "typescript-handbook-narrowing"
           },
@@ -948,8 +1099,14 @@
           "whyNow": "Generics входят в первый этап и дают типобезопасное переиспользование без union из всех возможных вариантов.",
           "priority": "critical",
           "recommendationWeight": 98,
-          "estimatedMinutes": [75, 105],
-          "dependencies": ["type-system", "functions-this"],
+          "estimatedMinutes": [
+            75,
+            105
+          ],
+          "dependencies": [
+            "type-system",
+            "functions-this"
+          ],
           "sourceIds": {
             "primary": "typescript-handbook-generics"
           },
@@ -1011,8 +1168,14 @@
           "whyNow": "Рабочее владение сложными типами нужно для чтения библиотек, но следует после narrowing и generics и не должно становиться олимпиадой.",
           "priority": "high",
           "recommendationWeight": 78,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["generics", "narrowing"],
+          "estimatedMinutes": [
+            90,
+            120
+          ],
+          "dependencies": [
+            "generics",
+            "narrowing"
+          ],
           "sourceIds": {
             "primary": "typescript-handbook-types-from-types"
           },
@@ -1081,8 +1244,15 @@
           "whyNow": "response.json не становится безопасным от TypeScript-аннотации; эта граница предотвращает попадание неверных данных во всё приложение.",
           "priority": "high",
           "recommendationWeight": 86,
-          "estimatedMinutes": [90, 135],
-          "dependencies": ["narrowing", "generics", "async-cancellation-races"],
+          "estimatedMinutes": [
+            90,
+            135
+          ],
+          "dependencies": [
+            "narrowing",
+            "generics",
+            "async-cancellation-races"
+          ],
           "sourceIds": {
             "primary": "zod-basic-usage"
           },
@@ -1147,8 +1317,14 @@
           "whyNow": "Типизация React связывает систему типов с ежедневной работой и убирает assertions из обработчиков, форм и custom hooks.",
           "priority": "high",
           "recommendationWeight": 82,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["type-system", "generics"],
+          "estimatedMinutes": [
+            90,
+            120
+          ],
+          "dependencies": [
+            "type-system",
+            "generics"
+          ],
           "sourceIds": {
             "primary": "react-typescript"
           },
@@ -1211,8 +1387,13 @@
           "whyNow": "Сильная модель типов не работает, если конфигурация оставляет скрытые any и undefined; строгие опции дают быструю обратную связь.",
           "priority": "high",
           "recommendationWeight": 84,
-          "estimatedMinutes": [60, 90],
-          "dependencies": ["type-system"],
+          "estimatedMinutes": [
+            60,
+            90
+          ],
+          "dependencies": [
+            "type-system"
+          ],
           "sourceIds": {
             "primary": "typescript-tsconfig-reference"
           },
@@ -1267,7 +1448,9 @@
           ]
         }
       ],
-      "sourceRefs": ["L0360"]
+      "sourceRefs": [
+        "L0360"
+      ]
     },
     {
       "id": "react",
@@ -1281,8 +1464,14 @@
           "whyNow": "Render/commit входит в первый этап и объясняет большинство ошибок с перерендерами, ключами и неожиданным сбросом состояния.",
           "priority": "critical",
           "recommendationWeight": 100,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["call-stack", "values-references"],
+          "estimatedMinutes": [
+            90,
+            120
+          ],
+          "dependencies": [
+            "call-stack",
+            "values-references"
+          ],
           "sourceIds": {
             "primary": "react-render-and-commit",
             "fallback": "react-preserving-state"
@@ -1353,8 +1542,14 @@
           "whyNow": "Точная модель state входит в первый этап и является предпосылкой Effects, composition, Context и форм.",
           "priority": "critical",
           "recommendationWeight": 100,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["values-references", "react-render-commit"],
+          "estimatedMinutes": [
+            90,
+            120
+          ],
+          "dependencies": [
+            "values-references",
+            "react-render-commit"
+          ],
           "sourceIds": {
             "primary": "react-choosing-state-structure"
           },
@@ -1420,8 +1615,15 @@
           "whyNow": "Effects и stale closures входят в максимальный приоритет и являются частым источником циклов, утечек и устаревших запросов.",
           "priority": "critical",
           "recommendationWeight": 100,
-          "estimatedMinutes": [105, 150],
-          "dependencies": ["closures", "event-loop", "react-state-model"],
+          "estimatedMinutes": [
+            105,
+            150
+          ],
+          "dependencies": [
+            "closures",
+            "event-loop",
+            "react-state-model"
+          ],
           "sourceIds": {
             "primary": "react-synchronizing-effects"
           },
@@ -1495,8 +1697,15 @@
           "whyNow": "Композиция уменьшает prop-флаги и наследование, а ясная граница UI и логики делает компоненты тестируемыми и переносимыми.",
           "priority": "high",
           "recommendationWeight": 82,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["functions-this", "react-state-model", "react-typing"],
+          "estimatedMinutes": [
+            90,
+            120
+          ],
+          "dependencies": [
+            "functions-this",
+            "react-state-model",
+            "react-typing"
+          ],
           "sourceIds": {
             "primary": "react-passing-props",
             "fallback": "react-sharing-state",
@@ -1563,8 +1772,14 @@
           "whyNow": "Главный навык здесь — не выучить библиотеку, а не складывать разные виды состояния в один глобальный store без причины.",
           "priority": "high",
           "recommendationWeight": 85,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["react-state-model", "react-composition"],
+          "estimatedMinutes": [
+            90,
+            120
+          ],
+          "dependencies": [
+            "react-state-model",
+            "react-composition"
+          ],
           "sourceIds": {
             "primary": "react-reducer-context",
             "fallback": "tanstack-query-overview"
@@ -1635,8 +1850,14 @@
           "whyNow": "Точная граница ответственности не позволяет ошибочно ожидать от Error Boundary перехвата любого сбоя и сохраняет понятный fallback.",
           "priority": "high",
           "recommendationWeight": 80,
-          "estimatedMinutes": [50, 75],
-          "dependencies": ["narrowing", "react-render-commit"],
+          "estimatedMinutes": [
+            50,
+            75
+          ],
+          "dependencies": [
+            "narrowing",
+            "react-render-commit"
+          ],
           "sourceIds": {
             "primary": "react-error-boundary"
           },
@@ -1692,8 +1913,14 @@
           "whyNow": "Раздельные сетевые состояния превращают happy path в предсказуемый интерфейс и не подменяют фоновое обновление пустым экраном.",
           "priority": "high",
           "recommendationWeight": 83,
-          "estimatedMinutes": [60, 90],
-          "dependencies": ["api-boundaries", "react-state-model"],
+          "estimatedMinutes": [
+            60,
+            90
+          ],
+          "dependencies": [
+            "api-boundaries",
+            "react-state-model"
+          ],
           "sourceIds": {
             "primary": "tanstack-query-states",
             "fallback": "tanstack-query-network-mode",
@@ -1745,53 +1972,111 @@
           ]
         },
         {
-          "id": "react-retry-optimistic",
-          "title": "Retry и optimistic update",
-          "outcome": "Реализовать ограниченный повтор запроса и optimistic update с явным rollback при ошибке сервера.",
-          "whyNow": "Повтор и optimistic UI требуют разных правил восстановления, поэтому отдельная практика делает предел попыток и откат наблюдаемыми.",
+          "id": "react-request-retry",
+          "title": "Retry в интерфейсе",
+          "outcome": "Реализовать ограниченный автоматический retry и отдельную ручную кнопку повтора для запроса.",
+          "whyNow": "Интерфейс должен явно различать автоматическое восстановление и решение пользователя повторить запрос.",
           "priority": "high",
           "recommendationWeight": 81,
-          "estimatedMinutes": [55, 85],
-          "dependencies": ["async-retry-concurrency", "react-async-ui-states"],
+          "estimatedMinutes": [
+            45,
+            70
+          ],
+          "dependencies": [
+            "async-retry-backoff",
+            "react-async-ui-states"
+          ],
           "sourceIds": {
-            "primary": "tanstack-query-retries",
-            "fallback": "tanstack-query-optimistic-updates"
+            "primary": "tanstack-query-retries"
           },
           "obsidianPrompts": [
-            "Запиши условия автоматического и ручного retry для одного запроса.",
-            "Нарисуй optimistic update от снимка cache до commit или rollback.",
-            "Опиши пользовательский сигнал после неуспешного отката."
+            "Запиши предел автоматических попыток и условие показа retry button.",
+            "Нарисуй переходы loading, error, retrying и success."
           ],
           "ankiPrompts": [
-            "Объяснить retry без бесконечного цикла.",
-            "Назвать предел автоматических попыток.",
-            "Назвать snapshot для rollback.",
-            "Различить invalidate и rollback.",
-            "Выбрать optimistic UI для обратимого действия."
+            "Назвать предел автоматического retry.",
+            "Отличить автоматический повтор от ручного.",
+            "Выбрать ошибку, которую нельзя повторять.",
+            "Объяснить состояние кнопки во время запроса."
           ],
           "practice": [
             {
-              "id": "optimistic-workout-toggle",
-              "title": "Оптимистичная отметка тренировки",
+              "id": "exercise-react-request-retry",
+              "title": "Повтор загрузки списка",
               "instructions": [
-                "Обновить отметку выполнения до ответа сервера и сохранить предыдущий cache.",
-                "Откатить изменение при ошибке и показать повтор без автоматического цикла.",
-                "После успеха сверить результат с сервером через invalidation."
+                "Ограничить автоматические попытки загрузки списка.",
+                "После ошибки показать ручную кнопку повтора.",
+                "Воспроизвести успех после ручного retry без параллельных запросов."
               ],
-              "minimumCompletion": "Успех, ошибка и ручной retry воспроизводятся отдельно, rollback возвращает точный предыдущий список, число попыток ограничено.",
-              "estimatedMinutes": 40
+              "minimumCompletion": "Автоматические попытки ограничены, кнопка доступна после ошибки, повтор запускает один запрос.",
+              "estimatedMinutes": 30
             }
           ],
           "masteryChecks": [
             "Сформулировать предел retry.",
-            "Нарисовать optimistic lifecycle.",
-            "Найти отсутствующий rollback.",
-            "Выбрать действие, для которого optimistic UI небезопасен."
+            "Найти бесконечный цикл повторов.",
+            "Объяснить, когда нужна ручная кнопка."
           ],
           "quickSteps": [
-            "За 10 минут нарисовать snapshot, optimistic value, error и rollback для одного toggle."
+            "За 10 минут нарисовать состояния запроса с ручным retry."
           ],
-          "sourceRefs": ["L0748", "L0755", "L0761"]
+          "sourceRefs": [
+            "L0748",
+            "L0761"
+          ]
+        },
+        {
+          "id": "react-optimistic-ui",
+          "title": "Optimistic UI и rollback",
+          "outcome": "Реализовать обратимое optimistic update с точным снимком и rollback при ошибке сервера.",
+          "whyNow": "Оптимистичный интерфейс полезен только тогда, когда временное состояние можно безопасно вернуть.",
+          "priority": "high",
+          "recommendationWeight": 81,
+          "estimatedMinutes": [
+            50,
+            75
+          ],
+          "dependencies": [
+            "react-async-ui-states",
+            "values-references"
+          ],
+          "sourceIds": {
+            "primary": "tanstack-query-optimistic-updates"
+          },
+          "obsidianPrompts": [
+            "Нарисуй optimistic update от snapshot до commit или rollback.",
+            "Запиши критерии обратимого пользовательского действия."
+          ],
+          "ankiPrompts": [
+            "Назвать данные для rollback.",
+            "Различить optimistic value и server value.",
+            "Выбрать действие, где optimistic UI небезопасен.",
+            "Объяснить сверку с сервером после успеха."
+          ],
+          "practice": [
+            {
+              "id": "exercise-react-optimistic-ui",
+              "title": "Оптимистичная отметка тренировки",
+              "instructions": [
+                "Изменить отметку до ответа сервера и сохранить предыдущий список.",
+                "При ошибке вернуть точный snapshot и показать сообщение.",
+                "После успеха сверить данные с ответом сервера."
+              ],
+              "minimumCompletion": "Успех и ошибка воспроизводятся отдельно, rollback возвращает точный предыдущий список.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Нарисовать optimistic lifecycle.",
+            "Найти отсутствующий rollback.",
+            "Обосновать безопасность выбранного действия."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать snapshot, optimistic value и rollback."
+          ],
+          "sourceRefs": [
+            "L0755"
+          ]
         },
         {
           "id": "react-forms",
@@ -1800,8 +2085,16 @@
           "whyNow": "Формы объединяют state, типы, runtime-валидацию и устойчивость в одной практической задаче pet-проекта.",
           "priority": "high",
           "recommendationWeight": 85,
-          "estimatedMinutes": [105, 150],
-          "dependencies": ["api-boundaries", "react-state-model", "react-typing", "react-async-ui-states"],
+          "estimatedMinutes": [
+            105,
+            150
+          ],
+          "dependencies": [
+            "api-boundaries",
+            "react-state-model",
+            "react-typing",
+            "react-async-ui-states"
+          ],
           "sourceIds": {
             "primary": "react-input-reference",
             "fallback": "react-hook-form-use-form",
@@ -1867,8 +2160,14 @@
           ]
         }
       ],
-      "sourceRefs": ["L0545"]
+      "sourceRefs": [
+        "L0545"
+      ]
     }
   ],
-  "sourceRefs": ["L0067", "L0360", "L0545"]
+  "sourceRefs": [
+    "L0067",
+    "L0360",
+    "L0545"
+  ]
 }

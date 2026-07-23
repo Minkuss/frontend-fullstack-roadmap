@@ -20,11 +20,13 @@ describe('progress storage', () => {
     expect(loadProgress(storage)).toEqual({ state })
   })
 
-  it('recovers from missing, malformed, and structurally invalid data', () => {
+  it('treats missing storage as a clean first visit', () => {
     expect(loadProgress({ getItem: () => null })).toEqual({
       state: createInitialProgress(),
-      warning: 'invalid',
     })
+  })
+
+  it('recovers from malformed and structurally invalid data', () => {
     expect(loadProgress({ getItem: () => '{broken' })).toEqual({
       state: createInitialProgress(),
       warning: 'invalid',

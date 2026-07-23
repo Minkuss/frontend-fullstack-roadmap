@@ -55,7 +55,7 @@ describe('AppShell', () => {
   it.each([
     [
       'invalid' as const,
-      'Не удалось прочитать сохранённый прогресс.',
+      'Изменения не сохранятся, пока прогресс не будет сброшен или импортирован в Настройках.',
     ],
     [
       'unavailable' as const,
@@ -69,6 +69,13 @@ describe('AppShell', () => {
     )
 
     expect(screen.getByRole('status')).toHaveTextContent(copy)
+    if (warning === 'invalid') {
+      expect(
+        within(screen.getByRole('status')).getByRole('link', {
+          name: 'Настройках',
+        }),
+      ).toHaveAttribute('href', '#/settings')
+    }
     expect(screen.getByRole('main')).toHaveTextContent('Фокус')
   })
 })

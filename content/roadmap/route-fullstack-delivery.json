@@ -416,7 +416,7 @@
           "priority": "high",
           "recommendationWeight": 72,
           "estimatedMinutes": [55, 85],
-          "dependencies": ["reverse-proxy-tls", "security-headers-supply-chain"],
+          "dependencies": ["reverse-proxy-tls", "csp-framing-defense"],
           "sourceIds": { "primary": "caddy-reverse-proxy", "fallback": "owasp-http-headers" },
           "obsidianPrompts": ["Опиши request size, rate limit и security headers.", "Запиши поля access log и смысл zero-downtime reload."],
           "ankiPrompts": ["Где ограничить body?", "Какие headers задаёт proxy?", "Что искать в access log?", "Что значит zero-downtime reload?"],

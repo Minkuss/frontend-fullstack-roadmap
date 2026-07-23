@@ -103,4 +103,47 @@ describe('App', () => {
       screen.queryByText('Маршруты скоро появятся здесь'),
     ).not.toBeInTheDocument()
   })
+
+  it('updates title and moves focus after Enter navigation without stealing initial focus', async () => {
+    const user = userEvent.setup()
+    window.history.replaceState(null, '', '/#/focus')
+    const storage = {
+      getItem: () => null,
+      setItem: () => undefined,
+    }
+
+    render(
+      <ProgressProvider storage={storage}>
+        <App />
+      </ProgressProvider>,
+    )
+
+    const main = screen.getByRole('main')
+    expect(document.title).toBe('Фокус — Frontend Path')
+    expect(main).not.toHaveFocus()
+
+    screen.getByRole('link', { name: 'Roadmap' }).focus()
+    await user.keyboard('{Enter}')
+
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Roadmap' }),
+    ).toBeInTheDocument()
+    expect(document.title).toBe('Roadmap — Frontend Path')
+    expect(main).toHaveFocus()
+
+    const topicLink = screen.getByRole('link', {
+      name: 'Event loop: task и microtask',
+    })
+    topicLink.focus()
+    await user.keyboard('{Enter}')
+
+    expect(
+      await screen.findByRole('heading', {
+        level: 1,
+        name: 'Event loop: task и microtask',
+      }),
+    ).toBeInTheDocument()
+    expect(document.title).toBe('Event loop: task и microtask — Frontend Path')
+    expect(main).toHaveFocus()
+  })
 })

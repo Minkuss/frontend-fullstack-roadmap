@@ -1,4 +1,5 @@
 import {
+  useCallback,
   createContext,
   useContext,
   useEffect,
@@ -57,9 +58,18 @@ export function ProgressProvider({
 }: ProgressProviderProps) {
   const [storageAdapter] = useState(() => storage ?? getBrowserStorage())
   const [initialLoad] = useState(() => loadProgress(storageAdapter))
-  const [state, dispatch] = useReducer(progressReducer, initialLoad.state)
+  const [state, reducerDispatch] = useReducer(progressReducer, initialLoad.state)
   const [storageWarning, setStorageWarning] = useState(initialLoad.warning)
   const previousState = useRef(state)
+  const persistenceLocked = useRef(initialLoad.warning === 'invalid')
+  const dispatch = useCallback<Dispatch<ProgressAction>>((action) => {
+    if (action.type === 'state/reset' || action.type === 'state/replace') {
+      persistenceLocked.current = false
+      setStorageWarning(undefined)
+    }
+
+    reducerDispatch(action)
+  }, [])
 
   useEffect(() => {
     if (previousState.current === state) {
@@ -67,6 +77,10 @@ export function ProgressProvider({
     }
 
     previousState.current = state
+    if (persistenceLocked.current) {
+      return
+    }
+
     const result = saveProgress(storageAdapter, state)
     setStorageWarning(result.ok ? undefined : 'unavailable')
   }, [state, storageAdapter])

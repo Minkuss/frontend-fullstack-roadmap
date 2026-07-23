@@ -124,13 +124,19 @@ const highRiskTopicContracts = {
     },
     sourceRefs: ['L0239', 'L0240', 'L0258', 'L0259'],
   },
-  'async-retry-concurrency': {
+  'async-retry-backoff': {
     section: '2.5.',
     sourceIds: {
       primary: 'aws-retry-backoff',
-      fallback: 'p-limit-readme',
     },
-    sourceRefs: ['L0241', 'L0242', 'L0243', 'L0260', 'L0262'],
+    sourceRefs: ['L0241', 'L0242', 'L0260'],
+  },
+  'async-concurrency-limit': {
+    section: '2.5.',
+    sourceIds: {
+      primary: 'p-limit-readme',
+    },
+    sourceRefs: ['L0243', 'L0262'],
   },
   'keyed-collections': {
     section: '2.6.',
@@ -207,13 +213,19 @@ const highRiskTopicContracts = {
       'L0763',
     ],
   },
-  'react-retry-optimistic': {
+  'react-request-retry': {
     section: '4.7.',
     sourceIds: {
       primary: 'tanstack-query-retries',
-      fallback: 'tanstack-query-optimistic-updates',
     },
-    sourceRefs: ['L0748', 'L0755', 'L0761'],
+    sourceRefs: ['L0748', 'L0761'],
+  },
+  'react-optimistic-ui': {
+    section: '4.7.',
+    sourceIds: {
+      primary: 'tanstack-query-optimistic-updates',
+    },
+    sourceRefs: ['L0755'],
   },
   'react-forms': {
     section: '4.8.',

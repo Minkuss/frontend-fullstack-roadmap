@@ -30,14 +30,17 @@ function StorageWarning({
 }: {
   warning: NonNullable<AppShellProps['storageWarning']>
 }) {
-  const message =
-    warning === 'invalid'
-      ? 'Не удалось прочитать сохранённый прогресс. Начинаю с пустого состояния.'
-      : 'Прогресс пока не сохраняется в этом браузере. Roadmap остаётся доступным.'
-
   return (
     <div className="storage-warning" role="status" aria-live="polite">
-      {message}
+      {warning === 'invalid' ? (
+        <>
+          Сохранённый прогресс повреждён. Изменения не сохранятся, пока
+          прогресс не будет сброшен или импортирован в{' '}
+          <a href="#/settings">Настройках</a>.
+        </>
+      ) : (
+        'Прогресс пока не сохраняется в этом браузере. Roadmap остаётся доступным.'
+      )}
     </div>
   )
 }

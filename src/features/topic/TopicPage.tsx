@@ -87,7 +87,6 @@ function formatDate(value: string) {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-    timeZone: 'UTC',
   }).format(new Date(value))
 }
 

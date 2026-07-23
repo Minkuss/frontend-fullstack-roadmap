@@ -49,6 +49,17 @@ function expectCompleteCycle(topic: Topic) {
 }
 
 describe('complete roadmap content', () => {
+  it('gives every source a useful external reading target instead of roadmap numbering', () => {
+    expect(roadmap.sources).toHaveLength(205)
+
+    roadmap.sources.forEach((source) => {
+      expect(source.section?.trim().length, source.id).toBeGreaterThan(0)
+      expect(source.section, source.id).not.toMatch(
+        /^\d+(?:\.\d+)*\.?$/,
+      )
+    })
+  })
+
   it('uses the fixed module order for production frontend', () => {
     expect(roadmap.routes[2].modules.map(({ id }) => id)).toEqual([
       'frontend-architecture',

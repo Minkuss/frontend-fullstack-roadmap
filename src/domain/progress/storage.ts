@@ -166,7 +166,6 @@ export function loadProgress(
   if (raw === null) {
     return {
       state: createInitialProgress(),
-      warning: 'invalid',
     }
   }
 
