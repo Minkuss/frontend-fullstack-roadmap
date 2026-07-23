@@ -84,22 +84,27 @@ function isTopicProgress(value: unknown): value is TopicProgress {
   if (value.status !== 'not_started' && !isTimestamp(value.startedAt)) {
     return false
   }
-  if (
-    value.status === 'awaiting_review' &&
-    (completedCount !== 5 || !isTimestamp(value.reviewDueAt))
-  ) {
-    return false
-  }
-  if (
-    value.status === 'mastered' &&
-    (completedCount !== 6 ||
-      !isTimestamp(value.reviewDueAt) ||
-      !isTimestamp(value.masteredAt))
-  ) {
-    return false
+
+  switch (value.status) {
+    case 'not_started':
+      return completedCount === 0
+    case 'active':
+    case 'paused':
+      return (
+        completedCount < 5 ||
+        (completedCount === 5 && isTimestamp(value.reviewDueAt))
+      )
+    case 'awaiting_review':
+      return completedCount === 5 && isTimestamp(value.reviewDueAt)
+    case 'mastered':
+      return (
+        completedCount === 6 &&
+        isTimestamp(value.reviewDueAt) &&
+        isTimestamp(value.masteredAt)
+      )
   }
 
-  return true
+  return false
 }
 
 export function isProgressState(value: unknown): value is ProgressState {

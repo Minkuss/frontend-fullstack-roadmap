@@ -69,6 +69,98 @@ describe('progress storage', () => {
     ).toBe('invalid')
   })
 
+  it('rejects impossible status and completed-step combinations', () => {
+    const fiveSteps = {
+      source: '2026-07-23T08:00:00.000Z',
+      obsidian: '2026-07-24T08:00:00.000Z',
+      anki: '2026-07-25T08:00:00.000Z',
+      practice: '2026-07-26T08:00:00.000Z',
+      selfCheck: '2026-07-27T08:00:00.000Z',
+    }
+    const sixSteps = {
+      ...fiveSteps,
+      firstReview: '2026-07-30T08:00:00.000Z',
+    }
+    const invalidTopics = [
+      {
+        status: 'not_started',
+        completedSteps: {
+          source: '2026-07-23T08:00:00.000Z',
+        },
+      },
+      {
+        status: 'active',
+        completedSteps: fiveSteps,
+        startedAt: '2026-07-23T08:00:00.000Z',
+      },
+      {
+        status: 'paused',
+        completedSteps: fiveSteps,
+        startedAt: '2026-07-23T08:00:00.000Z',
+      },
+      {
+        status: 'paused',
+        completedSteps: sixSteps,
+        startedAt: '2026-07-23T08:00:00.000Z',
+        reviewDueAt: '2026-07-30T08:00:00.000Z',
+        masteredAt: '2026-07-30T08:00:00.000Z',
+      },
+    ]
+
+    for (const topic of invalidTopics) {
+      const state = {
+        ...createInitialProgress(),
+        activeTopicId: topic.status === 'active' ? 'event-loop' : null,
+        topics: { 'event-loop': topic },
+      }
+
+      expect(
+        loadProgress({ getItem: () => JSON.stringify(state) }).warning,
+      ).toBe('invalid')
+    }
+  })
+
+  it('round-trips a reactivated five-step topic after first review', () => {
+    let state = progressReducer(createInitialProgress(), {
+      type: 'topic/activate',
+      topicId: 'event-loop',
+      at: '2026-07-23T08:00:00.000Z',
+    })
+    const steps = ['source', 'obsidian', 'anki', 'practice', 'selfCheck'] as const
+    for (const [index, step] of steps.entries()) {
+      state = progressReducer(state, {
+        type: 'topic/complete-step',
+        topicId: 'event-loop',
+        step,
+        at: `2026-07-${String(23 + index).padStart(2, '0')}T08:00:00.000Z`,
+      })
+    }
+    state = progressReducer(state, {
+      type: 'topic/activate',
+      topicId: 'event-loop',
+      at: '2026-07-30T07:00:00.000Z',
+    })
+    state = progressReducer(state, {
+      type: 'topic/complete-step',
+      topicId: 'event-loop',
+      step: 'firstReview',
+      at: '2026-07-30T08:00:00.000Z',
+    })
+
+    let saved: string | null = null
+    expect(
+      saveProgress(
+        {
+          setItem: (_key, value) => {
+            saved = value
+          },
+        },
+        state,
+      ),
+    ).toEqual({ ok: true })
+    expect(loadProgress({ getItem: () => saved })).toEqual({ state })
+  })
+
   it('returns unavailable when storage cannot be read', () => {
     const result = loadProgress({
       getItem: () => {
