@@ -45,6 +45,25 @@
     "section": "2.4."
   },
   {
+    "id": "mdn-ru-classes",
+    "title": "Классы",
+    "url": "https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Classes",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.4."
+  },
+  {
+    "id": "mdn-en-using-classes",
+    "title": "MDN: Using classes",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_classes",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.4.",
+    "englishReason": "Актуальное официальное руководство отдельно показывает композицию классов и mixin-подход; русская справочная страница покрывает синтаксис, private и static, но не этот проектный выбор."
+  },
+  {
     "id": "javascript-info-promise-basics",
     "title": "Промисы",
     "url": "https://learn.javascript.ru/promise-basics",
@@ -99,6 +118,56 @@
     "section": "2.5."
   },
   {
+    "id": "react-use-effect-race-condition",
+    "title": "React useEffect: Fetching data without race conditions",
+    "url": "https://react.dev/reference/react/useEffect#fetching-data-with-effects",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5.",
+    "englishReason": "Официальный React 19 reference прямо показывает гонку ответов из-за разного порядка завершения запросов и защиту от устаревшего результата; точного русского первичного источника нет."
+  },
+  {
+    "id": "mdn-en-debounce",
+    "title": "MDN Glossary: Debounce",
+    "url": "https://developer.mozilla.org/en-US/docs/Glossary/Debounce",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5.",
+    "englishReason": "У текущего MDN нет эквивалентной русской страницы, а официальный glossary точно фиксирует leading/trailing debounce и отличие от throttle."
+  },
+  {
+    "id": "mdn-en-throttle",
+    "title": "MDN Glossary: Throttle",
+    "url": "https://developer.mozilla.org/en-US/docs/Glossary/Throttle",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5.",
+    "englishReason": "У текущего MDN нет эквивалентной русской страницы, а официальный glossary описывает частотный лимит и его связь с debounce."
+  },
+  {
+    "id": "aws-retry-backoff",
+    "title": "AWS Builders' Library: Timeouts, retries and backoff with jitter",
+    "url": "https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter",
+    "language": "en",
+    "format": "article",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5.",
+    "englishReason": "Официальный инженерный материал AWS подробно связывает ограниченные retry, exponential backoff, jitter и риск перегрузки; сопоставимого первичного русскоязычного источника нет."
+  },
+  {
+    "id": "p-limit-readme",
+    "title": "p-limit: Limit promise concurrency",
+    "url": "https://github.com/sindresorhus/p-limit/blob/main/readme.md",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5.",
+    "englishReason": "Официальный README текущей библиотеки показывает минимальный API ограничения числа одновременно выполняемых Promise; точного русскоязычного первичного источника нет."
+  },
+  {
     "id": "javascript-info-array-methods",
     "title": "Методы массивов",
     "url": "https://learn.javascript.ru/array-methods",
@@ -111,6 +180,33 @@
     "id": "javascript-info-map-set",
     "title": "Map и Set",
     "url": "https://learn.javascript.ru/map-set",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.6."
+  },
+  {
+    "id": "javascript-info-weakmap-weakset",
+    "title": "WeakMap и WeakSet",
+    "url": "https://learn.javascript.ru/weakmap-weakset",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.6."
+  },
+  {
+    "id": "javascript-info-iterable",
+    "title": "Перебираемые объекты",
+    "url": "https://learn.javascript.ru/iterable",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.6."
+  },
+  {
+    "id": "javascript-info-generators",
+    "title": "Генераторы",
+    "url": "https://learn.javascript.ru/generators",
     "language": "ru",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
@@ -223,8 +319,8 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.2.",
-    "englishReason": "Официальная глава точно описывает lifting state up и single source of truth в современной React-модели."
+    "section": "4.4.",
+    "englishReason": "Официальная глава точно описывает controlled-компоненты, lifting state up и single source of truth в современной React-модели."
   },
   {
     "id": "react-synchronizing-effects",
@@ -235,6 +331,16 @@
     "lastVerifiedAt": "2026-07-23",
     "section": "4.3.",
     "englishReason": "Официальная документация React 19 отражает текущую семантику Effects, cleanup и Strict Mode."
+  },
+  {
+    "id": "react-passing-props",
+    "title": "React: Passing Props to a Component",
+    "url": "https://react.dev/learn/passing-props-to-a-component",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.4.",
+    "englishReason": "Официальная документация React 19 прямо показывает children как композиционный слот и актуальную модель props; равного текущего русского первичного источника нет."
   },
   {
     "id": "react-custom-hooks",
@@ -277,6 +383,56 @@
     "englishReason": "Официальный React 19 reference точно разграничивает render-ошибки, event handler и async-ошибки."
   },
   {
+    "id": "tanstack-query-states",
+    "title": "TanStack Query: Queries",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/queries",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.7.",
+    "englishReason": "Официальная документация TanStack Query v5 задаёт актуальные pending, error и success-состояния результата; русская документация текущей версии отсутствует."
+  },
+  {
+    "id": "tanstack-query-network-mode",
+    "title": "TanStack Query: Network Mode",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/network-mode",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.7.",
+    "englishReason": "Официальная документация TanStack Query v5 точно описывает offline и paused-состояния запросов; русская документация текущей версии отсутствует."
+  },
+  {
+    "id": "tanstack-query-important-defaults",
+    "title": "TanStack Query: Important Defaults",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.7.",
+    "englishReason": "Официальная документация TanStack Query v5 объясняет stale data, background refetch и cache defaults; русская документация текущей версии отсутствует."
+  },
+  {
+    "id": "tanstack-query-retries",
+    "title": "TanStack Query: Query Retries",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/query-retries",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.7.",
+    "englishReason": "Официальная документация TanStack Query v5 показывает ограничение числа повторов и exponential retry delay; русская документация текущей версии отсутствует."
+  },
+  {
+    "id": "tanstack-query-optimistic-updates",
+    "title": "TanStack Query: Optimistic Updates",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.7.",
+    "englishReason": "Официальная документация TanStack Query v5 показывает optimistic update, rollback и refetch при ошибке; русская документация текущей версии отсутствует."
+  },
+  {
     "id": "react-input-reference",
     "title": "React DOM: input",
     "url": "https://react.dev/reference/react-dom/components/input",
@@ -294,6 +450,16 @@
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
     "section": "4.8.",
-    "englishReason": "Официальная документация библиотеки актуально описывает register, formState, schema resolver, server errors и dynamic fields."
+    "englishReason": "Официальная документация библиотеки актуально описывает register, formState, schema resolver и server errors; равного текущего русскоязычного первичного источника нет."
+  },
+  {
+    "id": "react-hook-form-use-field-array",
+    "title": "React Hook Form: useFieldArray",
+    "url": "https://react-hook-form.com/docs/usefieldarray",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.8.",
+    "englishReason": "Официальная документация библиотеки является точным текущим источником по динамическим строкам, операциям field array и стабильному field.id; русского первичного источника нет."
   }
 ]

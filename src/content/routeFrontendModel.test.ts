@@ -7,6 +7,7 @@ import type {
   LearningSource,
   RoadmapLane,
   Topic,
+  TopicPriority,
 } from '../domain/roadmap/types'
 import { validateLane } from '../domain/roadmap/validateRoadmap'
 
@@ -41,6 +42,202 @@ const sourceById = new Map(sources.map((source) => [source.id, source]))
 const inventoryById = new Map(
   inventoryJson.items.map((item) => [item.id, item]),
 )
+const topicById = new Map(topics.map((topic) => [topic.id, topic]))
+const allowedPriorities = new Set<TopicPriority>([
+  'critical',
+  'high',
+  'supporting',
+  'background',
+  'deferred',
+])
+const criticalTopicIds = new Set([
+  'call-stack',
+  'closures',
+  'functions-this',
+  'promise-basics',
+  'event-loop',
+  'async-cancellation-races',
+  'type-system',
+  'narrowing',
+  'generics',
+  'react-render-commit',
+  'react-state-model',
+  'react-effects',
+])
+const highRiskTopicContracts = {
+  'prototypes-classes': {
+    section: '2.4.',
+    sourceIds: {
+      primary: 'javascript-info-prototype-inheritance',
+      fallback: 'mdn-ru-classes',
+      practice: 'mdn-en-using-classes',
+    },
+    sourceRefs: [
+      'L0188',
+      'L0192',
+      'L0193',
+      'L0194',
+      'L0195',
+      'L0196',
+      'L0197',
+      'L0198',
+      'L0199',
+      'L0200',
+      'L0201',
+      'L0202',
+      'L0206',
+      'L0207',
+      'L0208',
+      'L0209',
+    ],
+  },
+  'async-cancellation-races': {
+    section: '2.5.',
+    sourceIds: {
+      primary: 'javascript-info-fetch-abort',
+      fallback: 'mdn-ru-abort-controller',
+      practice: 'react-use-effect-race-condition',
+    },
+    sourceRefs: [
+      'L0236',
+      'L0237',
+      'L0238',
+      'L0251',
+      'L0252',
+      'L0261',
+      'L0263',
+    ],
+  },
+  'async-rate-control': {
+    section: '2.5.',
+    sourceIds: {
+      primary: 'mdn-en-debounce',
+      fallback: 'mdn-en-throttle',
+    },
+    sourceRefs: ['L0239', 'L0240', 'L0258', 'L0259'],
+  },
+  'async-retry-concurrency': {
+    section: '2.5.',
+    sourceIds: {
+      primary: 'aws-retry-backoff',
+      fallback: 'p-limit-readme',
+    },
+    sourceRefs: ['L0241', 'L0242', 'L0243', 'L0260', 'L0262'],
+  },
+  'keyed-collections': {
+    section: '2.6.',
+    sourceIds: {
+      primary: 'javascript-info-map-set',
+      fallback: 'javascript-info-weakmap-weakset',
+    },
+    sourceRefs: ['L0283', 'L0284', 'L0285', 'L0286', 'L0294', 'L0295'],
+  },
+  'iterables-generators': {
+    section: '2.6.',
+    sourceIds: {
+      primary: 'javascript-info-iterable',
+      fallback: 'javascript-info-generators',
+    },
+    sourceRefs: ['L0287', 'L0288', 'L0289'],
+  },
+  'react-composition': {
+    section: '4.4.',
+    sourceIds: {
+      primary: 'react-passing-props',
+      fallback: 'react-sharing-state',
+      practice: 'react-custom-hooks',
+    },
+    sourceRefs: [
+      'L0648',
+      'L0652',
+      'L0653',
+      'L0654',
+      'L0655',
+      'L0656',
+      'L0657',
+      'L0658',
+      'L0659',
+      'L0660',
+      'L0661',
+      'L0665',
+      'L0666',
+      'L0667',
+      'L0668',
+      'L0669',
+    ],
+  },
+  'react-error-boundaries': {
+    section: '4.7.',
+    sourceIds: {
+      primary: 'react-error-boundary',
+    },
+    sourceRefs: [
+      'L0740',
+      'L0744',
+      'L0745',
+      'L0746',
+      'L0747',
+      'L0749',
+      'L0760',
+      'L0762',
+    ],
+  },
+  'react-async-ui-states': {
+    section: '4.7.',
+    sourceIds: {
+      primary: 'tanstack-query-states',
+      fallback: 'tanstack-query-network-mode',
+      practice: 'tanstack-query-important-defaults',
+    },
+    sourceRefs: [
+      'L0750',
+      'L0751',
+      'L0752',
+      'L0753',
+      'L0754',
+      'L0756',
+      'L0763',
+    ],
+  },
+  'react-retry-optimistic': {
+    section: '4.7.',
+    sourceIds: {
+      primary: 'tanstack-query-retries',
+      fallback: 'tanstack-query-optimistic-updates',
+    },
+    sourceRefs: ['L0748', 'L0755', 'L0761'],
+  },
+  'react-forms': {
+    section: '4.8.',
+    sourceIds: {
+      primary: 'react-input-reference',
+      fallback: 'react-hook-form-use-form',
+      practice: 'react-hook-form-use-field-array',
+    },
+    sourceRefs: [
+      'L0767',
+      'L0771',
+      'L0772',
+      'L0773',
+      'L0774',
+      'L0775',
+      'L0776',
+      'L0777',
+      'L0778',
+      'L0779',
+      'L0780',
+      'L0781',
+      'L0785',
+      'L0786',
+      'L0787',
+      'L0791',
+      'L0792',
+      'L0793',
+      'L0794',
+      'L0795',
+    ],
+  },
+} as const
 
 function expectLearningCycle(topic: Topic) {
   expect(topic.outcome, topic.id).toMatch(
@@ -108,6 +305,41 @@ describe('Route 1: frontend mental model', () => {
       topic.dependencies.forEach((dependency) => {
         expect(topicIds.has(dependency), `${topic.id} -> ${dependency}`).toBe(true)
       })
+    })
+  })
+
+  it('maps high-risk topics to exact source sections, references, and source roles', () => {
+    Object.entries(highRiskTopicContracts).forEach(([topicId, contract]) => {
+      const topic = topicById.get(topicId)
+
+      expect(topic, topicId).toBeDefined()
+      expect(topic?.sourceIds, topicId).toEqual(contract.sourceIds)
+      expect(topic?.sourceRefs, topicId).toEqual(contract.sourceRefs)
+
+      Object.values(contract.sourceIds).forEach((sourceId) => {
+        expect(sourceById.get(sourceId)?.section, `${topicId} -> ${sourceId}`).toBe(
+          contract.section,
+        )
+      })
+
+      contract.sourceRefs.forEach((sourceRef) => {
+        expect(
+          inventoryById.get(sourceRef)?.h2,
+          `${topicId} -> ${sourceRef}`,
+        ).toMatch(new RegExp(`^${contract.section.replaceAll('.', '\\.')}`))
+      })
+    })
+  })
+
+  it('uses explicit valid priorities and bounded integer recommendation weights', () => {
+    topics.forEach((topic) => {
+      expect(allowedPriorities.has(topic.priority), topic.id).toBe(true)
+      expect(Number.isInteger(topic.recommendationWeight), topic.id).toBe(true)
+      expect(topic.recommendationWeight, topic.id).toBeGreaterThanOrEqual(0)
+      expect(topic.recommendationWeight, topic.id).toBeLessThanOrEqual(100)
+      expect(topic.priority === 'critical', topic.id).toBe(
+        criticalTopicIds.has(topic.id),
+      )
     })
   })
 

@@ -138,8 +138,8 @@
           "title": "Значения, ссылки и неизменяемые обновления",
           "outcome": "Предсказать результат сравнения и копирования данных и реализовать вложенное обновление без мутации исходного объекта.",
           "whyNow": "React и TypeScript не защищают от общей ссылки: понимание идентичности данных предотвращает тихие ошибки состояния.",
-          "priority": "critical",
-          "recommendationWeight": 94,
+          "priority": "high",
+          "recommendationWeight": 84,
           "estimatedMinutes": [75, 105],
           "dependencies": [],
           "sourceIds": {
@@ -291,12 +291,14 @@
           "title": "Прототипная модель и классы",
           "outcome": "Объяснить поиск свойства по prototype chain и реализовать один объектный API через class и через композицию.",
           "whyNow": "Прототипная модель нужна для точного чтения классов, встроенных коллекций и legacy-конструкторов без лишнего углубления.",
-          "priority": "critical",
-          "recommendationWeight": 82,
+          "priority": "high",
+          "recommendationWeight": 74,
           "estimatedMinutes": [60, 90],
           "dependencies": ["functions-this"],
           "sourceIds": {
-            "primary": "javascript-info-prototype-inheritance"
+            "primary": "javascript-info-prototype-inheritance",
+            "fallback": "mdn-ru-classes",
+            "practice": "mdn-en-using-classes"
           },
           "obsidianPrompts": [
             "Нарисуй цепочку поиска свойства для экземпляра класса.",
@@ -476,48 +478,49 @@
           ]
         },
         {
-          "id": "async-coordination",
-          "title": "Отмена, гонки и управление запросами",
-          "outcome": "Реализовать отменяемый поиск без устаревших ответов, с debounce, retry и ограничением параллелизма.",
-          "whyNow": "Эти шаблоны превращают знание Promise в устойчивое поведение интерфейса и напрямую переносятся в React Effects и server state.",
+          "id": "async-cancellation-races",
+          "title": "Отмена запросов и гонки ответов",
+          "outcome": "Реализовать отменяемый поиск, который не показывает устаревший ответ при любом порядке завершения запросов.",
+          "whyNow": "Отмена и защита от гонок превращают базовое знание Promise в корректное поведение сетевого интерфейса и напрямую переносятся в React Effects.",
           "priority": "critical",
-          "recommendationWeight": 97,
-          "estimatedMinutes": [90, 135],
+          "recommendationWeight": 94,
+          "estimatedMinutes": [60, 90],
           "dependencies": ["event-loop", "promise-basics"],
           "sourceIds": {
             "primary": "javascript-info-fetch-abort",
-            "fallback": "mdn-ru-abort-controller"
+            "fallback": "mdn-ru-abort-controller",
+            "practice": "react-use-effect-race-condition"
           },
           "obsidianPrompts": [
-            "Опиши race condition между двумя запросами и два способа защиты.",
-            "Сравни debounce и throttle по моменту вызова.",
-            "Запиши правила retry: какие ошибки, сколько попыток и где backoff."
+            "Нарисуй race condition между двумя запросами с обратным порядком ответов.",
+            "Сравни отмену активной работы и игнорирование уже устаревшего результата.",
+            "Опиши распространение одного AbortSignal на несколько операций."
           ],
           "ankiPrompts": [
-            "Выбрать debounce или throttle для сценария.",
-            "Назвать условие безопасного retry.",
-            "Объяснить AbortSignal и распространение отмены.",
+            "Объяснить AbortController и AbortSignal.",
+            "Назвать момент вызова abort.",
             "Найти race condition по timeline.",
-            "Сравнить backoff и ограничитель параллелизма."
+            "Выбрать отмену или stale-response guard.",
+            "Объяснить, почему порядок ответов не гарантирован."
           ],
           "practice": [
             {
-              "id": "abortable-search",
-              "title": "Отменяемый поиск с лимитом запросов",
+              "id": "abortable-stale-safe-search",
+              "title": "Отменяемый поиск без устаревших ответов",
               "instructions": [
-                "Реализовать debounce-поиск с AbortController и намеренно разным временем ответов.",
-                "Игнорировать либо отменять устаревший запрос и показать сценарий гонки до исправления.",
-                "Добавить retry максимум два раза с backoff и лимит двух одновременных запросов."
+                "Смоделировать поиск с намеренно разным временем ответов и воспроизвести гонку.",
+                "Отменять предыдущий fetch через AbortController при новом запросе.",
+                "Добавить проверку актуальности и отдельно обработать AbortError."
               ],
-              "minimumCompletion": "Пять быстрых вводов показывают только последний результат, активны не более двух запросов, retry строго ограничен.",
-              "estimatedMinutes": 50
+              "minimumCompletion": "Пять быстрых запросов всегда показывают последний результат, а отмена не попадает в пользовательское состояние ошибки.",
+              "estimatedMinutes": 40
             }
           ],
           "masteryChecks": [
-            "Нарисовать timeline race condition и исправления.",
-            "Реализовать debounce с сохранением аргументов.",
-            "Объяснить, почему отмена и игнорирование ответа решают разные задачи.",
-            "Найти бесконечный retry и отсутствие лимита в чужом коде."
+            "Нарисовать timeline гонки и исправления.",
+            "Объяснить различие отмены и игнорирования ответа.",
+            "Передать один AbortSignal двум операциям.",
+            "Найти отсутствующий cleanup в новом примере."
           ],
           "quickSteps": [
             "За 15 минут добавить AbortController к одному учебному fetch и проверить AbortError."
@@ -526,28 +529,117 @@
             "L0236",
             "L0237",
             "L0238",
-            "L0239",
-            "L0240",
-            "L0241",
-            "L0242",
-            "L0243",
             "L0251",
             "L0252",
-            "L0258",
-            "L0259",
-            "L0260",
             "L0261",
-            "L0262",
             "L0263"
           ]
+        },
+        {
+          "id": "async-rate-control",
+          "title": "Debounce и throttle",
+          "outcome": "Реализовать debounce и throttle и выбрать подходящий режим ограничения вызовов для ввода и частых событий.",
+          "whyNow": "Раздельная практика двух режимов предотвращает лишние запросы и обновления интерфейса без смешения с отменой или повторными попытками.",
+          "priority": "high",
+          "recommendationWeight": 78,
+          "estimatedMinutes": [45, 70],
+          "dependencies": ["functions-this", "event-loop"],
+          "sourceIds": {
+            "primary": "mdn-en-debounce",
+            "fallback": "mdn-en-throttle"
+          },
+          "obsidianPrompts": [
+            "Сравни debounce и throttle по частоте и моменту вызова.",
+            "Нарисуй leading и trailing вызовы на одной временной шкале.",
+            "Выбери режим для поиска, resize и scroll progress."
+          ],
+          "ankiPrompts": [
+            "Выбрать debounce для поискового ввода.",
+            "Выбрать throttle для частого события.",
+            "Различить leading и trailing edge.",
+            "Объяснить сброс debounce-таймера.",
+            "Назвать риск потерянного последнего вызова."
+          ],
+          "practice": [
+            {
+              "id": "debounce-throttle-timeline",
+              "title": "Два ограничителя частоты",
+              "instructions": [
+                "Реализовать debounce с передачей последних аргументов.",
+                "Реализовать throttle с фиксированным интервалом и trailing-вызовом.",
+                "Записать timeline одинаковой серии событий для обеих функций."
+              ],
+              "minimumCompletion": "Обе функции проходят по три сценария с таймерами, а выбор режима для поиска и scroll обоснован через timeline.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Выбрать режим для трёх новых сценариев.",
+            "Предсказать число вызовов по timeline.",
+            "Реализовать debounce с последними аргументами.",
+            "Найти потерю trailing-вызова в throttle."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать debounce и throttle для одной серии из пяти событий."
+          ],
+          "sourceRefs": ["L0239", "L0240", "L0258", "L0259"]
+        },
+        {
+          "id": "async-retry-concurrency",
+          "title": "Ограниченные retry и параллелизм",
+          "outcome": "Реализовать ограниченный retry с exponential backoff и очередь с заданным пределом одновременно выполняемых операций.",
+          "whyNow": "Ограничения повторов и параллелизма защищают клиент и сервис от лавины запросов и дополняют отмену без скрытого бесконечного ожидания.",
+          "priority": "high",
+          "recommendationWeight": 80,
+          "estimatedMinutes": [60, 90],
+          "dependencies": ["promise-basics", "event-loop"],
+          "sourceIds": {
+            "primary": "aws-retry-backoff",
+            "fallback": "p-limit-readme"
+          },
+          "obsidianPrompts": [
+            "Запиши retry policy: допустимые ошибки, максимум попыток и задержка.",
+            "Объясни, зачем exponential backoff добавляет jitter.",
+            "Нарисуй очередь из пяти задач при concurrency равном двум."
+          ],
+          "ankiPrompts": [
+            "Назвать условие безопасного retry.",
+            "Объяснить exponential backoff.",
+            "Назвать роль jitter.",
+            "Предсказать активные задачи при concurrency limit.",
+            "Найти бесконечный retry."
+          ],
+          "practice": [
+            {
+              "id": "bounded-retry-pool",
+              "title": "Retry с пулом запросов",
+              "instructions": [
+                "Сделать функцию с максимум двумя повторными попытками для временной ошибки.",
+                "Добавить растущую задержку и тестовый источник предсказуемого jitter.",
+                "Запустить пять задач через лимит двух одновременных операций."
+              ],
+              "minimumCompletion": "Число попыток строго ограничено, задержка растёт, а журнал ни в один момент не показывает больше двух активных задач.",
+              "estimatedMinutes": 45
+            }
+          ],
+          "masteryChecks": [
+            "Сформулировать bounded retry policy.",
+            "Объяснить backoff и jitter без конспекта.",
+            "Нарисовать выполнение очереди с лимитом.",
+            "Найти перегрузку из-за вложенных retry."
+          ],
+          "quickSteps": [
+            "За 15 минут записать policy повторов для одного учебного API-запроса."
+          ],
+          "sourceRefs": ["L0241", "L0242", "L0243", "L0260", "L0262"]
         },
         {
           "id": "collection-transforms",
           "title": "Преобразования массивов",
           "outcome": "Преобразовать ответ API в сгруппированную статистику через подходящие методы массива без промежуточной мутации.",
           "whyNow": "Большая часть прикладного frontend-кода — это поиск, фильтрация и агрегация данных до рендера.",
-          "priority": "critical",
-          "recommendationWeight": 88,
+          "priority": "high",
+          "recommendationWeight": 78,
           "estimatedMinutes": [60, 90],
           "dependencies": ["values-references", "functions-this"],
           "sourceIds": {
@@ -607,62 +699,102 @@
           ]
         },
         {
-          "id": "keyed-collections-iterables",
-          "title": "Map, Set и протокол итерации",
-          "outcome": "Выбрать Array, Map или Set для задачи и реализовать lookup, дедупликацию и собственный простой iterable.",
-          "whyNow": "Правильная коллекция делает преобразования данных проще и устраняет квадратичный поиск, а базовый iterable объясняет for...of.",
-          "priority": "high",
-          "recommendationWeight": 72,
-          "estimatedMinutes": [60, 90],
-          "dependencies": ["collection-transforms"],
+          "id": "keyed-collections",
+          "title": "Map, Set, WeakMap и WeakSet",
+          "outcome": "Выбрать keyed collection для задачи и реализовать lookup, дедупликацию и приватные метаданные без лишнего линейного поиска.",
+          "whyNow": "Правильная коллекция упрощает преобразования данных, а различие сильных и слабых ссылок предотвращает неверные ожидания от перечисления и хранения ключей.",
+          "priority": "supporting",
+          "recommendationWeight": 66,
+          "estimatedMinutes": [50, 75],
+          "dependencies": ["collection-transforms", "values-references"],
           "sourceIds": {
-            "primary": "javascript-info-map-set"
+            "primary": "javascript-info-map-set",
+            "fallback": "javascript-info-weakmap-weakset"
           },
           "obsidianPrompts": [
-            "Сравни Array, Map, Set, WeakMap и WeakSet по ключам и перечислению.",
-            "Опиши протокол iterable и iterator.",
-            "Запиши, когда generator улучшает читаемость, а когда усложняет код."
+            "Сравни Map, Set, WeakMap и WeakSet по ключам, перечислению и времени жизни.",
+            "Опиши выбор lookup map вместо повторного Array.find.",
+            "Приведи допустимый сценарий WeakMap для метаданных объекта."
           ],
           "ankiPrompts": [
             "Выбрать Map вместо объекта.",
             "Удалить дубликаты через Set.",
             "Объяснить слабую ссылку WeakMap.",
-            "Назвать метод iterator.next.",
+            "Назвать ограничение ключей WeakMap.",
             "Предсказать порядок обхода Map."
           ],
           "practice": [
             {
-              "id": "exercise-lookup-iterable",
-              "title": "Lookup и диапазон",
+              "id": "exercise-keyed-collections",
+              "title": "Lookup и приватные метаданные",
               "instructions": [
                 "Построить Map упражнений по id и Set уникальных групп мышц.",
-                "Сравнить поиск 100 элементов через find и Map.get на уровне сложности.",
-                "Создать iterable диапазона недель с минимум четырьмя значениями."
+                "Сравнить повторный find с Map.get на уровне временной сложности.",
+                "Хранить служебные метаданные объектов в WeakMap без перечисления ключей."
               ],
-              "minimumCompletion": "Lookup и дедупликация возвращают ожидаемые данные, а for...of обходит собственный iterable ровно четыре раза.",
+              "minimumCompletion": "Lookup и дедупликация возвращают ожидаемые данные, а выбор WeakMap объяснён временем жизни объектного ключа.",
               "estimatedMinutes": 30
             }
           ],
           "masteryChecks": [
             "Выбрать коллекцию для четырёх новых сценариев.",
-            "Объяснить ограничение WeakMap без конспекта.",
-            "Реализовать минимальный iterator.",
-            "Найти лишний линейный поиск, заменяемый lookup map."
+            "Объяснить ограничения WeakMap без конспекта.",
+            "Найти лишний линейный поиск, заменяемый lookup map.",
+            "Отличить Set от WeakSet по наблюдаемому API."
           ],
           "quickSteps": [
             "За 10 минут построить Map по id для одного массива из pet-проекта."
           ],
-          "sourceRefs": [
-            "L0283",
-            "L0284",
-            "L0285",
-            "L0286",
-            "L0287",
-            "L0288",
-            "L0289",
-            "L0294",
-            "L0295"
-          ]
+          "sourceRefs": ["L0283", "L0284", "L0285", "L0286", "L0294", "L0295"]
+        },
+        {
+          "id": "iterables-generators",
+          "title": "Iterable, iterator и generator",
+          "outcome": "Реализовать собственный iterable и эквивалентный generator и объяснить протокол, который использует for...of.",
+          "whyNow": "Протокол итерации объясняет работу for...of и коллекций, а отдельная практика не смешивает его с выбором структуры хранения данных.",
+          "priority": "supporting",
+          "recommendationWeight": 58,
+          "estimatedMinutes": [45, 70],
+          "dependencies": ["functions-this", "keyed-collections"],
+          "sourceIds": {
+            "primary": "javascript-info-iterable",
+            "fallback": "javascript-info-generators"
+          },
+          "obsidianPrompts": [
+            "Опиши контракт Symbol.iterator и результата iterator.next.",
+            "Нарисуй переходы value и done для четырёх шагов.",
+            "Сравни ручной iterator с generator по контролю и читаемости."
+          ],
+          "ankiPrompts": [
+            "Назвать метод запуска протокола iterable.",
+            "Объяснить поля value и done.",
+            "Предсказать четыре вызова next.",
+            "Назвать роль yield.",
+            "Выбрать generator вместо ручного iterator."
+          ],
+          "practice": [
+            {
+              "id": "week-range-iterable",
+              "title": "Диапазон недель двумя способами",
+              "instructions": [
+                "Создать объект с Symbol.iterator для диапазона минимум из четырёх недель.",
+                "Переписать тот же обход через generator function.",
+                "Проверить одинаковый результат через for...of и spread."
+              ],
+              "minimumCompletion": "Обе реализации дают одинаковые четыре значения, завершаются с done и объяснены через единый протокол итерации.",
+              "estimatedMinutes": 30
+            }
+          ],
+          "masteryChecks": [
+            "Реализовать минимальный iterator.",
+            "Объяснить связь iterable и iterator.",
+            "Переписать iterator через generator.",
+            "Предсказать результат последовательности yield."
+          ],
+          "quickSteps": [
+            "За 10 минут вручную вызвать next у одного generator до done."
+          ],
+          "sourceRefs": ["L0287", "L0288", "L0289"]
         }
       ],
       "sourceRefs": ["L0067"]
@@ -947,10 +1079,10 @@
           "title": "Типы API и runtime-валидация",
           "outcome": "Проверить unknown-ответ API схемой, преобразовать DTO в domain model и вернуть типизированный успех или ошибку.",
           "whyNow": "response.json не становится безопасным от TypeScript-аннотации; эта граница предотвращает попадание неверных данных во всё приложение.",
-          "priority": "critical",
-          "recommendationWeight": 93,
+          "priority": "high",
+          "recommendationWeight": 86,
           "estimatedMinutes": [90, 135],
-          "dependencies": ["narrowing", "generics", "async-coordination"],
+          "dependencies": ["narrowing", "generics", "async-cancellation-races"],
           "sourceIds": {
             "primary": "zod-basic-usage"
           },
@@ -1013,8 +1145,8 @@
           "title": "TypeScript в React",
           "outcome": "Типизировать props, events, refs, reducer, context и reusable component так, чтобы публичный API выводил типы у потребителя.",
           "whyNow": "Типизация React связывает систему типов с ежедневной работой и убирает assertions из обработчиков, форм и custom hooks.",
-          "priority": "critical",
-          "recommendationWeight": 91,
+          "priority": "high",
+          "recommendationWeight": 82,
           "estimatedMinutes": [90, 120],
           "dependencies": ["type-system", "generics"],
           "sourceIds": {
@@ -1224,8 +1356,7 @@
           "estimatedMinutes": [90, 120],
           "dependencies": ["values-references", "react-render-commit"],
           "sourceIds": {
-            "primary": "react-choosing-state-structure",
-            "fallback": "react-sharing-state"
+            "primary": "react-choosing-state-structure"
           },
           "obsidianPrompts": [
             "Опиши state as snapshot и очередь functional updates.",
@@ -1362,12 +1493,14 @@
           "title": "Композиция UI и переиспользование логики",
           "outcome": "Спроектировать reusable компонент с children или compound API и вынести stateful-логику в custom hook без смешения UI и бизнеса.",
           "whyNow": "Композиция уменьшает prop-флаги и наследование, а ясная граница UI и логики делает компоненты тестируемыми и переносимыми.",
-          "priority": "critical",
-          "recommendationWeight": 86,
+          "priority": "high",
+          "recommendationWeight": 82,
           "estimatedMinutes": [90, 120],
           "dependencies": ["functions-this", "react-state-model", "react-typing"],
           "sourceIds": {
-            "primary": "react-custom-hooks"
+            "primary": "react-passing-props",
+            "fallback": "react-sharing-state",
+            "practice": "react-custom-hooks"
           },
           "obsidianPrompts": [
             "Сравни children, render prop, compound и headless API.",
@@ -1389,7 +1522,7 @@
               "instructions": [
                 "Сделать Tabs с compound API и children минимум для трёх вкладок.",
                 "Поддержать controlled и uncontrolled active tab.",
-                "Вынести переходы и клавиатурную навигацию в custom hook и отделить стили."
+                "Вынести переходы между вкладками в custom hook и отделить stateful-логику от разметки."
               ],
               "minimumCompletion": "Три вкладки работают в обоих режимах, логика hook не возвращает готовую разметку, UI можно заменить без её переписывания.",
               "estimatedMinutes": 55
@@ -1428,8 +1561,8 @@
           "title": "Context и границы state management",
           "outcome": "Выбрать props, Context, URL, server cache или client store и реализовать узкий Context без лишних рендеров потребителей.",
           "whyNow": "Главный навык здесь — не выучить библиотеку, а не складывать разные виды состояния в один глобальный store без причины.",
-          "priority": "critical",
-          "recommendationWeight": 90,
+          "priority": "high",
+          "recommendationWeight": 85,
           "estimatedMinutes": [90, 120],
           "dependencies": ["react-state-model", "react-composition"],
           "sourceIds": {
@@ -1496,51 +1629,50 @@
           ]
         },
         {
-          "id": "react-resilience",
-          "title": "Ошибки и состояния устойчивого UI",
-          "outcome": "Спроектировать границы render-ошибок и явные loading, empty, error, offline и success-состояния с повтором без потери последнего полезного UI.",
-          "whyNow": "Устойчивость превращает happy-path компонент в интерфейс, который понятно ведёт себя при реальной сети и локальных сбоях.",
+          "id": "react-error-boundaries",
+          "title": "Error Boundary и render-ошибки",
+          "outcome": "Спроектировать локальные и маршрутные Error Boundary и отделить render-ошибки от ошибок событий и асинхронных операций.",
+          "whyNow": "Точная граница ответственности не позволяет ошибочно ожидать от Error Boundary перехвата любого сбоя и сохраняет понятный fallback.",
           "priority": "high",
-          "recommendationWeight": 82,
-          "estimatedMinutes": [90, 120],
-          "dependencies": ["async-coordination", "narrowing", "react-effects"],
+          "recommendationWeight": 80,
+          "estimatedMinutes": [50, 75],
+          "dependencies": ["narrowing", "react-render-commit"],
           "sourceIds": {
             "primary": "react-error-boundary"
           },
           "obsidianPrompts": [
             "Раздели render, event handler и async errors по месту обработки.",
-            "Нарисуй state machine loading, success, empty, stale, offline и error.",
-            "Сравни skeleton, optimistic UI, fallback и graceful degradation."
+            "Нарисуй локальную и route-level boundary в дереве компонентов.",
+            "Опиши fallback, сохраняющий контекст и путь восстановления."
           ],
           "ankiPrompts": [
             "Назвать ошибки, которые ловит Error Boundary.",
+            "Назвать ошибки, которые Error Boundary не ловит.",
             "Выбрать локальную или route-level boundary.",
-            "Различить empty и error state.",
-            "Объяснить retry без бесконечного цикла.",
-            "Выбрать stale data вместо пустого экрана.",
-            "Назвать rollback optimistic update."
+            "Объяснить роль fallback UI.",
+            "Различить render и event-handler error."
           ],
           "practice": [
             {
-              "id": "resilient-workout-list",
-              "title": "Устойчивый список тренировок",
+              "id": "workout-error-boundaries",
+              "title": "Две границы ошибок",
               "instructions": [
-                "Описать UI-состояния discriminated union и отрисовать loading, empty, success и error.",
-                "Добавить Error Boundary для render-ошибки и отдельную обработку async ошибки.",
-                "Реализовать ограниченный retry, offline-сообщение и сохранение stale списка."
+                "Добавить Error Boundary вокруг виджета тренировки и на уровне маршрута.",
+                "Воспроизвести render-ошибку отдельно от ошибки event handler.",
+                "Сделать локальный fallback и маршрутную страницу восстановления."
               ],
-              "minimumCompletion": "Шесть состояний воспроизводятся отдельно, retry ограничен, render и async ошибки попадают в разные обработчики.",
-              "estimatedMinutes": 55
+              "minimumCompletion": "Render-ошибка изолируется ближайшей границей, event error обрабатывается отдельно, а маршрутный fallback оставляет путь назад.",
+              "estimatedMinutes": 35
             }
           ],
           "masteryChecks": [
             "Объяснить границы Error Boundary.",
-            "Нарисовать исчерпывающую машину UI-состояний.",
-            "Найти смешение empty, loading и error.",
+            "Выбрать уровень boundary для трёх сбоев.",
+            "Найти ошибочное ожидание перехвата async error.",
             "Спроектировать fallback, сохраняющий полезный контекст."
           ],
           "quickSteps": [
-            "За 15 минут выписать все не-happy-path состояния одного API-виджета."
+            "За 10 минут отметить две подходящие Error Boundary в дереве одного экрана."
           ],
           "sourceRefs": [
             "L0740",
@@ -1548,20 +1680,118 @@
             "L0745",
             "L0746",
             "L0747",
-            "L0748",
             "L0749",
+            "L0760",
+            "L0762"
+          ]
+        },
+        {
+          "id": "react-async-ui-states",
+          "title": "Loading, empty, stale и offline UI",
+          "outcome": "Спроектировать явные loading, empty, success, stale и offline-состояния запроса без потери последнего полезного результата.",
+          "whyNow": "Раздельные сетевые состояния превращают happy path в предсказуемый интерфейс и не подменяют фоновое обновление пустым экраном.",
+          "priority": "high",
+          "recommendationWeight": 83,
+          "estimatedMinutes": [60, 90],
+          "dependencies": ["api-boundaries", "react-state-model"],
+          "sourceIds": {
+            "primary": "tanstack-query-states",
+            "fallback": "tanstack-query-network-mode",
+            "practice": "tanstack-query-important-defaults"
+          },
+          "obsidianPrompts": [
+            "Нарисуй state machine loading, success, empty, stale и offline.",
+            "Сравни initial loading и background refetch со stale data.",
+            "Опиши graceful degradation при потере сети."
+          ],
+          "ankiPrompts": [
+            "Различить empty и error state.",
+            "Различить pending и background fetching.",
+            "Выбрать stale data вместо пустого экрана.",
+            "Объяснить paused fetchStatus offline.",
+            "Выбрать skeleton для initial loading.",
+            "Назвать условие graceful degradation."
+          ],
+          "practice": [
+            {
+              "id": "workout-query-states",
+              "title": "Полная карта состояний списка",
+              "instructions": [
+                "Отрисовать initial loading со skeleton, empty и success для списка тренировок.",
+                "Сохранить stale список во время background refetch и явно показать обновление.",
+                "Воспроизвести offline или paused-состояние без удаления последнего результата."
+              ],
+              "minimumCompletion": "Пять состояний воспроизводятся отдельно, initial loading не смешан с refetch, а offline UI сохраняет последние доступные данные.",
+              "estimatedMinutes": 45
+            }
+          ],
+          "masteryChecks": [
+            "Нарисовать исчерпывающую машину UI-состояний.",
+            "Найти смешение empty и loading.",
+            "Объяснить stale и fetching как разные оси.",
+            "Спроектировать offline fallback с полезным контекстом."
+          ],
+          "quickSteps": [
+            "За 15 минут выписать loading, empty, stale и offline ветки одного API-виджета."
+          ],
+          "sourceRefs": [
             "L0750",
             "L0751",
             "L0752",
             "L0753",
             "L0754",
-            "L0755",
             "L0756",
-            "L0760",
-            "L0761",
-            "L0762",
             "L0763"
           ]
+        },
+        {
+          "id": "react-retry-optimistic",
+          "title": "Retry и optimistic update",
+          "outcome": "Реализовать ограниченный повтор запроса и optimistic update с явным rollback при ошибке сервера.",
+          "whyNow": "Повтор и optimistic UI требуют разных правил восстановления, поэтому отдельная практика делает предел попыток и откат наблюдаемыми.",
+          "priority": "high",
+          "recommendationWeight": 81,
+          "estimatedMinutes": [55, 85],
+          "dependencies": ["async-retry-concurrency", "react-async-ui-states"],
+          "sourceIds": {
+            "primary": "tanstack-query-retries",
+            "fallback": "tanstack-query-optimistic-updates"
+          },
+          "obsidianPrompts": [
+            "Запиши условия автоматического и ручного retry для одного запроса.",
+            "Нарисуй optimistic update от снимка cache до commit или rollback.",
+            "Опиши пользовательский сигнал после неуспешного отката."
+          ],
+          "ankiPrompts": [
+            "Объяснить retry без бесконечного цикла.",
+            "Назвать предел автоматических попыток.",
+            "Назвать snapshot для rollback.",
+            "Различить invalidate и rollback.",
+            "Выбрать optimistic UI для обратимого действия."
+          ],
+          "practice": [
+            {
+              "id": "optimistic-workout-toggle",
+              "title": "Оптимистичная отметка тренировки",
+              "instructions": [
+                "Обновить отметку выполнения до ответа сервера и сохранить предыдущий cache.",
+                "Откатить изменение при ошибке и показать повтор без автоматического цикла.",
+                "После успеха сверить результат с сервером через invalidation."
+              ],
+              "minimumCompletion": "Успех, ошибка и ручной retry воспроизводятся отдельно, rollback возвращает точный предыдущий список, число попыток ограничено.",
+              "estimatedMinutes": 40
+            }
+          ],
+          "masteryChecks": [
+            "Сформулировать предел retry.",
+            "Нарисовать optimistic lifecycle.",
+            "Найти отсутствующий rollback.",
+            "Выбрать действие, для которого optimistic UI небезопасен."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать snapshot, optimistic value, error и rollback для одного toggle."
+          ],
+          "sourceRefs": ["L0748", "L0755", "L0761"]
         },
         {
           "id": "react-forms",
@@ -1571,10 +1801,11 @@
           "priority": "high",
           "recommendationWeight": 85,
           "estimatedMinutes": [105, 150],
-          "dependencies": ["api-boundaries", "react-state-model", "react-typing", "react-resilience"],
+          "dependencies": ["api-boundaries", "react-state-model", "react-typing", "react-async-ui-states"],
           "sourceIds": {
             "primary": "react-input-reference",
-            "fallback": "react-hook-form-use-form"
+            "fallback": "react-hook-form-use-form",
+            "practice": "react-hook-form-use-field-array"
           },
           "obsidianPrompts": [
             "Сравни controlled, uncontrolled и FormData по источнику истины.",
