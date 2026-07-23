@@ -331,6 +331,36 @@ describe('Route 1: frontend mental model', () => {
     })
   })
 
+  it('keeps React composition children-based and controlled without unsupported compound terminology', () => {
+    const topic = topicById.get('react-composition')
+    const practiceText = topic?.practice
+      .flatMap((task) => [
+        task.title,
+        ...task.instructions,
+        task.minimumCompletion,
+      ])
+      .join(' ')
+    const learningText = [
+      topic?.outcome,
+      ...(topic?.obsidianPrompts ?? []),
+      ...(topic?.ankiPrompts ?? []),
+      practiceText,
+      ...(topic?.masteryChecks ?? []),
+    ].join(' ')
+
+    expect(topic, 'react-composition').toBeDefined()
+    expect(learningText).not.toMatch(/\bcompound(?:-component)?\b/i)
+    expect(topic?.outcome).toMatch(/children/)
+    expect(topic?.outcome).toMatch(/controlled/)
+    expect(practiceText).toMatch(/children/)
+    expect(practiceText).toMatch(/controlled/)
+    expect(topic?.dependencies).toEqual([
+      'functions-this',
+      'react-state-model',
+      'react-typing',
+    ])
+  })
+
   it('uses explicit valid priorities and bounded integer recommendation weights', () => {
     topics.forEach((topic) => {
       expect(allowedPriorities.has(topic.priority), topic.id).toBe(true)

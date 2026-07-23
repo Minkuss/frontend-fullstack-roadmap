@@ -1491,7 +1491,7 @@
         {
           "id": "react-composition",
           "title": "Композиция UI и переиспользование логики",
-          "outcome": "Спроектировать reusable компонент с children или compound API и вынести stateful-логику в custom hook без смешения UI и бизнеса.",
+          "outcome": "Спроектировать controlled reusable компонент через children и вынести stateful-логику в custom hook без смешения UI и бизнеса.",
           "whyNow": "Композиция уменьшает prop-флаги и наследование, а ясная граница UI и логики делает компоненты тестируемыми и переносимыми.",
           "priority": "high",
           "recommendationWeight": 82,
@@ -1503,28 +1503,28 @@
             "practice": "react-custom-hooks"
           },
           "obsidianPrompts": [
-            "Сравни children, render prop, compound и headless API.",
+            "Сравни children и явные props как способы собрать reusable UI.",
             "Раздели переиспользование структуры UI и stateful-логики.",
-            "Опиши controlled и uncontrolled API одного компонента."
+            "Опиши controlled API и владельца shared state одного компонента."
           ],
           "ankiPrompts": [
             "Выбрать children или render prop.",
             "Назвать признак custom hook.",
             "Сравнить controlled и uncontrolled API.",
-            "Объяснить compound component.",
+            "Объяснить children как композиционный слот.",
             "Найти бизнес-логику внутри presentational UI.",
             "Выбрать composition вместо inheritance."
           ],
           "practice": [
             {
               "id": "composable-tabs",
-              "title": "Composable Tabs",
+              "title": "Controlled Tabs через children",
               "instructions": [
-                "Сделать Tabs с compound API и children минимум для трёх вкладок.",
-                "Поддержать controlled и uncontrolled active tab.",
+                "Сделать Tabs через children минимум для трёх вкладок.",
+                "Принимать activeTab и onTabChange от родителя, оставив shared state у него.",
                 "Вынести переходы между вкладками в custom hook и отделить stateful-логику от разметки."
               ],
-              "minimumCompletion": "Три вкладки работают в обоих режимах, логика hook не возвращает готовую разметку, UI можно заменить без её переписывания.",
+              "minimumCompletion": "Три вкладки работают от controlled state родителя, логика hook не возвращает готовую разметку, UI можно заменить без её переписывания.",
               "estimatedMinutes": 55
             }
           ],
@@ -1532,7 +1532,7 @@
             "Выбрать композиционный API для трёх сценариев.",
             "Объяснить границу custom hook.",
             "Найти компонент с избыточными boolean props.",
-            "Спроектировать controlled/uncontrolled контракт."
+            "Спроектировать controlled контракт с одним владельцем shared state."
           ],
           "quickSteps": [
             "За 15 минут выписать публичный API модального окна через children и controlled open."
