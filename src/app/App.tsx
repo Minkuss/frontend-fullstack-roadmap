@@ -1,4 +1,6 @@
 import { EmptyState } from '../ui/EmptyState'
+import { FocusPage } from '../features/focus/FocusPage'
+import { TopicPage } from '../features/topic/TopicPage'
 import { AppShell } from './AppShell'
 import { useHashRoute, type HashRoute } from './hashRoute'
 import { useProgress } from './ProgressProvider'
@@ -39,27 +41,7 @@ const PAGE_COPY = {
 } as const
 
 function PlaceholderPage({ route }: { route: HashRoute }) {
-  if (route.page === 'topic') {
-    return (
-      <section className="placeholder-page">
-        <header className="placeholder-page__intro">
-          <p className="placeholder-page__eyebrow">Микротема</p>
-          <h1>{route.topicId}</h1>
-          <p className="placeholder-page__lead">
-            Здесь появятся источники, практика и шесть шагов учебного цикла.
-          </p>
-        </header>
-        <EmptyState
-          title="Карточка темы скоро будет готова"
-          action={<a href="#/roadmap">Вернуться к roadmap</a>}
-        >
-          Просмотр темы не запускает её автоматически и не меняет текущий
-          фокус.
-        </EmptyState>
-      </section>
-    )
-  }
-
+  if (route.page === 'topic') return null
   const copy = PAGE_COPY[route.page]
 
   return (
@@ -83,13 +65,23 @@ function PlaceholderPage({ route }: { route: HashRoute }) {
   )
 }
 
-export function App() {
+interface AppProps {
+  now?: string
+}
+
+export function App({ now = new Date().toISOString() }: AppProps) {
   const route = useHashRoute()
   const { storageWarning } = useProgress()
 
   return (
     <AppShell route={route} storageWarning={storageWarning}>
-      <PlaceholderPage route={route} />
+      {route.page === 'focus' ? <FocusPage now={now} /> : null}
+      {route.page === 'topic' ? (
+        <TopicPage now={now} topicId={route.topicId} />
+      ) : null}
+      {route.page !== 'focus' && route.page !== 'topic' ? (
+        <PlaceholderPage route={route} />
+      ) : null}
     </AppShell>
   )
 }
