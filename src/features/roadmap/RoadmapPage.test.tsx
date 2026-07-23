@@ -155,6 +155,53 @@ describe('RoadmapPage', () => {
     expect(storage.setItem).not.toHaveBeenCalled()
   })
 
+  it('moves focus to the stable topic link after direct activation removes its trigger', async () => {
+    const user = userEvent.setup()
+    renderRoadmap()
+    await openJavascriptModule(user)
+
+    const topicLink = screen.getByRole('link', {
+      name: 'Выполнение кода, области видимости и call stack',
+    })
+    const row = topicLink.closest('li')!
+    await user.click(
+      within(row).getByRole('button', {
+        name: 'Сделать фокусом: Выполнение кода, области видимости и call stack',
+      }),
+    )
+
+    await waitFor(() => expect(topicLink).toHaveFocus())
+    expect(document.activeElement?.isConnected).toBe(true)
+  })
+
+  it('falls back to the page heading when activation filters out the topic row', async () => {
+    const user = userEvent.setup()
+    renderRoadmap()
+    await openJavascriptModule(user)
+    await user.selectOptions(
+      screen.getByRole('combobox', { name: 'Статус' }),
+      'not_started',
+    )
+
+    const row = screen
+      .getByRole('link', {
+        name: 'Выполнение кода, области видимости и call stack',
+      })
+      .closest('li')!
+    await user.click(
+      within(row).getByRole('button', {
+        name: 'Сделать фокусом: Выполнение кода, области видимости и call stack',
+      }),
+    )
+
+    const pageTitle = screen.getByRole('heading', {
+      name: 'Roadmap',
+      level: 1,
+    })
+    await waitFor(() => expect(pageTitle).toHaveFocus())
+    expect(document.activeElement?.isConnected).toBe(true)
+  })
+
   it('changes focus only through the explicit action and confirms pausing another topic', async () => {
     const user = userEvent.setup()
     const storage = renderRoadmap(activeState('values-references'))
@@ -165,13 +212,15 @@ describe('RoadmapPage', () => {
         name: 'Выполнение кода, области видимости и call stack',
       })
       .closest('li')!
-    await user.click(
-      within(callStackRow).getByRole('button', {
-        name: 'Сделать фокусом: Выполнение кода, области видимости и call stack',
-      }),
-    )
+    const callStackLink = within(callStackRow).getByRole('link', {
+      name: 'Выполнение кода, области видимости и call stack',
+    })
+    const focusButton = within(callStackRow).getByRole('button', {
+      name: 'Сделать фокусом: Выполнение кода, области видимости и call stack',
+    })
+    await user.click(focusButton)
 
-    const dialog = screen.getByRole('dialog', {
+    let dialog = screen.getByRole('dialog', {
       name: 'Переключить текущую тему?',
     })
     expect(dialog).toHaveTextContent(
@@ -181,6 +230,14 @@ describe('RoadmapPage', () => {
     expect(screen.getByRole('button', { name: 'Остаться здесь' })).toHaveFocus()
     expect(storage.setItem).not.toHaveBeenCalled()
 
+    await user.keyboard('{Escape}')
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(focusButton).toHaveFocus()
+
+    await user.click(focusButton)
+    dialog = screen.getByRole('dialog', {
+      name: 'Переключить текущую тему?',
+    })
     await user.click(
       within(dialog).getByRole('button', { name: 'Переключить тему' }),
     )
@@ -190,6 +247,8 @@ describe('RoadmapPage', () => {
       expect(saved.activeTopicId).toBe('call-stack')
       expect(saved.topics['values-references'].status).toBe('paused')
     })
+    expect(callStackLink).toHaveFocus()
+    expect(document.activeElement?.isConnected).toBe(true)
   })
 
   it('warns about missing dependencies but allows manual focus', async () => {

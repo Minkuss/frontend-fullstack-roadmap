@@ -32,6 +32,7 @@ interface RoadmapTopicRowProps {
   onQueueRemove: (topicId: string) => void
   progress: ProgressState
   topic: Topic
+  topicLinkRef?: (element: HTMLAnchorElement | null) => void
 }
 
 export function RoadmapTopicRow({
@@ -41,6 +42,7 @@ export function RoadmapTopicRow({
   onQueueRemove,
   progress,
   topic,
+  topicLinkRef,
 }: RoadmapTopicRowProps) {
   const status = progress.topics[topic.id]?.status ?? 'not_started'
   const queued = progress.queue.includes(topic.id)
@@ -60,6 +62,7 @@ export function RoadmapTopicRow({
         <a
           className="roadmap-topic__title"
           href={`#/topic/${topic.id}`}
+          ref={topicLinkRef}
         >
           {topic.title}
         </a>

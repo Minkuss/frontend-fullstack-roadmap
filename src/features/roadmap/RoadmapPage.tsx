@@ -1,4 +1,8 @@
-import { useState } from 'react'
+import {
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
 import { useProgress } from '../../app/ProgressProvider'
 import {
   roadmap,
@@ -41,6 +45,10 @@ export function RoadmapPage({ getNow }: RoadmapPageProps) {
   const [pendingFocusId, setPendingFocusId] = useState<string | null>(
     null,
   )
+  const pageTitleRef = useRef<HTMLHeadingElement>(null)
+  const topicLinkRefs = useRef(new Map<string, HTMLAnchorElement>())
+  const activationFocusIdRef = useRef<string | null>(null)
+  const dialogFallbackRef = useRef<HTMLElement | null>(null)
   const filteredLanes = filterRoadmap(ALL_LANES, state, filters)
   const visibleTopicCount = filteredLanes.reduce(
     (laneCount, lane) =>
@@ -55,7 +63,31 @@ export function RoadmapPage({ getNow }: RoadmapPageProps) {
     ? roadmapIndex.topics.get(state.activeTopicId)
     : undefined
 
+  useLayoutEffect(() => {
+    const topicId = activationFocusIdRef.current
+    if (!topicId || state.activeTopicId !== topicId) {
+      return
+    }
+
+    const topicLink = topicLinkRefs.current.get(topicId)
+    const target =
+      topicLink?.isConnected === true ? topicLink : pageTitleRef.current
+
+    dialogFallbackRef.current = target
+    target?.focus()
+    activationFocusIdRef.current = null
+  }, [state.activeTopicId])
+
+  function prepareActivationFocus(topicId: string) {
+    activationFocusIdRef.current = topicId
+    const topicLink = topicLinkRefs.current.get(topicId)
+    dialogFallbackRef.current =
+      topicLink?.isConnected === true ? topicLink : pageTitleRef.current
+  }
+
   function requestFocus(topicId: string) {
+    prepareActivationFocus(topicId)
+
     if (state.activeTopicId && state.activeTopicId !== topicId) {
       setPendingFocusId(topicId)
       return
@@ -77,11 +109,18 @@ export function RoadmapPage({ getNow }: RoadmapPageProps) {
     setPendingFocusId(null)
   }
 
+  function cancelFocus() {
+    activationFocusIdRef.current = null
+    setPendingFocusId(null)
+  }
+
   return (
     <section className="study-page roadmap-page">
       <header className="study-page__intro">
         <p className="study-page__eyebrow">Вся карта</p>
-        <h1>Roadmap</h1>
+        <h1 ref={pageTitleRef} tabIndex={-1}>
+          Roadmap
+        </h1>
         <p className="study-page__lead">
           Четыре маршрута доступны одновременно. Можно сменить направление
           в любой момент — завершать предыдущий маршрут не нужно.
@@ -125,6 +164,13 @@ export function RoadmapPage({ getNow }: RoadmapPageProps) {
                     }
                     progress={state}
                     topic={topic}
+                    topicLinkRef={(element) => {
+                      if (element) {
+                        topicLinkRefs.current.set(topic.id, element)
+                      } else {
+                        topicLinkRefs.current.delete(topic.id)
+                      }
+                    }}
                   />
                 ) : null
               }}
@@ -140,7 +186,8 @@ export function RoadmapPage({ getNow }: RoadmapPageProps) {
       <ConfirmDialog
         cancelLabel="Остаться здесь"
         confirmLabel="Переключить тему"
-        onCancel={() => setPendingFocusId(null)}
+        fallbackFocusRef={dialogFallbackRef}
+        onCancel={cancelFocus}
         onConfirm={confirmFocus}
         open={pendingFocusId !== null}
         title="Переключить текущую тему?"
