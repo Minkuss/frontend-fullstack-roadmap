@@ -52,7 +52,12 @@ function assertTupleMinutes(value: unknown, path: string): asserts value is [num
 
 function assertIsoDate(value: unknown, path: string): asserts value is string {
   assertString(value, path)
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || Number.isNaN(Date.parse(`${value}T00:00:00Z`))) {
+  const parsed = new Date(`${value}T00:00:00.000Z`)
+  if (
+    !/^\d{4}-\d{2}-\d{2}$/.test(value) ||
+    Number.isNaN(parsed.getTime()) ||
+    parsed.toISOString().slice(0, 10) !== value
+  ) {
     throw new Error(`${path} must be an ISO date`)
   }
 }
@@ -79,7 +84,7 @@ function validateSource(value: unknown, path: string): LearningSource {
   assertId(value.id, `${path}.id`)
   assertString(value.title, `${path}.title`)
   assertString(value.url, `${path}.url`)
-  if (!value.url.startsWith('https://')) {
+  if (!isHttpsUrl(value.url)) {
     throw new Error(`${path}.url must be an HTTPS URL`)
   }
   assertEnum(value.language, ['ru', 'en'], `${path}.language`)
@@ -90,6 +95,14 @@ function validateSource(value: unknown, path: string): LearningSource {
   if (value.englishReason !== undefined) assertString(value.englishReason, `${path}.englishReason`)
 
   return value as unknown as LearningSource
+}
+
+function isHttpsUrl(value: string): boolean {
+  try {
+    return new URL(value).protocol === 'https:'
+  } catch {
+    return false
+  }
 }
 
 function validatePractice(value: unknown, path: string): PracticeTask {
@@ -254,12 +267,18 @@ function validateUniqueRoadmapIds(lanes: RoadmapLane[]): void {
   const laneIds = new Set<string>()
   const moduleIds = new Set<string>()
   const topicIds = new Set<string>()
+  const practiceIds = new Set<string>()
 
   lanes.forEach((lane) => {
     assertUniqueId(lane.id, laneIds, 'lane')
     lane.modules.forEach((module) => {
       assertUniqueId(module.id, moduleIds, 'module')
-      module.topics.forEach((topic) => assertUniqueId(topic.id, topicIds, 'topic'))
+      module.topics.forEach((topic) => {
+        assertUniqueId(topic.id, topicIds, 'topic')
+        topic.practice.forEach((practice) =>
+          assertUniqueId(practice.id, practiceIds, 'practice task'),
+        )
+      })
     })
   })
 }

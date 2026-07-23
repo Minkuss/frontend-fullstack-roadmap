@@ -11,7 +11,10 @@ const source: LearningSource = {
   lastVerifiedAt: '2026-07-23',
 }
 
-function createTopic(overrides: Record<string, unknown> = {}) {
+function createTopic(
+  overrides: Record<string, unknown> = {},
+  practiceId = 'event-loop-practice',
+) {
   return {
     id: 'event-loop',
     title: 'Event loop',
@@ -28,7 +31,7 @@ function createTopic(overrides: Record<string, unknown> = {}) {
     ankiPrompts: ['What runs before the next task?'],
     practice: [
       {
-        id: 'event-loop-log',
+        id: practiceId,
         title: 'Log the queue order',
         instructions: ['Predict and then run a scheduling example.'],
         minimumCompletion: 'Explain the output order.',
@@ -42,7 +45,11 @@ function createTopic(overrides: Record<string, unknown> = {}) {
   }
 }
 
-function createLane(overrides: Record<string, unknown> = {}, topicId = 'event-loop') {
+function createLane(
+  overrides: Record<string, unknown> = {},
+  topicId = 'event-loop',
+  practiceId = `${topicId}-practice`,
+) {
   const laneId = typeof overrides.id === 'string' ? overrides.id : 'frontend-model'
 
   return {
@@ -56,7 +63,7 @@ function createLane(overrides: Record<string, unknown> = {}, topicId = 'event-lo
         id: `${laneId}-module`,
         title: 'JavaScript runtime',
         outcome: 'Understand JavaScript scheduling.',
-        topics: [createTopic({ id: topicId, dependencies: [topicId] })],
+        topics: [createTopic({ id: topicId, dependencies: [topicId] }, practiceId)],
         sourceRefs: ['heading:javascript'],
       },
     ],
@@ -106,6 +113,20 @@ describe('validateRoadmap', () => {
     ).toThrow('Roadmap.sources[0].url must be an HTTPS URL')
   })
 
+  it('rejects a source URL without a host', () => {
+    expect(() =>
+      validateRoadmap(createRoadmap({ sources: [{ ...source, url: 'https://' }] })),
+    ).toThrow('Roadmap.sources[0].url must be an HTTPS URL')
+  })
+
+  it('rejects an impossible source verification date', () => {
+    expect(() =>
+      validateRoadmap(
+        createRoadmap({ sources: [{ ...source, lastVerifiedAt: '2026-02-31' }] }),
+      ),
+    ).toThrow('Roadmap.sources[0].lastVerifiedAt must be an ISO date')
+  })
+
   it('rejects a topic primary source that does not exist', () => {
     expect(() =>
       validateRoadmap(
@@ -148,6 +169,20 @@ describe('validateRoadmap', () => {
         }),
       ),
     ).toThrow('Roadmap.routes[0].modules[0].topics[0].quickSteps must contain at least one item')
+  })
+
+  it('rejects practice task IDs duplicated across topics', () => {
+    expect(() =>
+      validateRoadmap(
+        createRoadmap({
+          background: createLane(
+            { id: 'background', kind: 'background', order: 1 },
+            'background-topic',
+            'event-loop-practice',
+          ),
+        }),
+      ),
+    ).toThrow('Duplicate practice task id: event-loop-practice')
   })
 
   it('validates a lane against its sources without a full roadmap', () => {
