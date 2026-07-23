@@ -38,11 +38,28 @@
           "dependencies": ["node-runtime-process", "promise-basics"],
           "sourceIds": { "primary": "node-fs", "fallback": "node-streams", "practice": "node-errors" },
           "obsidianPrompts": ["Опиши async file I/O и stream backpressure на базовом уровне.", "Раздели operational и programmer errors."],
-          "ankiPrompts": ["Почему sync I/O блокирует?", "Когда нужен stream?", "Куда должна дойти ошибка?", "Что даёт package manager lockfile?"],
+          "ankiPrompts": ["Почему sync I/O блокирует?", "Когда нужен stream?", "Куда должна дойти ошибка?", "Когда использовать pipeline?"],
           "practice": [{ "id": "node-stream-errors", "title": "Безопасно обработать тестовый файл", "instructions": ["Создать локальный синтетический файл.", "Прочитать его stream и посчитать строки.", "Обработать отсутствующий файл без падения процесса."], "minimumCompletion": "Тестовый файл обработан stream, ошибка имеет ожидаемый результат.", "estimatedMinutes": 25 }],
-          "masteryChecks": ["Объяснить неблокирующий I/O.", "Поймать ошибку stream.", "Назвать границу package dependency."],
+          "masteryChecks": ["Объяснить неблокирующий I/O.", "Поймать ошибку stream.", "Закрыть file handle при ошибке."],
           "quickSteps": ["За 10 минут заменить один sync file call на async."],
-          "sourceRefs": ["L1324", "L1325", "L1326", "L1327", "L1328"]
+          "sourceRefs": ["L1324", "L1325", "L1326", "L1327"]
+        },
+        {
+          "id": "node-package-management",
+          "title": "package.json, lockfile и npm ci",
+          "outcome": "Объяснить роли manifest и lockfile и воспроизвести точную установку зависимостей через npm ci.",
+          "whyNow": "Воспроизводимый dependency tree нужен до добавления framework plugins и CI.",
+          "priority": "supporting",
+          "recommendationWeight": 62,
+          "estimatedMinutes": [35, 50],
+          "dependencies": ["node-runtime-process"],
+          "sourceIds": { "primary": "npm-package-lock", "fallback": "npm-ci" },
+          "obsidianPrompts": ["Сравни package.json и package-lock.json.", "Опиши, почему npm ci не изменяет lockfile."],
+          "ankiPrompts": ["Что фиксирует lockfile?", "Почему lockfile коммитят?", "Чем npm ci отличается от npm install?", "Что проверить в dependency diff?"],
+          "practice": [{ "id": "node-reproducible-install", "title": "Воспроизводимая локальная установка", "instructions": ["Использовать маленький локальный тестовый package.", "Зафиксировать manifest и lockfile.", "Удалить node_modules и выполнить npm ci."], "minimumCompletion": "Установка воспроизводится, а diff lockfile после npm ci пуст.", "estimatedMinutes": 20 }],
+          "masteryChecks": ["Объяснить manifest и lockfile.", "Выбрать npm ci для CI.", "Прочитать изменение одной dependency."],
+          "quickSteps": ["За 10 минут сравнить package.json и lockfile проекта."],
+          "sourceRefs": ["L1328"]
         },
         {
           "id": "fastify-api-contracts",

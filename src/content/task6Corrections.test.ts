@@ -3,75 +3,21 @@ import { describe, expect, it } from 'vitest'
 import type { Topic } from '../domain/roadmap/types'
 import { roadmap, roadmapIndex } from './loadRoadmap'
 
-const migratedSourceIds = [
-  'fsd-overview-ru',
-  'fsd-public-api-ru',
-  'vite-features',
-  'rollup-tree-shaking',
-  'chrome-memory-problems',
-  'chrome-performance',
-  'react-profiler',
-  'webdev-core-web-vitals',
-  'mdn-ru-html-structure',
-  'mdn-ru-css-layout',
-  'webdev-accessibility',
-  'wai-forms-tutorial',
-  'sentry-react',
-  'node-introduction',
-  'node-event-loop',
-  'fastify-getting-started',
-  'fastify-validation',
-  'owasp-password-storage',
-  'owasp-authorization',
-  'postgrespro-tutorial',
-  'postgrespro-indexes',
-  'postgres-explain',
-  'docker-build-best-practices',
-  'docker-compose',
-  'docker-security',
-  'caddy-reverse-proxy',
-  'caddy-file-server',
-  'github-actions-understand',
-  'github-actions-deployments',
-  'fastify-logging',
-  'git-book-ru',
-  'google-code-review',
-  'openai-agents-md',
-  'google-technical-writing',
-  'yandex-algorithms',
-  'kubernetes-basics',
-  'graphql-learn',
-  'webpack-module-federation',
-  'mdn-ru-webassembly-concepts',
-] as const
+const task6Lanes = [
+  roadmap.routes[2],
+  roadmap.routes[3],
+  roadmap.petProject,
+  roadmap.background,
+  roadmap.deferred,
+]
 
-const originalMapSectionLabels = new Set([
-  '2.7. Модули и сборка',
-  '2.8. Память и производительность',
-  '4.6. Производительность React',
-  '6. Архитектура frontend',
-  '8. Производительность',
-  '11. HTML',
-  '11. CSS',
-  '11. Accessibility',
-  '11. HTML и Accessibility',
-  '12. Основы Node.js',
-  '12. Framework',
-  '12. Авторизация',
-  '13. SQL и PostgreSQL',
-  '13. PostgreSQL',
-  '14. Docker',
-  '15. Caddy и nginx',
-  '16. CI/CD',
-  '17. Frontend observability',
-  '17. Backend observability',
-  '18. Git и командная разработка',
-  '19. Code review',
-  '20. Работа с AI-агентами',
-  '21. Технический английский',
-  '22. Алгоритмы и структуры данных',
-  'Не сейчас',
-])
+const task6SourceIds = new Set(
+  task6Lanes.flatMap((lane) =>
+    lane.modules.flatMap((module) =>
+      module.topics.flatMap((item) => Object.values(item.sourceIds)),
+    ),
+  ),
+)
 
 function topic(id: string): Topic {
   const found = roadmapIndex.topics.get(id)?.topic
@@ -133,6 +79,8 @@ describe('Task 6 review corrections', () => {
   })
 
   it('assigns framework, Docker and deferred references to their owners', () => {
+    expectRefs('node-io-errors', ['L1324', 'L1325', 'L1326', 'L1327'])
+    expectRefs('node-package-management', ['L1328'])
     expectRefs('nestjs-dependency-injection', ['L1335', 'L1341'])
     expect(topic('fastify-api-contracts').sourceRefs).not.toEqual(
       expect.arrayContaining(['L1335', 'L1341']),
@@ -196,6 +144,7 @@ describe('Task 6 review corrections', () => {
         'react-use-deferred-value',
       ],
       'node-io-errors': ['node-fs', 'node-streams', 'node-errors'],
+      'node-package-management': ['npm-package-lock', 'npm-ci'],
       'fastify-api-contracts': ['fastify-swagger'],
       'fastify-operational-plugins': [
         'fastify-rate-limit',
@@ -217,14 +166,23 @@ describe('Task 6 review corrections', () => {
         'opentelemetry-metrics',
         'uptime-kuma',
       ],
-      'agent-verification-safety': [
-        'google-code-review',
-        'fowler-test-driven-development',
+      'agent-task-contract': [
+        'openai-model-guidance',
+        'agile-alliance-user-stories',
+        'github-tasklists',
       ],
-      'agent-deliberate-practice': [
+      'agent-repository-instructions': ['openai-agents-md'],
+      'agent-review-loop': [
         'fowler-test-driven-development',
         'google-code-review',
       ],
+      'agent-prompt-injection': ['owasp-llm-prompt-injection'],
+      'agent-change-controls': [
+        'github-dependency-review',
+        'atlas-migration-safety',
+        'owasp-agent-command-execution',
+      ],
+      'agent-decision-review': ['adr-madr', 'google-code-review'],
       'english-experience-stories': ['star-method', 'europass-cv'],
     }
 
@@ -236,15 +194,44 @@ describe('Task 6 review corrections', () => {
     })
   })
 
-  it('uses real page reading targets instead of roadmap labels', () => {
-    migratedSourceIds.forEach((id) => {
+  it('uses real page reading targets for every Task 6 source', () => {
+    task6SourceIds.forEach((id) => {
       const source = roadmapIndex.sources.get(id)
       expect(source, `missing source ${id}`).toBeDefined()
       expect(source?.section, `${id} needs an exact reading target`).toBeTruthy()
       expect(
-        originalMapSectionLabels.has(source?.section ?? ''),
-        `${id} still points to an original roadmap label`,
-      ).toBe(false)
+        source?.section,
+        `${id} still points to a roadmap-number section`,
+      ).not.toMatch(/^\d+(?:\.\d+)*\.$/)
+    })
+  })
+
+  it('splits AI work into exact task, review, security and decision owners', () => {
+    expectRefs('agent-task-contract', [
+      'L1714',
+      'L1716',
+      'L1717',
+      'L1718',
+      'L1719',
+    ])
+    expectRefs('agent-repository-instructions', ['L1720', 'L1721'])
+    expectRefs('agent-review-loop', ['L1722', 'L1723', 'L1724', 'L1725'])
+    expectRefs('agent-prompt-injection', ['L1726', 'L1727'])
+    expectRefs('agent-change-controls', ['L1728', 'L1729', 'L1730'])
+    expectRefs('agent-decision-review', ['L1731', 'L1732', 'L1733'])
+
+    ;[
+      'agent-task-contract',
+      'agent-repository-instructions',
+      'agent-review-loop',
+      'agent-prompt-injection',
+      'agent-change-controls',
+      'agent-decision-review',
+    ].forEach((id) => {
+      expect(
+        Object.values(topic(id).sourceIds).length,
+        `${id} exceeds three source roles`,
+      ).toBeLessThanOrEqual(3)
     })
   })
 

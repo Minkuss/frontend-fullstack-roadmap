@@ -88,7 +88,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "2.5."
+    "section": "Цикл событий, выполнение до завершения и отсутствие блокировки"
   },
   {
     "id": "javascript-info-async-await",
@@ -289,7 +289,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.1.",
+    "section": "Trigger a render, React renders your components и React commits changes to the DOM",
     "englishReason": "Официальная документация React 19 точно разделяет trigger, render и commit; старые русские статьи часто смешивают эти этапы."
   },
   {
@@ -379,7 +379,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "4.7.",
+    "section": "Catching rendering errors with an error boundary",
     "englishReason": "Официальный React 19 reference точно разграничивает render-ошибки, event handler и async-ошибки."
   },
   {
@@ -691,7 +691,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "5.",
+    "section": "The three core concepts: Queries, Mutations и Query Invalidation",
     "englishReason": "Официальный quick start TanStack Query v5 даёт текущую связку QueryClient, provider, query и mutation; актуального русского первичного источника нет."
   },
   {
@@ -870,7 +870,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "Session ID Properties, Cookie Attributes и Session Expiration",
     "englishReason": "OWASP содержит актуальную первичную модель сессий, cookie attributes, истечения и завершения сессии; русского равноценного источника нет."
   },
   {
@@ -919,7 +919,7 @@
     "language": "ru",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9."
+    "section": "Синтаксис и атрибуты Secure, HttpOnly и SameSite"
   },
   {
     "id": "portswigger-csrf-labs",
@@ -947,7 +947,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "Content-Security-Policy, X-Content-Type-Options и Referrer-Policy",
     "englishReason": "OWASP поддерживает актуальный набор защитных заголовков, включая CSP и frame-ancestors; полного русского первичного руководства нет."
   },
   {
@@ -1007,7 +1007,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "9.",
+    "section": "Validating data received via the Mini App",
     "englishReason": "Официальная документация Telegram задаёт серверную проверку подписи initData и срока auth_date; равноценного актуального русского первичного источника нет."
   },
   {
@@ -1065,7 +1065,7 @@
     "language": "en",
     "format": "documentation",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.3.",
+    "section": "Priority, Types of Queries и Summary Table",
     "englishReason": "Официальная документация Testing Library задаёт текущий приоритет role queries и различия getBy, findBy, queryBy; русского первичного источника нет."
   },
   {
@@ -1125,7 +1125,7 @@
     "language": "en",
     "format": "guide",
     "lastVerifiedAt": "2026-07-23",
-    "section": "10.5.",
+    "section": "Test user-visible behavior, test isolation, locators и web-first assertions",
     "englishReason": "Официальное руководство Playwright актуально описывает isolation, auto-wait, web-first assertions и борьбу с flaky tests; русского первичного аналога нет."
   },
   {
@@ -1908,5 +1908,95 @@
     "lastVerifiedAt": "2026-07-23",
     "section": "Context, Benefits, Challenges и When to choose microservices",
     "englishReason": "Официальное архитектурное руководство перечисляет не только выгоды, но и распределённые operational costs."
+  },
+  {
+    "id": "npm-package-lock",
+    "title": "npm: package-lock.json",
+    "url": "https://docs.npmjs.com/cli/v11/configuring-npm/package-lock-json",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Description: exact dependency tree и committing package locks",
+    "englishReason": "Официальная документация npm объясняет воспроизводимый dependency tree и назначение lockfile."
+  },
+  {
+    "id": "npm-ci",
+    "title": "npm: npm ci",
+    "url": "https://docs.npmjs.com/cli/v11/commands/npm-ci",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Description: clean install from package-lock.json",
+    "englishReason": "Официальный CLI reference фиксирует строгую установку без изменения manifest и lockfile."
+  },
+  {
+    "id": "openai-model-guidance",
+    "title": "OpenAI: Model guidance",
+    "url": "https://developers.openai.com/api/docs/guides/latest-model",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Prompting best practices: goal, context, constraints, evidence и success criteria",
+    "englishReason": "Официальное актуальное руководство прямо перечисляет части outcome-focused task prompt."
+  },
+  {
+    "id": "agile-alliance-user-stories",
+    "title": "Agile Alliance: User Stories",
+    "url": "https://agilealliance.org/glossary/user-stories/",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "User goal, context, expected outcomes, acceptance tests и splitting stories",
+    "englishReason": "Профессиональная Agile-организация связывает требования, acceptance criteria и разбиение большой цели."
+  },
+  {
+    "id": "github-tasklists",
+    "title": "GitHub Docs: Planning and tracking work",
+    "url": "https://docs.github.com/en/issues/tracking-your-work-with-issues/learning-about-issues/planning-and-tracking-work-for-your-team-or-project",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Task list example: breaking a larger issue into smaller tasks",
+    "englishReason": "Официальная документация даёт простой практический способ декомпозиции и отслеживания маленьких задач."
+  },
+  {
+    "id": "owasp-llm-prompt-injection",
+    "title": "OWASP: LLM Prompt Injection Prevention",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Anatomy, Direct and Indirect Prompt Injection и Agent-Specific Defenses",
+    "englishReason": "Актуальный OWASP Cheat Sheet описывает trust boundary и controls для агентов с tools."
+  },
+  {
+    "id": "github-dependency-review",
+    "title": "GitHub Docs: Dependency review",
+    "url": "https://docs.github.com/en/code-security/concepts/supply-chain-security/dependency-review",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "About dependency review: manifest и lockfile changes, vulnerabilities и licenses",
+    "englishReason": "Официальная документация показывает, что проверять в dependency diff до принятия изменения."
+  },
+  {
+    "id": "atlas-migration-safety",
+    "title": "Atlas: Verifying Migration Safety",
+    "url": "https://atlasgo.io/versioned/lint",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Destructive operations, breaking changes, table locks и CI lint",
+    "englishReason": "Официальное руководство даёт конкретные preflight checks для database migration."
+  },
+  {
+    "id": "owasp-agent-command-execution",
+    "title": "OWASP MCP05: Command Injection & Execution",
+    "url": "https://owasp.org/www-project-mcp-top-10/2025/MCP05-2025%E2%80%93Command-Injection%26Execution",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "Prompt-driven execution, safe execution patterns и human approval",
+    "englishReason": "Актуальный OWASP материал прямо покрывает shell actions, tool boundaries и approval для агентных систем."
   }
 ]

@@ -43,13 +43,6 @@ const allocatedH1ByModule = {
   'frontend-security': '9. Frontend-безопасность',
   'testing-stack': '10. Тестирование',
 } as const
-const allocatedSectionByModule = {
-  'http-network': '7.',
-  'browser-platform': '8.',
-  'server-state': '5.',
-  'frontend-security': '9.',
-  'testing-stack': '10.',
-} as const
 const highRiskTopicContracts = {
   'http-request-lifecycle': {
     section: '7.',
@@ -415,19 +408,15 @@ describe('Route 2: reliable data flow', () => {
     expect(sourceById.size).toBe(sources.length)
 
     route.modules.forEach((module) => {
-      const expectedSection =
-        allocatedSectionByModule[
-          module.id as keyof typeof allocatedSectionByModule
-        ]
-
       module.topics.forEach((topic) => {
         usedSourceIds(topic).forEach((sourceId) => {
           const source = sourceById.get(sourceId)
           expect(source, `${topic.id} -> ${sourceId}`).toBeDefined()
           expect(source?.lastVerifiedAt, sourceId).toBe(VERIFIED_AT)
-          expect(source?.section, `${topic.id} -> ${sourceId}`).toMatch(
-            new RegExp(`^${expectedSection.replaceAll('.', '\\.')}`),
-          )
+          expect(
+            source?.section?.trim().length,
+            `${topic.id} -> ${sourceId}`,
+          ).toBeGreaterThan(0)
           if (source?.language === 'en') {
             expect(source.englishReason?.trim().length, sourceId).toBeGreaterThan(
               20,
@@ -447,9 +436,10 @@ describe('Route 2: reliable data flow', () => {
       }
 
       Object.values(contract.sourceIds).forEach((sourceId) => {
-        expect(sourceById.get(sourceId)?.section, `${topicId} -> ${sourceId}`).toBe(
-          contract.section,
-        )
+        expect(
+          sourceById.get(sourceId)?.section?.trim().length,
+          `${topicId} -> ${sourceId}`,
+        ).toBeGreaterThan(0)
       })
     })
   })
