@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { App } from '../../app/App'
@@ -38,6 +38,14 @@ function backupFile(raw: string) {
     value: vi.fn().mockResolvedValue(raw),
   })
   return file
+}
+
+function deferred<T>() {
+  let resolve!: (value: T) => void
+  const promise = new Promise<T>((resolvePromise) => {
+    resolve = resolvePromise
+  })
+  return { promise, resolve }
 }
 
 afterEach(() => {
@@ -145,6 +153,55 @@ describe('SettingsPage', () => {
     expect(storage.setItem).not.toHaveBeenCalled()
   })
 
+  it('keeps the latest file result when an older File.text resolves later', async () => {
+    const user = userEvent.setup()
+    renderSettings()
+    const slowRead = deferred<string>()
+    const fastRead = deferred<string>()
+    const slowFile = backupFile('unused-slow')
+    const fastFile = backupFile('unused-fast')
+    Object.defineProperty(slowFile, 'text', {
+      configurable: true,
+      value: vi.fn(() => slowRead.promise),
+    })
+    Object.defineProperty(fastFile, 'text', {
+      configurable: true,
+      value: vi.fn(() => fastRead.promise),
+    })
+    const imported: ProgressState = {
+      ...createInitialProgress(),
+      topics: {
+        'latest-file-topic': {
+          status: 'paused',
+          completedSteps: {},
+          startedAt: '2026-07-20T08:00:00.000Z',
+        },
+      },
+    }
+    const input = screen.getByLabelText('Файл резервной копии JSON')
+
+    await user.upload(input, slowFile)
+    await user.upload(input, fastFile)
+    fastRead.resolve(exportProgress(imported, NOW))
+
+    expect(await screen.findByText('latest-file-topic')).toBeInTheDocument()
+    expect(
+      screen.getByText('Копия проверена и готова к импорту.'),
+    ).toBeInTheDocument()
+
+    await act(async () => {
+      slowRead.resolve('{broken')
+      await slowRead.promise
+    })
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Файл повреждён: JSON не удалось прочитать.'),
+      ).not.toBeInTheDocument()
+      expect(screen.getByText('latest-file-topic')).toBeInTheDocument()
+    })
+  })
+
   it('stages a valid import, offers export first, and replaces only after confirmation', async () => {
     const user = userEvent.setup()
     const current: ProgressState = {
@@ -184,6 +241,12 @@ describe('SettingsPage', () => {
     expect(storage.setItem.mock.calls[0]?.[1]).toBe(
       JSON.stringify(createInitialProgress()),
     )
+    const fileInput = screen.getByLabelText('Файл резервной копии JSON')
+    expect(fileInput.isConnected).toBe(true)
+    expect(fileInput).toHaveFocus()
+    expect(
+      screen.queryByRole('button', { name: 'Подтвердить импорт' }),
+    ).not.toBeInTheDocument()
   })
 
   it('resets only after a detailed explicit confirmation', async () => {

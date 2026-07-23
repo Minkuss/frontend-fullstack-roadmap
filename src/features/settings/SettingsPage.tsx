@@ -30,7 +30,8 @@ export function SettingsPage({ getNow }: SettingsPageProps) {
   const [stagedImport, setStagedImport] = useState<ValidImport>()
   const [importDialogOpen, setImportDialogOpen] = useState(false)
   const [resetDialogOpen, setResetDialogOpen] = useState(false)
-  const importConfirmRef = useRef<HTMLButtonElement>(null)
+  const importRequestId = useRef(0)
+  const importFileRef = useRef<HTMLInputElement>(null)
   const resetRef = useRef<HTMLButtonElement>(null)
 
   function exportCurrentProgress() {
@@ -40,6 +41,7 @@ export function SettingsPage({ getNow }: SettingsPageProps) {
   async function stageImport(event: ChangeEvent<HTMLInputElement>) {
     const input = event.currentTarget
     const file = input.files?.[0]
+    const requestId = ++importRequestId.current
     setFeedback(undefined)
     setStagedImport(undefined)
 
@@ -48,7 +50,12 @@ export function SettingsPage({ getNow }: SettingsPageProps) {
     }
 
     try {
-      const result = parseProgressImport(await file.text(), roadmapIndex)
+      const raw = await file.text()
+      if (requestId !== importRequestId.current) {
+        return
+      }
+
+      const result = parseProgressImport(raw, roadmapIndex)
       if (!result.ok) {
         setFeedback(IMPORT_ERRORS[result.reason])
         return
@@ -57,9 +64,13 @@ export function SettingsPage({ getNow }: SettingsPageProps) {
       setStagedImport(result)
       setFeedback('Копия проверена и готова к импорту.')
     } catch {
-      setFeedback('Не удалось прочитать выбранный файл.')
+      if (requestId === importRequestId.current) {
+        setFeedback('Не удалось прочитать выбранный файл.')
+      }
     } finally {
-      input.value = ''
+      if (requestId === importRequestId.current) {
+        input.value = ''
+      }
     }
   }
 
@@ -124,6 +135,7 @@ export function SettingsPage({ getNow }: SettingsPageProps) {
             accept="application/json,.json"
             id="progress-backup"
             onChange={stageImport}
+            ref={importFileRef}
             type="file"
           />
         </label>
@@ -159,7 +171,6 @@ export function SettingsPage({ getNow }: SettingsPageProps) {
               </Button>
               <Button
                 onClick={() => setImportDialogOpen(true)}
-                ref={importConfirmRef}
                 variant="secondary"
               >
                 Подтвердить импорт
@@ -192,7 +203,7 @@ export function SettingsPage({ getNow }: SettingsPageProps) {
       <ConfirmDialog
         confirmLabel="Заменить прогресс"
         confirmVariant="secondary"
-        fallbackFocusRef={importConfirmRef}
+        fallbackFocusRef={importFileRef}
         onCancel={() => setImportDialogOpen(false)}
         onConfirm={confirmImport}
         open={importDialogOpen}
