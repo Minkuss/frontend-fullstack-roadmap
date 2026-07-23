@@ -1,0 +1,299 @@
+[
+  {
+    "id": "javascript-info-closure",
+    "title": "Область видимости переменных, замыкание",
+    "url": "https://learn.javascript.ru/closure",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.1."
+  },
+  {
+    "id": "mdn-ru-call-stack",
+    "title": "Call stack",
+    "url": "https://developer.mozilla.org/ru/docs/Glossary/Call_stack",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.1."
+  },
+  {
+    "id": "javascript-info-object-copy",
+    "title": "Копирование объектов и ссылки",
+    "url": "https://learn.javascript.ru/object-copy",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.2."
+  },
+  {
+    "id": "javascript-info-object-methods",
+    "title": "Методы объекта, this",
+    "url": "https://learn.javascript.ru/object-methods",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.3."
+  },
+  {
+    "id": "javascript-info-prototype-inheritance",
+    "title": "Прототипное наследование",
+    "url": "https://learn.javascript.ru/prototype-inheritance",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.4."
+  },
+  {
+    "id": "javascript-info-promise-basics",
+    "title": "Промисы",
+    "url": "https://learn.javascript.ru/promise-basics",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5."
+  },
+  {
+    "id": "javascript-info-event-loop",
+    "title": "Событийный цикл: микрозадачи и макрозадачи",
+    "url": "https://learn.javascript.ru/event-loop",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5."
+  },
+  {
+    "id": "mdn-ru-execution-model",
+    "title": "Цикл событий JavaScript",
+    "url": "https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Execution_model",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5."
+  },
+  {
+    "id": "javascript-info-async-await",
+    "title": "Async/await",
+    "url": "https://learn.javascript.ru/async-await",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5."
+  },
+  {
+    "id": "javascript-info-fetch-abort",
+    "title": "Fetch: прерывание запроса",
+    "url": "https://learn.javascript.ru/fetch-abort",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5."
+  },
+  {
+    "id": "mdn-ru-abort-controller",
+    "title": "AbortController",
+    "url": "https://developer.mozilla.org/ru/docs/Web/API/AbortController",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.5."
+  },
+  {
+    "id": "javascript-info-array-methods",
+    "title": "Методы массивов",
+    "url": "https://learn.javascript.ru/array-methods",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.6."
+  },
+  {
+    "id": "javascript-info-map-set",
+    "title": "Map и Set",
+    "url": "https://learn.javascript.ru/map-set",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "2.6."
+  },
+  {
+    "id": "typescript-handbook-everyday-types",
+    "title": "TypeScript Handbook: Everyday Types",
+    "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "3.1.",
+    "englishReason": "Официальный Handbook актуальнее неполных русских переводов и точно описывает современную систему типов."
+  },
+  {
+    "id": "typescript-handbook-narrowing",
+    "title": "TypeScript Handbook: Narrowing",
+    "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "3.2.",
+    "englishReason": "Официальная глава содержит полную актуальную модель control-flow narrowing и exhaustive checking."
+  },
+  {
+    "id": "typescript-handbook-generics",
+    "title": "TypeScript Handbook: Generics",
+    "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "3.3.",
+    "englishReason": "Официальная глава является первичным и наиболее точным источником по выводу и ограничениям generic-параметров."
+  },
+  {
+    "id": "typescript-handbook-types-from-types",
+    "title": "TypeScript Handbook: Creating Types from Types",
+    "url": "https://www.typescriptlang.org/docs/handbook/2/types-from-types.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "3.4.",
+    "englishReason": "Официальный индекс связывает utility, mapped, conditional и template literal types без расхождений между версиями."
+  },
+  {
+    "id": "zod-basic-usage",
+    "title": "Zod: Basic usage",
+    "url": "https://zod.dev/basics",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "3.5.",
+    "englishReason": "Официальная документация Zod 4 точно показывает runtime-проверку недоверенных данных и вывод TypeScript-типа."
+  },
+  {
+    "id": "react-typescript",
+    "title": "React: Using TypeScript",
+    "url": "https://react.dev/learn/typescript",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "3.6.",
+    "englishReason": "Официальная документация React 19 содержит актуальные типы событий, хуков и JSX; русские материалы часто описывают старые версии."
+  },
+  {
+    "id": "typescript-tsconfig-reference",
+    "title": "TypeScript TSConfig Reference",
+    "url": "https://www.typescriptlang.org/tsconfig/",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "3.7.",
+    "englishReason": "Официальный справочник синхронизирован с текущим компилятором и является источником истины для строгих опций."
+  },
+  {
+    "id": "react-render-and-commit",
+    "title": "React: Render and Commit",
+    "url": "https://react.dev/learn/render-and-commit",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.1.",
+    "englishReason": "Официальная документация React 19 точно разделяет trigger, render и commit; старые русские статьи часто смешивают эти этапы."
+  },
+  {
+    "id": "react-preserving-state",
+    "title": "React: Preserving and Resetting State",
+    "url": "https://react.dev/learn/preserving-and-resetting-state",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.1.",
+    "englishReason": "Официальная глава актуально объясняет component identity, позицию в дереве и роль key."
+  },
+  {
+    "id": "react-choosing-state-structure",
+    "title": "React: Choosing the State Structure",
+    "url": "https://react.dev/learn/choosing-the-state-structure",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.2.",
+    "englishReason": "Официальная глава даёт текущие правила минимального состояния и устранения противоречивых данных."
+  },
+  {
+    "id": "react-sharing-state",
+    "title": "React: Sharing State Between Components",
+    "url": "https://react.dev/learn/sharing-state-between-components",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.2.",
+    "englishReason": "Официальная глава точно описывает lifting state up и single source of truth в современной React-модели."
+  },
+  {
+    "id": "react-synchronizing-effects",
+    "title": "React: Synchronizing with Effects",
+    "url": "https://react.dev/learn/synchronizing-with-effects",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.3.",
+    "englishReason": "Официальная документация React 19 отражает текущую семантику Effects, cleanup и Strict Mode."
+  },
+  {
+    "id": "react-custom-hooks",
+    "title": "React: Reusing Logic with Custom Hooks",
+    "url": "https://react.dev/learn/reusing-logic-with-custom-hooks",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.4.",
+    "englishReason": "Официальная глава показывает актуальную границу между переиспользованием UI через композицию и логики через Hooks."
+  },
+  {
+    "id": "react-reducer-context",
+    "title": "React: Scaling Up with Reducer and Context",
+    "url": "https://react.dev/learn/scaling-up-with-reducer-and-context",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.5.",
+    "englishReason": "Официальный пример даёт современную базовую модель Context, provider и reducer без привязки к стороннему store."
+  },
+  {
+    "id": "tanstack-query-overview",
+    "title": "TanStack Query: Overview",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/overview",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.5.",
+    "englishReason": "Официальная документация TanStack Query v5 точно разграничивает удалённый server state и синхронный client state."
+  },
+  {
+    "id": "react-error-boundary",
+    "title": "React Component: Catching rendering errors with an error boundary",
+    "url": "https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.7.",
+    "englishReason": "Официальный React 19 reference точно разграничивает render-ошибки, event handler и async-ошибки."
+  },
+  {
+    "id": "react-input-reference",
+    "title": "React DOM: input",
+    "url": "https://react.dev/reference/react-dom/components/input",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.8.",
+    "englishReason": "Официальный React 19 reference содержит актуальные правила controlled и uncontrolled inputs и доступной разметки."
+  },
+  {
+    "id": "react-hook-form-use-form",
+    "title": "React Hook Form: useForm",
+    "url": "https://react-hook-form.com/docs/useform",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "4.8.",
+    "englishReason": "Официальная документация библиотеки актуально описывает register, formState, schema resolver, server errors и dynamic fields."
+  }
+]

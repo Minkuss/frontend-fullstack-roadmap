@@ -1,0 +1,1643 @@
+{
+  "id": "frontend-model",
+  "kind": "primary-route",
+  "order": 1,
+  "title": "Ментальная модель фронтенда",
+  "outcome": "Точно объяснять выполнение JavaScript-кода, проектировать безопасные TypeScript-границы и предсказывать поведение React без опоры на случайные эксперименты.",
+  "modules": [
+    {
+      "id": "javascript",
+      "title": "JavaScript: выполнение и данные",
+      "outcome": "Предсказывать выполнение синхронного и асинхронного JavaScript и выбирать преобразования данных без скрытой мутации.",
+      "topics": [
+        {
+          "id": "call-stack",
+          "title": "Выполнение кода, области видимости и call stack",
+          "outcome": "Предсказать порядок вызовов и разрешение имён через execution context, call stack и цепочку областей видимости.",
+          "whyNow": "Это опорная модель для замыканий, асинхронности, стека ошибок и каждого последующего разбора JavaScript-кода.",
+          "priority": "critical",
+          "recommendationWeight": 99,
+          "estimatedMinutes": [75, 105],
+          "dependencies": [],
+          "sourceIds": {
+            "primary": "javascript-info-closure",
+            "fallback": "mdn-ru-call-stack"
+          },
+          "obsidianPrompts": [
+            "Нарисуй global и function execution context для функции с вложенным блоком.",
+            "Опиши поиск имени по lexical environment и scope chain.",
+            "Сравни hoisting для function declaration, var, let и const через момент инициализации."
+          ],
+          "ankiPrompts": [
+            "Предсказать вершину call stack в отмеченной строке.",
+            "Различить block scope и function scope на примере.",
+            "Объяснить temporal dead zone без фразы «переменная не поднялась».",
+            "Найти имя, которое разрешится из внешнего lexical environment.",
+            "Сравнить global и function execution context."
+          ],
+          "practice": [
+            {
+              "id": "call-stack-trace",
+              "title": "Трассировка вызовов и областей видимости",
+              "instructions": [
+                "Взять три фрагмента с вложенными функциями, блоком и shadowing.",
+                "До запуска выписать изменения call stack и найденное для каждого имени окружение.",
+                "Запустить код и исправить объяснение каждого расхождения."
+              ],
+              "minimumCompletion": "Три трассировки без ошибки в порядке вызовов и не менее восьми верно разрешённых имён.",
+              "estimatedMinutes": 30
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить execution context и lexical environment без конспекта.",
+            "Предсказать результат нового примера с shadowing и TDZ.",
+            "Найти неверное объяснение hoisting в чужом разборе.",
+            "Показать минимальный пример отличия var от let в блоке."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать call stack и scope chain для одного фрагмента из текущего проекта."
+          ],
+          "sourceRefs": [
+            "L0073",
+            "L0077",
+            "L0078",
+            "L0079",
+            "L0080",
+            "L0081",
+            "L0082",
+            "L0083",
+            "L0084",
+            "L0085",
+            "L0086",
+            "L0087",
+            "L0093",
+            "L0094",
+            "L0105"
+          ]
+        },
+        {
+          "id": "closures",
+          "title": "Замыкания и захват переменных",
+          "outcome": "Объяснить, какие значения доступны замыканию, и диагностировать stale closure в обычном JavaScript и React.",
+          "whyNow": "Замыкания входят в максимальный карьерный приоритет и напрямую объясняют callbacks, обработчики, хуки и устаревшее состояние.",
+          "priority": "critical",
+          "recommendationWeight": 100,
+          "estimatedMinutes": [60, 90],
+          "dependencies": ["call-stack"],
+          "sourceIds": {
+            "primary": "javascript-info-closure"
+          },
+          "obsidianPrompts": [
+            "Опиши замыкание через [[Environment]], не через запоминание снимка значения.",
+            "Сравни два независимых счётчика, созданных одной фабрикой.",
+            "Свяжи stale closure с моментом создания callback."
+          ],
+          "ankiPrompts": [
+            "Предсказать значение внешней переменной при позднем вызове.",
+            "Объяснить, почему два счётчика имеют независимое состояние.",
+            "Назвать практическое применение closure в React.",
+            "Найти stale closure в коротком callback.",
+            "Отличить место создания функции от места её вызова."
+          ],
+          "practice": [
+            {
+              "id": "closure-counter-stale",
+              "title": "Счётчик и stale closure",
+              "instructions": [
+                "Сделать фабрику двух независимых счётчиков с приватным состоянием.",
+                "Добавить отложенный callback, который демонстрирует stale closure.",
+                "Исправить пример и письменно объяснить, какую ссылку удерживает функция."
+              ],
+              "minimumCompletion": "Два независимых счётчика работают, stale closure воспроизводится и исправление объяснено через lexical environment.",
+              "estimatedMinutes": 30
+            }
+          ],
+          "masteryChecks": [
+            "Дать точное определение замыкания без конспекта.",
+            "Предсказать вывод примера с фабрикой функций.",
+            "Найти stale closure в новом обработчике.",
+            "Показать минимальный пример приватного состояния."
+          ],
+          "quickSteps": [
+            "За 10 минут написать makeCounter и подписать окружение, которое удерживает возвращённая функция."
+          ],
+          "sourceRefs": [
+            "L0088",
+            "L0089",
+            "L0095",
+            "L0096",
+            "L0097",
+            "L0101",
+            "L0102",
+            "L0103",
+            "L0104"
+          ]
+        },
+        {
+          "id": "values-references",
+          "title": "Значения, ссылки и неизменяемые обновления",
+          "outcome": "Предсказать результат сравнения и копирования данных и реализовать вложенное обновление без мутации исходного объекта.",
+          "whyNow": "React и TypeScript не защищают от общей ссылки: понимание идентичности данных предотвращает тихие ошибки состояния.",
+          "priority": "critical",
+          "recommendationWeight": 94,
+          "estimatedMinutes": [75, 105],
+          "dependencies": [],
+          "sourceIds": {
+            "primary": "javascript-info-object-copy"
+          },
+          "obsidianPrompts": [
+            "Сравни значение примитива и идентичность объекта на двух примерах.",
+            "Составь таблицу shallow copy, structuredClone и JSON-сериализации.",
+            "Опиши связь иммутабельного обновления с обнаружением изменений в React."
+          ],
+          "ankiPrompts": [
+            "Предсказать результат сравнения двух объектов.",
+            "Найти общую вложенную ссылку после spread.",
+            "Выбрать между || и ?? для нуля и пустой строки.",
+            "Назвать ограничение structuredClone.",
+            "Объяснить Object.is для NaN и -0."
+          ],
+          "practice": [
+            {
+              "id": "immutable-workout-update",
+              "title": "Неизменяемое обновление тренировки",
+              "instructions": [
+                "Создать объект тренировки с массивом подходов и метаданными.",
+                "Обновить один подход без изменения исходного объекта и соседних элементов.",
+                "Проверить ссылки через Object.is и добавить случай, где shallow copy ломается."
+              ],
+              "minimumCompletion": "Исходный объект не изменён, новая ссылка создана только по пути обновления, а четыре проверки идентичности объяснены.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить, почему одинаково выглядящие объекты не равны.",
+            "Найти скрытую мутацию во вложенном update.",
+            "Выбрать подходящий способ копирования для Date, Map и функции.",
+            "Показать различие || и ?? на трёх falsy-значениях."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать граф ссылок до и после вложенного spread-обновления."
+          ],
+          "sourceRefs": [
+            "L0109",
+            "L0113",
+            "L0114",
+            "L0115",
+            "L0116",
+            "L0117",
+            "L0118",
+            "L0119",
+            "L0120",
+            "L0121",
+            "L0122",
+            "L0123",
+            "L0124",
+            "L0125",
+            "L0126",
+            "L0127",
+            "L0128",
+            "L0129",
+            "L0130",
+            "L0131",
+            "L0135",
+            "L0136",
+            "L0137",
+            "L0138",
+            "L0139",
+            "L0143",
+            "L0144",
+            "L0145",
+            "L0146"
+          ]
+        },
+        {
+          "id": "functions-this",
+          "title": "Функции, callbacks и this",
+          "outcome": "Предсказать значение this для четырёх способов вызова и выбрать форму функции по требуемому контексту и побочным эффектам.",
+          "whyNow": "this, callbacks и функции высшего порядка входят в ближайший фокус и нужны для чтения legacy-кода и API библиотек.",
+          "priority": "critical",
+          "recommendationWeight": 98,
+          "estimatedMinutes": [75, 105],
+          "dependencies": ["call-stack"],
+          "sourceIds": {
+            "primary": "javascript-info-object-methods"
+          },
+          "obsidianPrompts": [
+            "Опиши правило: this определяется способом вызова, а не местом объявления.",
+            "Сравни declaration, expression и arrow по hoisting и собственному this.",
+            "Раздели чистое вычисление и побочный эффект на примере обработки списка."
+          ],
+          "ankiPrompts": [
+            "Предсказать this при method call.",
+            "Предсказать this после передачи метода как callback.",
+            "Сравнить bind, call и apply.",
+            "Отличить передачу callback от немедленного вызова.",
+            "Определить чистую и нечистую функцию."
+          ],
+          "practice": [
+            {
+              "id": "this-binding-lab",
+              "title": "Матрица привязки this",
+              "instructions": [
+                "Решить шесть фрагментов с implicit, explicit, constructor binding и потерей метода.",
+                "Написать упрощённый bind через замыкание и apply.",
+                "Переписать один callback в чистую функцию и вынести side effect наружу."
+              ],
+              "minimumCompletion": "Верно объяснены пять из шести значений this, а упрощённый bind передаёт контекст и минимум два аргумента.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить алгоритм выбора this без конспекта.",
+            "Найти потерю контекста метода в новом примере.",
+            "Показать отличие arrow function от обычной функции.",
+            "Написать функцию высшего порядка с чистым callback."
+          ],
+          "quickSteps": [
+            "За 10 минут составить четыре карточки вызова одной функции с разным this."
+          ],
+          "sourceRefs": [
+            "L0150",
+            "L0154",
+            "L0155",
+            "L0156",
+            "L0157",
+            "L0158",
+            "L0159",
+            "L0160",
+            "L0161",
+            "L0162",
+            "L0163",
+            "L0164",
+            "L0165",
+            "L0166",
+            "L0167",
+            "L0168",
+            "L0169",
+            "L0170",
+            "L0174",
+            "L0175",
+            "L0176",
+            "L0177",
+            "L0181",
+            "L0182",
+            "L0183",
+            "L0184"
+          ]
+        },
+        {
+          "id": "prototypes-classes",
+          "title": "Прототипная модель и классы",
+          "outcome": "Объяснить поиск свойства по prototype chain и реализовать один объектный API через class и через композицию.",
+          "whyNow": "Прототипная модель нужна для точного чтения классов, встроенных коллекций и legacy-конструкторов без лишнего углубления.",
+          "priority": "critical",
+          "recommendationWeight": 82,
+          "estimatedMinutes": [60, 90],
+          "dependencies": ["functions-this"],
+          "sourceIds": {
+            "primary": "javascript-info-prototype-inheritance"
+          },
+          "obsidianPrompts": [
+            "Нарисуй цепочку поиска свойства для экземпляра класса.",
+            "Различи prototype функции-конструктора и прототип конкретного объекта.",
+            "Сравни наследование и композицию для поведения тренировки."
+          ],
+          "ankiPrompts": [
+            "Предсказать место, где найдётся свойство.",
+            "Объяснить шаги оператора new.",
+            "Различить instance и static method.",
+            "Назвать роль Object.create.",
+            "Объяснить, почему class остаётся прототипной моделью."
+          ],
+          "practice": [
+            {
+              "id": "prototype-class-composition",
+              "title": "Один API тремя способами",
+              "instructions": [
+                "Создать счётчик подходов через constructor function и prototype.",
+                "Переписать его как class с private field и static factory.",
+                "Сделать вариант через композицию и сравнить зависимости."
+              ],
+              "minimumCompletion": "Все три варианта дают одинаковый публичный API, а выбор композиции или наследования обоснован двумя последствиями.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Нарисовать prototype chain нового объекта.",
+            "Объяснить new без формулировки «создаёт класс».",
+            "Найти собственное и унаследованное свойство.",
+            "Выбрать композицию в примере с независимыми возможностями."
+          ],
+          "quickSteps": [
+            "За 10 минут проверить три свойства через hasOwn и пройти их prototype chain."
+          ],
+          "sourceRefs": [
+            "L0188",
+            "L0192",
+            "L0193",
+            "L0194",
+            "L0195",
+            "L0196",
+            "L0197",
+            "L0198",
+            "L0199",
+            "L0200",
+            "L0201",
+            "L0202",
+            "L0206",
+            "L0207",
+            "L0208",
+            "L0209"
+          ]
+        },
+        {
+          "id": "promise-basics",
+          "title": "Promise и async/await",
+          "outcome": "Объяснить состояния и цепочку Promise и реализовать последовательное и параллельное ожидание с корректной обработкой ошибок.",
+          "whyNow": "Promise — обязательная предпосылка event loop, сетевых запросов и асинхронных эффектов React.",
+          "priority": "critical",
+          "recommendationWeight": 99,
+          "estimatedMinutes": [75, 105],
+          "dependencies": ["functions-this"],
+          "sourceIds": {
+            "primary": "javascript-info-promise-basics",
+            "fallback": "javascript-info-async-await"
+          },
+          "obsidianPrompts": [
+            "Нарисуй переходы pending, fulfilled и rejected.",
+            "Опиши, как return и throw меняют следующий Promise в chain.",
+            "Сравни последовательный await с Promise.all по времени и ошибке."
+          ],
+          "ankiPrompts": [
+            "Предсказать состояние Promise после resolve и throw.",
+            "Объяснить propagation ошибки через chain.",
+            "Выбрать Promise.all или allSettled.",
+            "Сравнить race и any.",
+            "Назвать роль finally без изменения результата."
+          ],
+          "practice": [
+            {
+              "id": "promise-workout-loader",
+              "title": "Загрузчик тренировки",
+              "instructions": [
+                "Смоделировать три асинхронных запроса с успешным и ошибочным результатом.",
+                "Реализовать последовательный вариант и параллельный через Promise.all.",
+                "Добавить allSettled для частичного результата и объяснить каждую ветку ошибки."
+              ],
+              "minimumCompletion": "Три сценария возвращают ожидаемый результат, ошибки не проглатываются, а разница времени двух вариантов измерена.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить chain Promise без конспекта.",
+            "Выбрать комбинатор для трёх новых сценариев.",
+            "Найти потерянный await или проглоченную ошибку.",
+            "Переписать chain на async/await без изменения поведения."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать цепочку из resolve, then, throw, catch и finally."
+          ],
+          "sourceRefs": [
+            "L0224",
+            "L0225",
+            "L0226",
+            "L0227",
+            "L0228",
+            "L0229",
+            "L0230",
+            "L0231",
+            "L0232",
+            "L0233",
+            "L0249",
+            "L0250"
+          ]
+        },
+        {
+          "id": "event-loop",
+          "title": "Event loop: task и microtask",
+          "outcome": "Предсказать порядок выполнения синхронного кода, Promise и setTimeout и объяснить причину без запуска.",
+          "whyNow": "Это база Promise, race conditions и асинхронных React-эффектов и тема с максимальным ожидаемым карьерным приростом.",
+          "priority": "critical",
+          "recommendationWeight": 100,
+          "estimatedMinutes": [60, 90],
+          "dependencies": ["call-stack", "promise-basics"],
+          "sourceIds": {
+            "primary": "javascript-info-event-loop",
+            "fallback": "mdn-ru-execution-model"
+          },
+          "obsidianPrompts": [
+            "Опиши call stack, Web APIs, task queue и microtask queue.",
+            "Объясни, почему microtask выполняется раньше следующей task.",
+            "Добавь собственный пример Promise + setTimeout с рисунком очередей."
+          ],
+          "ankiPrompts": [
+            "Предсказать порядок вывода.",
+            "Объяснить причину порядка.",
+            "Сравнить task и microtask.",
+            "Назвать риск бесконечной цепочки microtask.",
+            "Объяснить, почему setTimeout с нулём не запускается сразу."
+          ],
+          "practice": [
+            {
+              "id": "event-loop-order",
+              "title": "Предсказать порядок выполнения",
+              "instructions": [
+                "Решить письменно минимум 20 примеров тремя сессиями.",
+                "Запускать код только после фиксации ответа и схемы очередей.",
+                "Для каждого расхождения назвать неверное предположение."
+              ],
+              "minimumCompletion": "Не менее шестнадцати верных ответов из двадцати и объяснение всех четырёх ошибок через очереди.",
+              "estimatedMinutes": 45
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить модель без конспекта.",
+            "Решить три из четырёх новых примеров.",
+            "Найти неверное предположение в чужом объяснении.",
+            "Показать пример задержки интерфейса цепочкой microtask."
+          ],
+          "quickSteps": [
+            "За 10 минут нарисовать очереди для одного примера Promise + queueMicrotask + setTimeout."
+          ],
+          "sourceRefs": [
+            "L0213",
+            "L0219",
+            "L0220",
+            "L0221",
+            "L0222",
+            "L0223",
+            "L0234",
+            "L0235",
+            "L0247",
+            "L0248",
+            "L0253",
+            "L0257"
+          ]
+        },
+        {
+          "id": "async-coordination",
+          "title": "Отмена, гонки и управление запросами",
+          "outcome": "Реализовать отменяемый поиск без устаревших ответов, с debounce, retry и ограничением параллелизма.",
+          "whyNow": "Эти шаблоны превращают знание Promise в устойчивое поведение интерфейса и напрямую переносятся в React Effects и server state.",
+          "priority": "critical",
+          "recommendationWeight": 97,
+          "estimatedMinutes": [90, 135],
+          "dependencies": ["event-loop", "promise-basics"],
+          "sourceIds": {
+            "primary": "javascript-info-fetch-abort",
+            "fallback": "mdn-ru-abort-controller"
+          },
+          "obsidianPrompts": [
+            "Опиши race condition между двумя запросами и два способа защиты.",
+            "Сравни debounce и throttle по моменту вызова.",
+            "Запиши правила retry: какие ошибки, сколько попыток и где backoff."
+          ],
+          "ankiPrompts": [
+            "Выбрать debounce или throttle для сценария.",
+            "Назвать условие безопасного retry.",
+            "Объяснить AbortSignal и распространение отмены.",
+            "Найти race condition по timeline.",
+            "Сравнить backoff и ограничитель параллелизма."
+          ],
+          "practice": [
+            {
+              "id": "abortable-search",
+              "title": "Отменяемый поиск с лимитом запросов",
+              "instructions": [
+                "Реализовать debounce-поиск с AbortController и намеренно разным временем ответов.",
+                "Игнорировать либо отменять устаревший запрос и показать сценарий гонки до исправления.",
+                "Добавить retry максимум два раза с backoff и лимит двух одновременных запросов."
+              ],
+              "minimumCompletion": "Пять быстрых вводов показывают только последний результат, активны не более двух запросов, retry строго ограничен.",
+              "estimatedMinutes": 50
+            }
+          ],
+          "masteryChecks": [
+            "Нарисовать timeline race condition и исправления.",
+            "Реализовать debounce с сохранением аргументов.",
+            "Объяснить, почему отмена и игнорирование ответа решают разные задачи.",
+            "Найти бесконечный retry и отсутствие лимита в чужом коде."
+          ],
+          "quickSteps": [
+            "За 15 минут добавить AbortController к одному учебному fetch и проверить AbortError."
+          ],
+          "sourceRefs": [
+            "L0236",
+            "L0237",
+            "L0238",
+            "L0239",
+            "L0240",
+            "L0241",
+            "L0242",
+            "L0243",
+            "L0251",
+            "L0252",
+            "L0258",
+            "L0259",
+            "L0260",
+            "L0261",
+            "L0262",
+            "L0263"
+          ]
+        },
+        {
+          "id": "collection-transforms",
+          "title": "Преобразования массивов",
+          "outcome": "Преобразовать ответ API в сгруппированную статистику через подходящие методы массива без промежуточной мутации.",
+          "whyNow": "Большая часть прикладного frontend-кода — это поиск, фильтрация и агрегация данных до рендера.",
+          "priority": "critical",
+          "recommendationWeight": 88,
+          "estimatedMinutes": [60, 90],
+          "dependencies": ["values-references", "functions-this"],
+          "sourceIds": {
+            "primary": "javascript-info-array-methods"
+          },
+          "obsidianPrompts": [
+            "Составь карту: один результат, массив результатов, boolean и аккумулятор.",
+            "Сравни sort и toSorted по мутации исходного массива.",
+            "Опиши читаемый pipeline преобразования API."
+          ],
+          "ankiPrompts": [
+            "Выбрать find или filter.",
+            "Выбрать some или every.",
+            "Предсказать аккумулятор reduce.",
+            "Различить flat и flatMap.",
+            "Найти мутацию через sort."
+          ],
+          "practice": [
+            {
+              "id": "training-statistics",
+              "title": "Статистика тренировок",
+              "instructions": [
+                "Взять минимум 12 записей тренировок с упражнениями и повторениями.",
+                "Отфильтровать период, сгруппировать по упражнению и посчитать объём.",
+                "Вернуть отсортированный результат, не меняя входной массив."
+              ],
+              "minimumCompletion": "Получена статистика минимум по трём упражнениям, результат проверен вручную, входные данные сохранили порядок и ссылки.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Выбрать метод массива для пяти новых требований.",
+            "Объяснить reduce без определения «универсальный метод».",
+            "Найти лишний проход и скрытую мутацию.",
+            "Написать pipeline преобразования небольшого API-ответа."
+          ],
+          "quickSteps": [
+            "За 10 минут заменить один ручной цикл проекта на читаемую цепочку методов без мутации."
+          ],
+          "sourceRefs": [
+            "L0267",
+            "L0271",
+            "L0272",
+            "L0273",
+            "L0274",
+            "L0275",
+            "L0276",
+            "L0277",
+            "L0278",
+            "L0279",
+            "L0280",
+            "L0281",
+            "L0282",
+            "L0293",
+            "L0296",
+            "L0297"
+          ]
+        },
+        {
+          "id": "keyed-collections-iterables",
+          "title": "Map, Set и протокол итерации",
+          "outcome": "Выбрать Array, Map или Set для задачи и реализовать lookup, дедупликацию и собственный простой iterable.",
+          "whyNow": "Правильная коллекция делает преобразования данных проще и устраняет квадратичный поиск, а базовый iterable объясняет for...of.",
+          "priority": "high",
+          "recommendationWeight": 72,
+          "estimatedMinutes": [60, 90],
+          "dependencies": ["collection-transforms"],
+          "sourceIds": {
+            "primary": "javascript-info-map-set"
+          },
+          "obsidianPrompts": [
+            "Сравни Array, Map, Set, WeakMap и WeakSet по ключам и перечислению.",
+            "Опиши протокол iterable и iterator.",
+            "Запиши, когда generator улучшает читаемость, а когда усложняет код."
+          ],
+          "ankiPrompts": [
+            "Выбрать Map вместо объекта.",
+            "Удалить дубликаты через Set.",
+            "Объяснить слабую ссылку WeakMap.",
+            "Назвать метод iterator.next.",
+            "Предсказать порядок обхода Map."
+          ],
+          "practice": [
+            {
+              "id": "exercise-lookup-iterable",
+              "title": "Lookup и диапазон",
+              "instructions": [
+                "Построить Map упражнений по id и Set уникальных групп мышц.",
+                "Сравнить поиск 100 элементов через find и Map.get на уровне сложности.",
+                "Создать iterable диапазона недель с минимум четырьмя значениями."
+              ],
+              "minimumCompletion": "Lookup и дедупликация возвращают ожидаемые данные, а for...of обходит собственный iterable ровно четыре раза.",
+              "estimatedMinutes": 30
+            }
+          ],
+          "masteryChecks": [
+            "Выбрать коллекцию для четырёх новых сценариев.",
+            "Объяснить ограничение WeakMap без конспекта.",
+            "Реализовать минимальный iterator.",
+            "Найти лишний линейный поиск, заменяемый lookup map."
+          ],
+          "quickSteps": [
+            "За 10 минут построить Map по id для одного массива из pet-проекта."
+          ],
+          "sourceRefs": [
+            "L0283",
+            "L0284",
+            "L0285",
+            "L0286",
+            "L0287",
+            "L0288",
+            "L0289",
+            "L0294",
+            "L0295"
+          ]
+        }
+      ],
+      "sourceRefs": ["L0067"]
+    },
+    {
+      "id": "typescript",
+      "title": "TypeScript: модель типов и границы данных",
+      "outcome": "Описывать варианты состояния и переиспользуемые API без any, с проверкой недоверенных данных на runtime-границе.",
+      "topics": [
+        {
+          "id": "type-system",
+          "title": "База системы типов",
+          "outcome": "Типизировать значения, объекты и функции с опорой на inference, unions и unknown без необоснованных assertions и any.",
+          "whyNow": "Отказ от any входит в максимальный приоритет, а базовые типы нужны для narrowing, generics и React-компонентов.",
+          "priority": "critical",
+          "recommendationWeight": 96,
+          "estimatedMinutes": [75, 105],
+          "dependencies": ["values-references", "functions-this"],
+          "sourceIds": {
+            "primary": "typescript-handbook-everyday-types"
+          },
+          "obsidianPrompts": [
+            "Сравни inference и annotation: где тип очевиден, а где annotation фиксирует контракт.",
+            "Составь таблицу any, unknown, never, void, null и undefined.",
+            "Опиши, почему assertion не валидирует runtime-значение."
+          ],
+          "ankiPrompts": [
+            "Выбрать unknown вместо any.",
+            "Назвать место появления never.",
+            "Сравнить union и intersection.",
+            "Предсказать вывод literal type после const.",
+            "Объяснить readonly на уровне компилятора."
+          ],
+          "practice": [
+            {
+              "id": "type-workout-domain",
+              "title": "Типы домена тренировок",
+              "instructions": [
+                "Описать упражнение, подход и тренировку через object, tuple, literal и union types.",
+                "Добавить readonly id, optional note и функцию подсчёта объёма.",
+                "Заменить два намеренных any на unknown с безопасной обработкой."
+              ],
+              "minimumCompletion": "Модель компилируется в strict-режиме без any, а функция принимает только допустимые варианты и возвращает number.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить unknown против any без конспекта.",
+            "Вывести тип трёх выражений без запуска редактора.",
+            "Найти бессмысленный type assertion.",
+            "Показать полезный literal union вместо enum."
+          ],
+          "quickSteps": [
+            "За 15 минут найти один any в учебном коде и заменить его на точный тип или unknown."
+          ],
+          "sourceRefs": [
+            "L0366",
+            "L0370",
+            "L0371",
+            "L0372",
+            "L0373",
+            "L0374",
+            "L0375",
+            "L0376",
+            "L0377",
+            "L0378",
+            "L0379",
+            "L0380",
+            "L0381",
+            "L0382",
+            "L0383",
+            "L0387",
+            "L0388",
+            "L0389",
+            "L0390",
+            "L0391",
+            "L0392",
+            "L0396",
+            "L0397",
+            "L0398",
+            "L0399"
+          ]
+        },
+        {
+          "id": "narrowing",
+          "title": "Narrowing и исчерпывающие состояния",
+          "outcome": "Преобразовать union в безопасные ветви через встроенные и пользовательские guards и доказать исчерпывающую обработку через never.",
+          "whyNow": "Narrowing — один из трёх главных TypeScript-навыков и основа типизированных reducers, API-состояний и ошибок.",
+          "priority": "critical",
+          "recommendationWeight": 100,
+          "estimatedMinutes": [75, 105],
+          "dependencies": ["type-system"],
+          "sourceIds": {
+            "primary": "typescript-handbook-narrowing"
+          },
+          "obsidianPrompts": [
+            "Нарисуй control-flow narrowing для union из трёх состояний.",
+            "Сравни type guard и assertion function по гарантии после вызова.",
+            "Опиши exhaustive check через переменную never."
+          ],
+          "ankiPrompts": [
+            "Выбрать typeof, in или instanceof.",
+            "Найти ошибку truthiness narrowing для пустой строки.",
+            "Написать сигнатуру custom type guard.",
+            "Предсказать тип в ветви discriminated union.",
+            "Добавить exhaustive check."
+          ],
+          "practice": [
+            {
+              "id": "narrow-request-state",
+              "title": "Reducer состояний запроса",
+              "instructions": [
+                "Описать idle, loading, success и error как discriminated union.",
+                "Реализовать reducer и renderer с exhaustive check.",
+                "Добавить unknown-ошибку и guard, извлекающий безопасное сообщение."
+              ],
+              "minimumCompletion": "Четыре состояния обработаны без assertions, добавление пятого ломает exhaustive check, unknown-ошибка безопасно отображается.",
+              "estimatedMinutes": 35
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить control-flow narrowing без конспекта.",
+            "Выбрать guard для четырёх новых значений.",
+            "Найти пропущенное состояние reducer.",
+            "Написать custom predicate с точной сигнатурой."
+          ],
+          "quickSteps": [
+            "За 10 минут превратить три boolean-флага загрузки в discriminated union на бумаге."
+          ],
+          "sourceRefs": [
+            "L0403",
+            "L0407",
+            "L0408",
+            "L0409",
+            "L0410",
+            "L0411",
+            "L0412",
+            "L0413",
+            "L0414",
+            "L0415",
+            "L0419",
+            "L0420",
+            "L0421",
+            "L0422"
+          ]
+        },
+        {
+          "id": "generics",
+          "title": "Generics и связи между типами",
+          "outcome": "Спроектировать generic-функцию и компонент, в которых параметр типа сохраняет связь входа и выхода и ограничен реальными требованиями.",
+          "whyNow": "Generics входят в первый этап и дают типобезопасное переиспользование без union из всех возможных вариантов.",
+          "priority": "critical",
+          "recommendationWeight": 98,
+          "estimatedMinutes": [75, 105],
+          "dependencies": ["type-system", "functions-this"],
+          "sourceIds": {
+            "primary": "typescript-handbook-generics"
+          },
+          "obsidianPrompts": [
+            "Опиши связь параметра и результата, которую выражает generic T.",
+            "Сравни constraint, default parameter, keyof и indexed access.",
+            "Запиши признаки бесполезного generic, используемого только один раз."
+          ],
+          "ankiPrompts": [
+            "Вывести T из вызова функции.",
+            "Добавить constraint по требуемому свойству.",
+            "Связать ключ keyof с типом значения.",
+            "Выбрать generic вместо overload.",
+            "Найти generic, не создающий связи."
+          ],
+          "practice": [
+            {
+              "id": "generic-table-field-update",
+              "title": "Generic table и updateField",
+              "instructions": [
+                "Сделать generic Table для минимум двух разных типов строк.",
+                "Ограничить column key через keyof и типизировать render callback.",
+                "Написать updateField, где значение зависит от выбранного ключа."
+              ],
+              "minimumCompletion": "Обе таблицы компилируются без assertions, неверный ключ отклоняется, updateField запрещает значение чужого типа.",
+              "estimatedMinutes": 45
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить, какую связь выражает каждый T в примере.",
+            "Написать generic constraint без подсказки.",
+            "Найти слишком широкий generic API.",
+            "Типизировать getProperty через keyof и indexed access."
+          ],
+          "quickSteps": [
+            "За 15 минут типизировать функцию getById так, чтобы сохранить тип элементов массива."
+          ],
+          "sourceRefs": [
+            "L0426",
+            "L0430",
+            "L0431",
+            "L0432",
+            "L0433",
+            "L0434",
+            "L0435",
+            "L0436",
+            "L0437",
+            "L0441",
+            "L0442",
+            "L0443",
+            "L0444",
+            "L0445"
+          ]
+        },
+        {
+          "id": "advanced-types",
+          "title": "Преобразование типов на рабочем уровне",
+          "outcome": "Применить utility, mapped и conditional types для двух реальных преобразований модели без нечитаемой типовой головоломки.",
+          "whyNow": "Рабочее владение сложными типами нужно для чтения библиотек, но следует после narrowing и generics и не должно становиться олимпиадой.",
+          "priority": "high",
+          "recommendationWeight": 78,
+          "estimatedMinutes": [90, 120],
+          "dependencies": ["generics", "narrowing"],
+          "sourceIds": {
+            "primary": "typescript-handbook-types-from-types"
+          },
+          "obsidianPrompts": [
+            "Сгруппируй utility types по добавлению, удалению и выбору свойств или union-членов.",
+            "Разверни один mapped и conditional type вручную для конкретного типа.",
+            "Запиши критерий остановки: когда явный тип понятнее вычисляемого."
+          ],
+          "ankiPrompts": [
+            "Выбрать Pick или Omit.",
+            "Сравнить Exclude и Extract.",
+            "Предсказать результат mapped type.",
+            "Объяснить infer внутри conditional type.",
+            "Сравнить satisfies и assertion.",
+            "Назвать назначение branded type."
+          ],
+          "practice": [
+            {
+              "id": "advanced-types-forms",
+              "title": "Модели чтения и редактирования",
+              "instructions": [
+                "Из доменной Workout получить тип карточки через Pick и форму через Omit и Partial.",
+                "Сделать mapped type ошибок формы и conditional type для извлечения Promise-результата.",
+                "Зафиксировать конфигурацию колонок через satisfies и const assertion."
+              ],
+              "minimumCompletion": "Четыре вычисляемых типа проверены конкретными значениями, а каждое преобразование короче и яснее ручного дублирования.",
+              "estimatedMinutes": 45
+            }
+          ],
+          "masteryChecks": [
+            "Выбрать utility type для пяти изменений модели.",
+            "Развернуть mapped type вручную.",
+            "Объяснить conditional type на конкретном union.",
+            "Найти типовую конструкцию, которую стоит заменить явным типом."
+          ],
+          "quickSteps": [
+            "За 15 минут заменить один дублирующий интерфейс проекта на понятный Pick или Omit."
+          ],
+          "sourceRefs": [
+            "L0449",
+            "L0453",
+            "L0454",
+            "L0455",
+            "L0456",
+            "L0457",
+            "L0458",
+            "L0459",
+            "L0460",
+            "L0461",
+            "L0462",
+            "L0463",
+            "L0464",
+            "L0465",
+            "L0466",
+            "L0467",
+            "L0468",
+            "L0469",
+            "L0470",
+            "L0471"
+          ]
+        },
+        {
+          "id": "api-boundaries",
+          "title": "Типы API и runtime-валидация",
+          "outcome": "Проверить unknown-ответ API схемой, преобразовать DTO в domain model и вернуть типизированный успех или ошибку.",
+          "whyNow": "response.json не становится безопасным от TypeScript-аннотации; эта граница предотвращает попадание неверных данных во всё приложение.",
+          "priority": "critical",
+          "recommendationWeight": 93,
+          "estimatedMinutes": [90, 135],
+          "dependencies": ["narrowing", "generics", "async-coordination"],
+          "sourceIds": {
+            "primary": "zod-basic-usage"
+          },
+          "obsidianPrompts": [
+            "Раздели DTO, domain model и UI model на примере даты и nullable-поля.",
+            "Нарисуй границу: fetch → unknown → schema → mapper → domain.",
+            "Опиши типы pagination и error response независимо от happy path."
+          ],
+          "ankiPrompts": [
+            "Объяснить, почему response.json нельзя доверять.",
+            "Различить compile-time и runtime validation.",
+            "Выбрать parse или safeParse для UI-потока.",
+            "Назвать ответственность DTO-to-domain mapper.",
+            "Типизировать generic Result success/error."
+          ],
+          "practice": [
+            {
+              "id": "validated-workout-api",
+              "title": "Безопасный API тренировок",
+              "instructions": [
+                "Описать DTO списка тренировок с pagination и датой-строкой.",
+                "Проверить неизвестный ответ Zod-схемой и преобразовать дату в domain Date.",
+                "Вернуть discriminated result для success, validation error и network error."
+              ],
+              "minimumCompletion": "Валидный ответ преобразуется, три намеренно плохих ответа отклоняются, UI не получает непроверенный DTO или any.",
+              "estimatedMinutes": 50
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить всю runtime-границу без конспекта.",
+            "Найти ложную безопасность type assertion после json.",
+            "Разделить DTO и domain model в новом примере.",
+            "Добавить тип pagination и исчерпывающую ошибку."
+          ],
+          "quickSteps": [
+            "За 15 минут обернуть один mock API-ответ в минимальную Zod-схему и safeParse."
+          ],
+          "sourceRefs": [
+            "L0477",
+            "L0481",
+            "L0482",
+            "L0483",
+            "L0484",
+            "L0485",
+            "L0486",
+            "L0487",
+            "L0488",
+            "L0489",
+            "L0490",
+            "L0491",
+            "L0492",
+            "L0496",
+            "L0497",
+            "L0498",
+            "L0499"
+          ]
+        },
+        {
+          "id": "react-typing",
+          "title": "TypeScript в React",
+          "outcome": "Типизировать props, events, refs, reducer, context и reusable component так, чтобы публичный API выводил типы у потребителя.",
+          "whyNow": "Типизация React связывает систему типов с ежедневной работой и убирает assertions из обработчиков, форм и custom hooks.",
+          "priority": "critical",
+          "recommendationWeight": 91,
+          "estimatedMinutes": [90, 120],
+          "dependencies": ["type-system", "generics"],
+          "sourceIds": {
+            "primary": "react-typescript"
+          },
+          "obsidianPrompts": [
+            "Составь карту типов: props, children, events, refs и hook return.",
+            "Опиши discriminated props вместо набора конфликтующих optional props.",
+            "Запиши границу допустимой сложности polymorphic component."
+          ],
+          "ankiPrompts": [
+            "Типизировать children.",
+            "Выбрать тип события input или form.",
+            "Типизировать ref без assertion.",
+            "Вывести тип reducer action.",
+            "Связать generic props select с value.",
+            "Типизировать ошибку как unknown."
+          ],
+          "practice": [
+            {
+              "id": "typed-react-select",
+              "title": "Типизированный Select и reducer",
+              "instructions": [
+                "Сделать generic Select, где value и onChange сохраняют тип option.",
+                "Добавить ref, children для empty state и controlled props.",
+                "Подключить типизированный reducer/context и маленький custom hook."
+              ],
+              "minimumCompletion": "Потребитель получает вывод типа без generic-аннотации, неверный value не компилируется, context не имеет фиктивного default.",
+              "estimatedMinutes": 50
+            }
+          ],
+          "masteryChecks": [
+            "Типизировать три обработчика без поиска готового ответа.",
+            "Объяснить публичный generic React API.",
+            "Найти лишние React.FC и assertions.",
+            "Составить discriminated props для двух режимов компонента."
+          ],
+          "quickSteps": [
+            "За 15 минут убрать один assertion из React-обработчика через точный event type."
+          ],
+          "sourceRefs": [
+            "L0503",
+            "L0507",
+            "L0508",
+            "L0509",
+            "L0510",
+            "L0511",
+            "L0512",
+            "L0513",
+            "L0514",
+            "L0515",
+            "L0516",
+            "L0517",
+            "L0518",
+            "L0519"
+          ]
+        },
+        {
+          "id": "strict-configuration",
+          "title": "Строгая конфигурация TypeScript",
+          "outcome": "Настроить strict TypeScript-проект с проверкой индексного доступа и optional-свойств и объяснить каждое осознанное исключение.",
+          "whyNow": "Сильная модель типов не работает, если конфигурация оставляет скрытые any и undefined; строгие опции дают быструю обратную связь.",
+          "priority": "high",
+          "recommendationWeight": 84,
+          "estimatedMinutes": [60, 90],
+          "dependencies": ["type-system"],
+          "sourceIds": {
+            "primary": "typescript-tsconfig-reference"
+          },
+          "obsidianPrompts": [
+            "Опиши, какие ошибки добавляют strictNullChecks и noUncheckedIndexedAccess.",
+            "Сравни отсутствующее optional-свойство и явно записанный undefined.",
+            "Запиши назначение path alias, project reference и declaration file."
+          ],
+          "ankiPrompts": [
+            "Объяснить strict как группу опций.",
+            "Предсказать тип arr[index] с noUncheckedIndexedAccess.",
+            "Объяснить exactOptionalPropertyTypes.",
+            "Назвать роль .d.ts.",
+            "Найти место неявного any."
+          ],
+          "practice": [
+            {
+              "id": "strict-tsconfig-audit",
+              "title": "Аудит tsconfig pet-проекта",
+              "instructions": [
+                "Включить strict, noUncheckedIndexedAccess и exactOptionalPropertyTypes в маленькой ветке.",
+                "Классифицировать полученные ошибки и исправить минимум пять без assertions.",
+                "Проверить один path alias и типы сторонней библиотеки."
+              ],
+              "minimumCompletion": "Три строгие опции включены, исправлено минимум пять ошибок без any и ts-ignore, каждое оставшееся исключение записано.",
+              "estimatedMinutes": 40
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить эффект трёх строгих опций.",
+            "Исправить небезопасный индексный доступ.",
+            "Различить runtime module resolution и TypeScript path alias.",
+            "Найти источник типа сторонней библиотеки."
+          ],
+          "quickSteps": [
+            "За 10 минут включить noUncheckedIndexedAccess в учебной копии и разобрать первые три ошибки."
+          ],
+          "sourceRefs": [
+            "L0523",
+            "L0527",
+            "L0528",
+            "L0529",
+            "L0530",
+            "L0531",
+            "L0532",
+            "L0533",
+            "L0534",
+            "L0535",
+            "L0539",
+            "L0540",
+            "L0541"
+          ]
+        }
+      ],
+      "sourceRefs": ["L0360"]
+    },
+    {
+      "id": "react",
+      "title": "React: render, state и устойчивые интерфейсы",
+      "outcome": "Предсказывать рендер и сохранение state, использовать Effects только для синхронизации и проектировать ясное владение состоянием.",
+      "topics": [
+        {
+          "id": "react-render-commit",
+          "title": "Render, commit и identity компонента",
+          "outcome": "Предсказать, какие компоненты вызовутся, какие DOM-узлы изменятся и сохранится ли state после изменения дерева и key.",
+          "whyNow": "Render/commit входит в первый этап и объясняет большинство ошибок с перерендерами, ключами и неожиданным сбросом состояния.",
+          "priority": "critical",
+          "recommendationWeight": 100,
+          "estimatedMinutes": [90, 120],
+          "dependencies": ["call-stack", "values-references"],
+          "sourceIds": {
+            "primary": "react-render-and-commit",
+            "fallback": "react-preserving-state"
+          },
+          "obsidianPrompts": [
+            "Раздели trigger, render и commit и укажи, где React вызывает компонент.",
+            "Опиши identity через type, position и key.",
+            "Нарисуй дерево до и после перестановки элементов списка."
+          ],
+          "ankiPrompts": [
+            "Назвать два trigger рендера.",
+            "Отличить вызов компонента от DOM-изменения.",
+            "Предсказать сохранение state по позиции.",
+            "Объяснить роль key вне оптимизации.",
+            "Найти плохой индексный key.",
+            "Предсказать рендер дочернего компонента."
+          ],
+          "practice": [
+            {
+              "id": "react-render-diagnostics",
+              "title": "Диагностика рендера и identity",
+              "instructions": [
+                "Разобрать до запуска десять примеров с родителем, дочерним компонентом, условием и списком.",
+                "Для каждого отметить вызванные компоненты, commit и сохранение state.",
+                "Исправить список с индексным key и сделать управляемый reset через key."
+              ],
+              "minimumCompletion": "Не менее восьми из десяти прогнозов верны, исправленный список сохраняет нужный state, reset воспроизводим.",
+              "estimatedMinutes": 50
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить render и commit без virtual DOM как магии.",
+            "Предсказать identity в новом условном дереве.",
+            "Найти неправильный key и описать симптом.",
+            "Отличить повторный вызов компонента от изменения DOM."
+          ],
+          "quickSteps": [
+            "За 15 минут нарисовать дерево одного экрана и отметить stateful-позиции и key."
+          ],
+          "sourceRefs": [
+            "L0551",
+            "L0555",
+            "L0556",
+            "L0557",
+            "L0558",
+            "L0559",
+            "L0560",
+            "L0561",
+            "L0562",
+            "L0563",
+            "L0564",
+            "L0565",
+            "L0566",
+            "L0570",
+            "L0571",
+            "L0572",
+            "L0573",
+            "L0574",
+            "L0578",
+            "L0579",
+            "L0580"
+          ]
+        },
+        {
+          "id": "react-state-model",
+          "title": "State как snapshot и выбор владельца",
+          "outcome": "Выбрать минимальное место хранения state и реализовать обновления без дублирования, рассинхронизации и чтения устаревшего snapshot.",
+          "whyNow": "Точная модель state входит в первый этап и является предпосылкой Effects, composition, Context и форм.",
+          "priority": "critical",
+          "recommendationWeight": 100,
+          "estimatedMinutes": [90, 120],
+          "dependencies": ["values-references", "react-render-commit"],
+          "sourceIds": {
+            "primary": "react-choosing-state-structure",
+            "fallback": "react-sharing-state"
+          },
+          "obsidianPrompts": [
+            "Опиши state as snapshot и очередь functional updates.",
+            "Составь дерево решений: derived, local, lifted, URL, server или global client state.",
+            "Найди single source of truth для фильтра и результата поиска."
+          ],
+          "ankiPrompts": [
+            "Предсказать три setState со snapshot-значением.",
+            "Исправить через functional update.",
+            "Найти дублирующий derived state.",
+            "Выбрать владельца shared state.",
+            "Различить URL, server и client state.",
+            "Объяснить batching."
+          ],
+          "practice": [
+            {
+              "id": "state-placement-refactor",
+              "title": "Рефакторинг состояния фильтров",
+              "instructions": [
+                "Взять экран со списком, фильтром, selected item и вычисляемым итогом.",
+                "Убрать дублирующий state и выбрать владельца для каждого оставшегося значения.",
+                "Перенести сериализуемые фильтры в URLSearchParams и использовать functional update."
+              ],
+              "minimumCompletion": "Удалено минимум два дублирующих значения, refresh сохраняет фильтры, итог вычисляется из одного источника истины.",
+              "estimatedMinutes": 50
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить snapshot и batching без конспекта.",
+            "Выбрать владельца для пяти новых значений.",
+            "Найти противоречивый или redundant state.",
+            "Показать functional update, зависящий от предыдущего значения."
+          ],
+          "quickSteps": [
+            "За 15 минут классифицировать весь state одного компонента на source, derived и external."
+          ],
+          "sourceRefs": [
+            "L0584",
+            "L0588",
+            "L0589",
+            "L0590",
+            "L0591",
+            "L0592",
+            "L0593",
+            "L0594",
+            "L0595",
+            "L0596",
+            "L0597",
+            "L0598",
+            "L0599",
+            "L0603",
+            "L0604",
+            "L0605",
+            "L0606"
+          ]
+        },
+        {
+          "id": "react-effects",
+          "title": "Effects как синхронизация",
+          "outcome": "Диагностировать лишний или неверный Effect и реализовать синхронизацию с cleanup, полными dependencies и защитой от гонки.",
+          "whyNow": "Effects и stale closures входят в максимальный приоритет и являются частым источником циклов, утечек и устаревших запросов.",
+          "priority": "critical",
+          "recommendationWeight": 100,
+          "estimatedMinutes": [105, 150],
+          "dependencies": ["closures", "event-loop", "react-state-model"],
+          "sourceIds": {
+            "primary": "react-synchronizing-effects"
+          },
+          "obsidianPrompts": [
+            "Сформулируй Effect как синхронизацию с внешней системой.",
+            "Раздели event, render calculation и Effect для трёх примеров.",
+            "Нарисуй setup → cleanup → setup в Strict Mode и timeline race condition."
+          ],
+          "ankiPrompts": [
+            "Определить, нужен ли Effect.",
+            "Назвать все reactive dependencies.",
+            "Объяснить stale closure в Effect.",
+            "Выбрать cleanup для подписки или таймера.",
+            "Объяснить double setup в Strict Mode.",
+            "Найти бесконечный цикл."
+          ],
+          "practice": [
+            {
+              "id": "effect-audit",
+              "title": "Аудит десяти Effects",
+              "instructions": [
+                "Найти десять учебных Effects: derived state, event, subscription, timer и request.",
+                "Удалить либо переписать каждый, не отключая exhaustive-deps.",
+                "Для подписки, таймера и запроса реализовать cleanup и воспроизвести Strict Mode."
+              ],
+              "minimumCompletion": "Все десять Effects классифицированы, минимум четыре удалены, оставшиеся не текут и не показывают устаревший ответ.",
+              "estimatedMinutes": 60
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить назначение Effect одним предложением.",
+            "Найти лишний Effect в новом компоненте.",
+            "Перечислить dependencies без подсказки линтера.",
+            "Диагностировать stale closure и race condition.",
+            "Объяснить выбор useLayoutEffect только для измерения до paint."
+          ],
+          "quickSteps": [
+            "За 15 минут взять один Effect и записать внешнюю систему, setup, cleanup и все dependencies."
+          ],
+          "sourceRefs": [
+            "L0610",
+            "L0616",
+            "L0617",
+            "L0618",
+            "L0619",
+            "L0620",
+            "L0621",
+            "L0622",
+            "L0623",
+            "L0624",
+            "L0625",
+            "L0626",
+            "L0627",
+            "L0628",
+            "L0632",
+            "L0633",
+            "L0634",
+            "L0635",
+            "L0636",
+            "L0640",
+            "L0641",
+            "L0642",
+            "L0643",
+            "L0644"
+          ]
+        },
+        {
+          "id": "react-composition",
+          "title": "Композиция UI и переиспользование логики",
+          "outcome": "Спроектировать reusable компонент с children или compound API и вынести stateful-логику в custom hook без смешения UI и бизнеса.",
+          "whyNow": "Композиция уменьшает prop-флаги и наследование, а ясная граница UI и логики делает компоненты тестируемыми и переносимыми.",
+          "priority": "critical",
+          "recommendationWeight": 86,
+          "estimatedMinutes": [90, 120],
+          "dependencies": ["functions-this", "react-state-model", "react-typing"],
+          "sourceIds": {
+            "primary": "react-custom-hooks"
+          },
+          "obsidianPrompts": [
+            "Сравни children, render prop, compound и headless API.",
+            "Раздели переиспользование структуры UI и stateful-логики.",
+            "Опиши controlled и uncontrolled API одного компонента."
+          ],
+          "ankiPrompts": [
+            "Выбрать children или render prop.",
+            "Назвать признак custom hook.",
+            "Сравнить controlled и uncontrolled API.",
+            "Объяснить compound component.",
+            "Найти бизнес-логику внутри presentational UI.",
+            "Выбрать composition вместо inheritance."
+          ],
+          "practice": [
+            {
+              "id": "composable-tabs",
+              "title": "Composable Tabs",
+              "instructions": [
+                "Сделать Tabs с compound API и children минимум для трёх вкладок.",
+                "Поддержать controlled и uncontrolled active tab.",
+                "Вынести переходы и клавиатурную навигацию в custom hook и отделить стили."
+              ],
+              "minimumCompletion": "Три вкладки работают в обоих режимах, логика hook не возвращает готовую разметку, UI можно заменить без её переписывания.",
+              "estimatedMinutes": 55
+            }
+          ],
+          "masteryChecks": [
+            "Выбрать композиционный API для трёх сценариев.",
+            "Объяснить границу custom hook.",
+            "Найти компонент с избыточными boolean props.",
+            "Спроектировать controlled/uncontrolled контракт."
+          ],
+          "quickSteps": [
+            "За 15 минут выписать публичный API модального окна через children и controlled open."
+          ],
+          "sourceRefs": [
+            "L0648",
+            "L0652",
+            "L0653",
+            "L0654",
+            "L0655",
+            "L0656",
+            "L0657",
+            "L0658",
+            "L0659",
+            "L0660",
+            "L0661",
+            "L0665",
+            "L0666",
+            "L0667",
+            "L0668",
+            "L0669"
+          ]
+        },
+        {
+          "id": "react-state-ownership",
+          "title": "Context и границы state management",
+          "outcome": "Выбрать props, Context, URL, server cache или client store и реализовать узкий Context без лишних рендеров потребителей.",
+          "whyNow": "Главный навык здесь — не выучить библиотеку, а не складывать разные виды состояния в один глобальный store без причины.",
+          "priority": "critical",
+          "recommendationWeight": 90,
+          "estimatedMinutes": [90, 120],
+          "dependencies": ["react-state-model", "react-composition"],
+          "sourceIds": {
+            "primary": "react-reducer-context",
+            "fallback": "tanstack-query-overview"
+          },
+          "obsidianPrompts": [
+            "Составь матрицу props, Context, Zustand, URL и TanStack Query по владельцу данных.",
+            "Опиши, почему изменение context value рендерит потребителей.",
+            "Раздели state и dispatch Context и сформулируй границу store."
+          ],
+          "ankiPrompts": [
+            "Выбрать props или Context.",
+            "Различить client и server state.",
+            "Объяснить влияние нового context value.",
+            "Назвать пользу selector.",
+            "Выбрать URL для сериализуемого фильтра.",
+            "Найти derived state внутри store."
+          ],
+          "practice": [
+            {
+              "id": "state-ownership-matrix",
+              "title": "Архитектура состояния экрана",
+              "instructions": [
+                "Разобрать auth, theme, filters, workout list, modal и draft по владельцам.",
+                "Реализовать reducer плюс раздельные state и dispatch Context для локального раздела.",
+                "Перенести фильтры в URL и оставить server data вне client store."
+              ],
+              "minimumCompletion": "Шесть значений имеют обоснованного владельца, Context не содержит server cache, потребитель dispatch не зависит от state value.",
+              "estimatedMinutes": 50
+            }
+          ],
+          "masteryChecks": [
+            "Выбрать хранилище для шести новых значений.",
+            "Объяснить, когда Context достаточно.",
+            "Найти server state в client store.",
+            "Спроектировать selector или разделение Context для узкого обновления."
+          ],
+          "quickSteps": [
+            "За 15 минут составить карту владельцев состояния одного текущего экрана."
+          ],
+          "sourceRefs": [
+            "L0673",
+            "L0677",
+            "L0678",
+            "L0679",
+            "L0680",
+            "L0681",
+            "L0682",
+            "L0683",
+            "L0684",
+            "L0685",
+            "L0686",
+            "L0687",
+            "L0688",
+            "L0692",
+            "L0693",
+            "L0694",
+            "L0695",
+            "L0699",
+            "L0700",
+            "L0701",
+            "L0702"
+          ]
+        },
+        {
+          "id": "react-resilience",
+          "title": "Ошибки и состояния устойчивого UI",
+          "outcome": "Спроектировать границы render-ошибок и явные loading, empty, error, offline и success-состояния с повтором без потери последнего полезного UI.",
+          "whyNow": "Устойчивость превращает happy-path компонент в интерфейс, который понятно ведёт себя при реальной сети и локальных сбоях.",
+          "priority": "high",
+          "recommendationWeight": 82,
+          "estimatedMinutes": [90, 120],
+          "dependencies": ["async-coordination", "narrowing", "react-effects"],
+          "sourceIds": {
+            "primary": "react-error-boundary"
+          },
+          "obsidianPrompts": [
+            "Раздели render, event handler и async errors по месту обработки.",
+            "Нарисуй state machine loading, success, empty, stale, offline и error.",
+            "Сравни skeleton, optimistic UI, fallback и graceful degradation."
+          ],
+          "ankiPrompts": [
+            "Назвать ошибки, которые ловит Error Boundary.",
+            "Выбрать локальную или route-level boundary.",
+            "Различить empty и error state.",
+            "Объяснить retry без бесконечного цикла.",
+            "Выбрать stale data вместо пустого экрана.",
+            "Назвать rollback optimistic update."
+          ],
+          "practice": [
+            {
+              "id": "resilient-workout-list",
+              "title": "Устойчивый список тренировок",
+              "instructions": [
+                "Описать UI-состояния discriminated union и отрисовать loading, empty, success и error.",
+                "Добавить Error Boundary для render-ошибки и отдельную обработку async ошибки.",
+                "Реализовать ограниченный retry, offline-сообщение и сохранение stale списка."
+              ],
+              "minimumCompletion": "Шесть состояний воспроизводятся отдельно, retry ограничен, render и async ошибки попадают в разные обработчики.",
+              "estimatedMinutes": 55
+            }
+          ],
+          "masteryChecks": [
+            "Объяснить границы Error Boundary.",
+            "Нарисовать исчерпывающую машину UI-состояний.",
+            "Найти смешение empty, loading и error.",
+            "Спроектировать fallback, сохраняющий полезный контекст."
+          ],
+          "quickSteps": [
+            "За 15 минут выписать все не-happy-path состояния одного API-виджета."
+          ],
+          "sourceRefs": [
+            "L0740",
+            "L0744",
+            "L0745",
+            "L0746",
+            "L0747",
+            "L0748",
+            "L0749",
+            "L0750",
+            "L0751",
+            "L0752",
+            "L0753",
+            "L0754",
+            "L0755",
+            "L0756",
+            "L0760",
+            "L0761",
+            "L0762",
+            "L0763"
+          ]
+        },
+        {
+          "id": "react-forms",
+          "title": "Формы, валидация и отправка",
+          "outcome": "Реализовать доступную форму с controlled и uncontrolled полями, schema validation, динамическими строками и явной обработкой server errors.",
+          "whyNow": "Формы объединяют state, типы, runtime-валидацию и устойчивость в одной практической задаче pet-проекта.",
+          "priority": "high",
+          "recommendationWeight": 85,
+          "estimatedMinutes": [105, 150],
+          "dependencies": ["api-boundaries", "react-state-model", "react-typing", "react-resilience"],
+          "sourceIds": {
+            "primary": "react-input-reference",
+            "fallback": "react-hook-form-use-form"
+          },
+          "obsidianPrompts": [
+            "Сравни controlled, uncontrolled и FormData по источнику истины.",
+            "Раздели touched, dirty, client validation, async validation и server error.",
+            "Опиши доступную связь label, field, hint и error message."
+          ],
+          "ankiPrompts": [
+            "Различить controlled и uncontrolled input.",
+            "Назвать момент показа validation error.",
+            "Объяснить disabled во время submit.",
+            "Связать сообщение ошибки через aria-describedby.",
+            "Выбрать schema validation для runtime-данных.",
+            "Сохранить stable id динамического поля."
+          ],
+          "practice": [
+            {
+              "id": "workout-form",
+              "title": "Форма создания тренировки",
+              "instructions": [
+                "Сделать поля даты, названия и динамический список минимум из двух подходов.",
+                "Проверить данные схемой, показать touched/dirty ошибки и сфокусировать первое неверное поле.",
+                "Добавить disabled submit, server error, FormData и локальное сохранение черновика."
+              ],
+              "minimumCompletion": "Валидная тренировка отправляется, три вида ошибки доступны с клавиатуры и скринридеру, два динамических подхода сохраняются в черновике.",
+              "estimatedMinutes": 70
+            }
+          ],
+          "masteryChecks": [
+            "Выбрать controlled или uncontrolled подход для трёх полей.",
+            "Объяснить client и server validation.",
+            "Найти недоступное сообщение ошибки.",
+            "Спроектировать стабильные ключи динамических полей.",
+            "Показать submit lifecycle без двойной отправки."
+          ],
+          "quickSteps": [
+            "За 15 минут связать label, hint и error одного поля и проверить клавиатурный фокус."
+          ],
+          "sourceRefs": [
+            "L0767",
+            "L0771",
+            "L0772",
+            "L0773",
+            "L0774",
+            "L0775",
+            "L0776",
+            "L0777",
+            "L0778",
+            "L0779",
+            "L0780",
+            "L0781",
+            "L0785",
+            "L0786",
+            "L0787",
+            "L0791",
+            "L0792",
+            "L0793",
+            "L0794",
+            "L0795"
+          ]
+        }
+      ],
+      "sourceRefs": ["L0545"]
+    }
+  ],
+  "sourceRefs": ["L0067", "L0360", "L0545"]
+}
