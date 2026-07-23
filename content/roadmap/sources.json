@@ -461,5 +461,572 @@
     "lastVerifiedAt": "2026-07-23",
     "section": "4.8.",
     "englishReason": "Официальная документация библиотеки является точным текущим источником по динамическим строкам, операциям field array и стабильному field.id; русского первичного источника нет."
+  },
+  {
+    "id": "mdn-ru-http-overview",
+    "title": "Обзор протокола HTTP",
+    "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Guides/Overview",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "mdn-ru-url",
+    "title": "URI и устройство URL",
+    "url": "https://developer.mozilla.org/ru/docs/Web/URI",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "firefox-network-monitor",
+    "title": "Firefox DevTools: Network Monitor",
+    "url": "https://firefox-source-docs.mozilla.org/devtools-user/network_monitor/index.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7.",
+    "englishReason": "Официальная документация Firefox DevTools актуально описывает поля и последовательность запросов в Network Monitor; равноценного текущего русского руководства нет."
+  },
+  {
+    "id": "mdn-ru-http-methods",
+    "title": "Методы HTTP-запроса",
+    "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Reference/Methods",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "mdn-ru-http-status",
+    "title": "Коды состояния ответа HTTP",
+    "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Reference/Status",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "mdn-ru-abort-controller-http",
+    "title": "AbortController",
+    "url": "https://developer.mozilla.org/ru/docs/Web/API/AbortController",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "mdn-ru-http-caching",
+    "title": "HTTP-кеширование",
+    "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Guides/Caching",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "doka-cors",
+    "title": "Что такое CORS",
+    "url": "https://doka.guide/tools/cors/",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "mdn-ru-cache-control",
+    "title": "Cache-Control",
+    "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Reference/Headers/Cache-Control",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "mdn-ru-websockets",
+    "title": "WebSockets API",
+    "url": "https://developer.mozilla.org/ru/docs/Web/API/WebSockets_API",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "mdn-ru-server-sent-events",
+    "title": "Использование Server-Sent Events",
+    "url": "https://developer.mozilla.org/ru/docs/Web/API/Server-sent_events/Using_server-sent_events",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "7."
+  },
+  {
+    "id": "mdn-ru-rendering-fundamentals",
+    "title": "Основы браузерного рендеринга",
+    "url": "https://developer.mozilla.org/ru/docs/Web/Performance/Guides/Fundamentals",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8."
+  },
+  {
+    "id": "mdn-ru-dom",
+    "title": "Объектная модель документа",
+    "url": "https://developer.mozilla.org/ru/docs/Web/API/Document_Object_Model",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8."
+  },
+  {
+    "id": "doka-events",
+    "title": "Событийная модель",
+    "url": "https://doka.guide/js/events/",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8."
+  },
+  {
+    "id": "doka-focus-event",
+    "title": "Событие focus",
+    "url": "https://doka.guide/js/event-focus/",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8."
+  },
+  {
+    "id": "doka-browser-environment",
+    "title": "Браузерное окружение и BOM",
+    "url": "https://doka.guide/js/bom/",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8."
+  },
+  {
+    "id": "doka-browser-storages",
+    "title": "Хранение данных в браузере",
+    "url": "https://doka.guide/js/browsers-storages/",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8."
+  },
+  {
+    "id": "mdn-ru-indexeddb",
+    "title": "IndexedDB",
+    "url": "https://developer.mozilla.org/ru/docs/Web/API/IndexedDB_API",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "8."
+  },
+  {
+    "id": "tanstack-query-v5-quick-start",
+    "title": "TanStack Query v5: Quick Start",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/quick-start",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальный quick start TanStack Query v5 даёт текущую связку QueryClient, provider, query и mutation; актуального русского первичного источника нет."
+  },
+  {
+    "id": "tanstack-query-v5-queries",
+    "title": "TanStack Query v5: Queries",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/queries",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальное руководство TanStack Query v5 точно описывает query functions и состояния useQuery; русская документация текущей версии отсутствует."
+  },
+  {
+    "id": "tanstack-query-v5-query-keys",
+    "title": "TanStack Query v5: Query Keys",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/query-keys",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальное руководство TanStack Query v5 задаёт актуальные правила сериализации и состава query keys; русского первичного источника нет."
+  },
+  {
+    "id": "tanstack-query-v5-important-defaults",
+    "title": "TanStack Query v5: Important Defaults",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальное руководство TanStack Query v5 актуально объясняет staleTime, gcTime, retries и background refetch; русского эквивалента нет."
+  },
+  {
+    "id": "tanstack-query-v5-invalidation",
+    "title": "TanStack Query v5: Query Invalidation",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальная документация TanStack Query v5 является текущим источником по invalidateQueries и совпадению ключей; русского первичного источника нет."
+  },
+  {
+    "id": "tanstack-query-v5-caching",
+    "title": "TanStack Query v5: Caching Examples",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/caching",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальный пример TanStack Query v5 показывает переходы fresh, stale, inactive и garbage-collected cache; русского актуального аналога нет."
+  },
+  {
+    "id": "tanstack-query-v5-dependent-queries",
+    "title": "TanStack Query v5: Dependent Queries",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/dependent-queries",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальное руководство TanStack Query v5 актуально описывает enabled и зависимые запросы; русского первичного источника нет."
+  },
+  {
+    "id": "tanstack-query-v5-paginated-queries",
+    "title": "TanStack Query v5: Paginated Queries",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/paginated-queries",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальная документация TanStack Query v5 показывает placeholderData и устойчивый интерфейс пагинации; русского актуального источника нет."
+  },
+  {
+    "id": "tanstack-query-v5-prefetching",
+    "title": "TanStack Query v5: Prefetching",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/prefetching",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальное руководство TanStack Query v5 актуально описывает prefetchQuery, staleTime и router integration; русского эквивалента нет."
+  },
+  {
+    "id": "tanstack-query-v5-optimistic-updates",
+    "title": "TanStack Query v5: Optimistic Updates",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальное руководство TanStack Query v5 содержит текущий алгоритм cancel, snapshot, rollback и invalidation; русского первичного источника нет."
+  },
+  {
+    "id": "tanstack-query-v5-mutations",
+    "title": "TanStack Query v5: Mutations",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/mutations",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальная документация TanStack Query v5 точно описывает жизненный цикл useMutation и обработчики ошибок; русского актуального аналога нет."
+  },
+  {
+    "id": "tanstack-query-v5-query-cancellation",
+    "title": "TanStack Query v5: Query Cancellation",
+    "url": "https://tanstack.com/query/latest/docs/framework/react/guides/query-cancellation",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "5.",
+    "englishReason": "Официальное руководство TanStack Query v5 задаёт актуальную передачу AbortSignal и отмену запросов; русского первичного источника нет."
+  },
+  {
+    "id": "owasp-xss-prevention",
+    "title": "OWASP Cross Site Scripting Prevention Cheat Sheet",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "OWASP даёт первичные актуальные защитные правила по контекстному экранированию, sanitization и опасным DOM sinks; русского равноценного источника нет."
+  },
+  {
+    "id": "mdn-ru-web-security",
+    "title": "Веб-безопасность",
+    "url": "https://developer.mozilla.org/ru/docs/Web/Security",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9."
+  },
+  {
+    "id": "portswigger-xss-labs",
+    "title": "Web Security Academy: XSS labs",
+    "url": "https://portswigger.net/web-security/cross-site-scripting",
+    "language": "en",
+    "format": "exercise",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "PortSwigger Web Security Academy предоставляет специально изолированные законные XSS-лаборатории с синтетической жертвой; русского эквивалента такого качества нет."
+  },
+  {
+    "id": "owasp-session-management",
+    "title": "OWASP Session Management Cheat Sheet",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "OWASP содержит актуальную первичную модель сессий, cookie attributes, истечения и завершения сессии; русского равноценного источника нет."
+  },
+  {
+    "id": "doka-browser-storages-security",
+    "title": "Хранение данных в браузере: риски Web Storage",
+    "url": "https://doka.guide/js/browsers-storages/",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9."
+  },
+  {
+    "id": "owasp-authentication",
+    "title": "OWASP Authentication Cheat Sheet",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "OWASP систематизирует текущие требования к аутентификации, повторной проверке и управлению сессией; полного русского первичного руководства нет."
+  },
+  {
+    "id": "owasp-csrf-prevention",
+    "title": "OWASP Cross-Site Request Forgery Prevention Cheat Sheet",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "OWASP является актуальным первичным источником по CSRF tokens, SameSite и ограничениям CORS как защиты; русского эквивалента нет."
+  },
+  {
+    "id": "mdn-ru-set-cookie",
+    "title": "Set-Cookie: Secure, HttpOnly и SameSite",
+    "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Reference/Headers/Set-Cookie",
+    "language": "ru",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9."
+  },
+  {
+    "id": "portswigger-csrf-labs",
+    "title": "Web Security Academy: CSRF labs",
+    "url": "https://portswigger.net/web-security/csrf",
+    "language": "en",
+    "format": "exercise",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "PortSwigger Web Security Academy даёт специально созданные безопасные CSRF-лаборатории и проверяемые упражнения; русского равноценного практикума нет."
+  },
+  {
+    "id": "mdn-ru-csp",
+    "title": "Content Security Policy",
+    "url": "https://developer.mozilla.org/ru/docs/Web/HTTP/Guides/CSP",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9."
+  },
+  {
+    "id": "owasp-http-headers",
+    "title": "OWASP HTTP Security Response Headers Cheat Sheet",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Headers_Cheat_Sheet.html",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "OWASP поддерживает актуальный набор защитных заголовков, включая CSP и frame-ancestors; полного русского первичного руководства нет."
+  },
+  {
+    "id": "owasp-vulnerable-dependencies",
+    "title": "OWASP Vulnerable Dependency Management Cheat Sheet",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "OWASP даёт актуальный защитный процесс dependency audit и управления supply-chain риском; равноценного русского первичного источника нет."
+  },
+  {
+    "id": "ietf-oauth-security-bcp",
+    "title": "RFC 9700: Best Current Practice for OAuth 2.0 Security",
+    "url": "https://datatracker.ietf.org/doc/html/rfc9700",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "IETF RFC 9700 — действующий Best Current Practice по OAuth 2.0, PKCE, redirect URI и token rotation; русского нормативного аналога нет."
+  },
+  {
+    "id": "openid-connect-core",
+    "title": "OpenID Connect Core 1.0",
+    "url": "https://openid.net/specs/openid-connect-core-1_0.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "Официальная спецификация OpenID Foundation точно отделяет identity layer и ID Token от OAuth authorization; русского нормативного источника нет."
+  },
+  {
+    "id": "telegram-mini-apps-init-data",
+    "title": "Telegram Mini Apps: validating initData",
+    "url": "https://core.telegram.org/bots/webapps#validating-data-received-via-the-mini-app",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "9.",
+    "englishReason": "Официальная документация Telegram задаёт серверную проверку подписи initData и срока auth_date; равноценного актуального русского первичного источника нет."
+  },
+  {
+    "id": "doka-testing-basics",
+    "title": "Как и зачем писать тесты",
+    "url": "https://doka.guide/tools/how-to-test-and-why/",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.1."
+  },
+  {
+    "id": "doka-testing-doubles",
+    "title": "Фиктивные объекты и данные, моки, стабы",
+    "url": "https://doka.guide/js/testing-and-fake-objects/",
+    "language": "ru",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.1."
+  },
+  {
+    "id": "vitest-guide",
+    "title": "Vitest Guide",
+    "url": "https://vitest.dev/guide/",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.2.",
+    "englishReason": "Официальное руководство Vitest 4 отражает текущий test runner, setup и environments; актуального русского первичного источника нет."
+  },
+  {
+    "id": "vitest-mocking",
+    "title": "Vitest: Mocking",
+    "url": "https://vitest.dev/guide/mocking.html",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.2.",
+    "englishReason": "Официальная документация Vitest 4 точно описывает vi.fn, spies, module mocks и очистку состояния; русского эквивалента нет."
+  },
+  {
+    "id": "vitest-timers",
+    "title": "Vitest: Timers",
+    "url": "https://vitest.dev/guide/mocking/timers",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.2.",
+    "englishReason": "Официальное руководство Vitest 4 содержит актуальный API fake timers и управление временем; русского первичного источника нет."
+  },
+  {
+    "id": "testing-library-queries",
+    "title": "Testing Library: About Queries",
+    "url": "https://testing-library.com/docs/queries/about/",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.3.",
+    "englishReason": "Официальная документация Testing Library задаёт текущий приоритет role queries и различия getBy, findBy, queryBy; русского первичного источника нет."
+  },
+  {
+    "id": "testing-library-user-event",
+    "title": "Testing Library: user-event",
+    "url": "https://testing-library.com/docs/user-event/intro/",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.3.",
+    "englishReason": "Официальная документация user-event 14 описывает актуальную симуляцию пользовательских взаимодействий; русского первичного руководства нет."
+  },
+  {
+    "id": "testing-library-react-example",
+    "title": "React Testing Library: Example",
+    "url": "https://testing-library.com/docs/react-testing-library/example-intro/",
+    "language": "en",
+    "format": "exercise",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.3.",
+    "englishReason": "Официальный пример React Testing Library показывает render, userEvent и async role assertions вместе; равноценного актуального русского примера нет."
+  },
+  {
+    "id": "msw-node-integration",
+    "title": "MSW 2: Node.js integration",
+    "url": "https://mswjs.io/docs/integrations/node",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.4.",
+    "englishReason": "Официальная документация MSW 2 актуально показывает setupServer и изоляцию handlers между Vitest-тестами; русского первичного источника нет."
+  },
+  {
+    "id": "msw-response-resolver",
+    "title": "MSW 2: Response resolver",
+    "url": "https://mswjs.io/docs/concepts/response-resolver",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.4.",
+    "englishReason": "Официальная документация MSW 2 задаёт текущие http handlers, HttpResponse и response resolver; русского первичного источника нет."
+  },
+  {
+    "id": "msw-network-behavior",
+    "title": "MSW 2: Network behavior overrides",
+    "url": "https://mswjs.io/docs/best-practices/network-behavior-overrides",
+    "language": "en",
+    "format": "exercise",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.4.",
+    "englishReason": "Официальная документация MSW 2 показывает локальные success, error и delayed overrides с resetHandlers; русского актуального практикума нет."
+  },
+  {
+    "id": "playwright-best-practices",
+    "title": "Playwright: Best Practices",
+    "url": "https://playwright.dev/docs/best-practices",
+    "language": "en",
+    "format": "guide",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.5.",
+    "englishReason": "Официальное руководство Playwright актуально описывает isolation, auto-wait, web-first assertions и борьбу с flaky tests; русского первичного аналога нет."
+  },
+  {
+    "id": "playwright-locators",
+    "title": "Playwright: Locators",
+    "url": "https://playwright.dev/docs/locators",
+    "language": "en",
+    "format": "documentation",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.5.",
+    "englishReason": "Официальная документация Playwright задаёт текущий приоритет getByRole и пользовательских локаторов; русского первичного источника нет."
+  },
+  {
+    "id": "playwright-trace-viewer",
+    "title": "Playwright: Trace Viewer",
+    "url": "https://playwright.dev/docs/trace-viewer",
+    "language": "en",
+    "format": "exercise",
+    "lastVerifiedAt": "2026-07-23",
+    "section": "10.5.",
+    "englishReason": "Официальная документация Playwright актуально показывает запись и разбор trace локального E2E-теста; русского первичного руководства нет."
   }
 ]

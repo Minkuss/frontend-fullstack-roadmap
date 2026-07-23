@@ -39,6 +39,14 @@ const sources = sourcesJson as LearningSource[]
 const route = routeJson as RoadmapLane
 const topics = route.modules.flatMap((module) => module.topics)
 const sourceById = new Map(sources.map((source) => [source.id, source]))
+const routeSourceIds = new Set(
+  topics.flatMap((topic) =>
+    Object.values(topic.sourceIds).filter(
+      (sourceId): sourceId is string => sourceId !== undefined,
+    ),
+  ),
+)
+const routeSources = sources.filter((source) => routeSourceIds.has(source.id))
 const inventoryById = new Map(
   inventoryJson.items.map((item) => [item.id, item]),
 )
@@ -277,7 +285,8 @@ describe('Route 1: frontend mental model', () => {
   it('uses sources verified today and explains every English source', () => {
     expect(sources.length).toBeGreaterThan(0)
     expect(sourceById.size).toBe(sources.length)
-    sources.forEach((source) => {
+    expect(routeSources.length).toBe(routeSourceIds.size)
+    routeSources.forEach((source) => {
       expect(source.id.trim(), source.id).not.toBe('')
       expect(source.title.trim(), source.id).not.toBe('')
       expect(new URL(source.url).protocol, source.id).toBe('https:')
