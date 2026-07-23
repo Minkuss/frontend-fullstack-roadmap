@@ -240,7 +240,32 @@ describe('selectFocus', () => {
     })
   })
 
-  it('never auto-focuses deferred lanes or zero-weight topics', () => {
+  it('keeps deferred and zero-weight topics out of automatic suggestions', () => {
+    const deferredTopic = topic('not-now', 0)
+    const deferredRoadmap: Roadmap = {
+      ...roadmap,
+      routes: [],
+      deferred: lane('deferred-only', 'deferred', 1, [deferredTopic]),
+    }
+    const deferredIndex = buildRoadmapIndex(deferredRoadmap)
+
+    expect(
+      selectFocus(
+        deferredRoadmap,
+        deferredIndex,
+        createInitialProgress(),
+        now,
+      ),
+    ).toEqual({
+      topicId: null,
+      reason: 'complete',
+      nextTopicIds: [],
+      dueReviewTopicIds: [],
+      missingDependencies: [],
+    })
+  })
+
+  it('honors a known non-mastered deferred topic in the manual queue', () => {
     const deferredTopic = topic('not-now', 0)
     const deferredRoadmap: Roadmap = {
       ...roadmap,
@@ -253,10 +278,29 @@ describe('selectFocus', () => {
     expect(
       selectFocus(deferredRoadmap, deferredIndex, state, now),
     ).toEqual({
-      topicId: null,
-      reason: 'complete',
+      topicId: 'not-now',
+      reason: 'queue',
       nextTopicIds: [],
       dueReviewTopicIds: [],
+      missingDependencies: [],
+    })
+  })
+
+  it('ignores an unknown active ID and falls through to a known candidate', () => {
+    const state = progress(
+      {
+        'removed-topic': {
+          status: 'active',
+          completedSteps: {},
+          startedAt: '2026-07-23T08:00:00.000Z',
+        },
+      },
+      { activeTopicId: 'removed-topic' },
+    )
+
+    expect(selectFocus(roadmap, index, state, now)).toMatchObject({
+      topicId: 'foundation',
+      reason: 'recommended',
       missingDependencies: [],
     })
   })

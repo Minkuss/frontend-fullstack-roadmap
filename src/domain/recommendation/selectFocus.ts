@@ -88,6 +88,15 @@ function canEnterAutomaticFocus(
   )
 }
 
+function canUseManualQueue(
+  candidate: OrderedTopic,
+  progress: ProgressState,
+): boolean {
+  const status = progress.topics[candidate.topic.id]?.status
+
+  return status !== 'mastered' && status !== 'awaiting_review'
+}
+
 function orderedCandidates(
   candidates: OrderedTopic[],
   progress: ProgressState,
@@ -163,7 +172,10 @@ export function selectFocus(
   let selectedId: string | null = null
   let reason: FocusSelection['reason'] = 'complete'
 
-  if (progress.activeTopicId !== null) {
+  if (
+    progress.activeTopicId !== null &&
+    byId.has(progress.activeTopicId)
+  ) {
     selectedId = progress.activeTopicId
     reason = 'active'
   } else {
@@ -172,7 +184,7 @@ export function selectFocus(
       .find(
         (candidate): candidate is OrderedTopic =>
           candidate !== undefined &&
-          canEnterAutomaticFocus(candidate, progress),
+          canUseManualQueue(candidate, progress),
       )
 
     if (queued) {
