@@ -1,6 +1,8 @@
 import { EmptyState } from '../ui/EmptyState'
 import { FocusPage } from '../features/focus/FocusPage'
 import { RoadmapPage } from '../features/roadmap/RoadmapPage'
+import { ProgressPage } from '../features/progress/ProgressPage'
+import { SettingsPage } from '../features/settings/SettingsPage'
 import { TopicPage } from '../features/topic/TopicPage'
 import { AppShell } from './AppShell'
 import { useHashRoute, type HashRoute } from './hashRoute'
@@ -82,6 +84,8 @@ export function App({ getNow = getSystemNow }: AppProps) {
     <AppShell route={route} storageWarning={storageWarning}>
       {route.page === 'focus' ? <FocusPage getNow={getNow} /> : null}
       {route.page === 'roadmap' ? <RoadmapPage getNow={getNow} /> : null}
+      {route.page === 'progress' ? <ProgressPage /> : null}
+      {route.page === 'settings' ? <SettingsPage getNow={getNow} /> : null}
       {route.page === 'topic' ? (
         <TopicPage
           getNow={getNow}
@@ -91,6 +95,8 @@ export function App({ getNow = getSystemNow }: AppProps) {
       ) : null}
       {route.page !== 'focus' &&
       route.page !== 'roadmap' &&
+      route.page !== 'progress' &&
+      route.page !== 'settings' &&
       route.page !== 'topic' ? (
         <PlaceholderPage route={route} />
       ) : null}

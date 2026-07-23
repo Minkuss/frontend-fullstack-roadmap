@@ -12,6 +12,7 @@ interface ConfirmDialogProps {
   cancelLabel?: string
   children: ReactNode
   confirmLabel: string
+  confirmVariant?: 'primary' | 'secondary'
   fallbackFocusRef?: RefObject<HTMLElement | null>
   onCancel: () => void
   onConfirm: () => void
@@ -23,6 +24,7 @@ export function ConfirmDialog({
   cancelLabel = 'Отмена',
   children,
   confirmLabel,
+  confirmVariant = 'primary',
   fallbackFocusRef,
   onCancel,
   onConfirm,
@@ -96,7 +98,11 @@ export function ConfirmDialog({
           <Button onClick={onCancel} ref={cancelRef} variant="secondary">
             {cancelLabel}
           </Button>
-          <Button onClick={onConfirm} ref={confirmRef}>
+          <Button
+            onClick={onConfirm}
+            ref={confirmRef}
+            variant={confirmVariant}
+          >
             {confirmLabel}
           </Button>
         </div>
