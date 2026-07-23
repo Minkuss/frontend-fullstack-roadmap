@@ -4,13 +4,14 @@
 
 **Goal:** Build a local-first React application that converts the complete personal frontend skill map into a calm, pull-based learning system with curated resources, Obsidian/Anki steps, practice, first-review reminders, free route switching, and recoverable progress.
 
-**Architecture:** Ship a static React + TypeScript + Vite SPA. Keep roadmap content in reviewed JSON files, domain behavior in pure TypeScript functions, and versioned user progress in `localStorage`. Generate a source inventory from the original Markdown and fail coverage checks whenever any heading or list item is not assigned to a roadmap entity or explicit metadata/deferred bucket.
+**Architecture:** Ship a small static React + TypeScript + Vite SPA for one user. Keep roadmap content in reviewed JSON files, core learning behavior in plain TypeScript functions, and progress in `localStorage` with manual JSON backup. Generate a source inventory from the original Markdown and fail coverage checks whenever any heading or list item is not assigned to a roadmap entity or explicit metadata/deferred bucket.
 
 **Tech Stack:** Node.js 20.19.3, npm 11.4.2, React 19, TypeScript, Vite 8, Vitest 4, React Testing Library, jsdom, Playwright 1.61, plain CSS, JSON content.
 
 ## Global Constraints
 
 - Repository root: `/Users/nikita/Documents/frontend-roadmap`.
+- This is a personal single-user learning app. Prefer the smallest clear implementation; do not add production infrastructure, enterprise abstractions, CI branches, telemetry, or generalized extension points.
 - Source map: `/Users/nikita/Documents/my_brain/personal-frontend-skill-map.md`.
 - Source baseline: 27 level-one headings, 90 level-two headings, 1175 unordered list items, 46 ordered list items.
 - Vite 8 requires Node.js `^20.19.0 || >=22.12.0`; current Node.js `20.19.3` is supported.
@@ -20,7 +21,7 @@
 - Show one primary resource, at most one fallback resource, and at most one practice resource per topic.
 - Prefer Russian resources; use English when materially more accurate, current, or official.
 - Schedule one first review three calendar days after self-check. Anki owns later repetition.
-- Store progress locally with schema versioning and JSON export/import.
+- Store progress locally with one current schema version and JSON export/import. No migration framework is required for MVP.
 - Never show calendar debt, overdue-red states, streak pressure, confetti, or punitive copy.
 - Visual direction: warm paper background, olive-graphite text, terracotta primary action, editorial headings, restrained borders.
 - Support keyboard use, visible focus, sufficient contrast, responsive layouts, and `prefers-reduced-motion`.
@@ -63,9 +64,8 @@
 - `src/domain/roadmap/buildRoadmapIndex.ts` — topic/module/route lookup maps.
 - `src/domain/progress/types.ts` — progress schema and actions.
 - `src/domain/progress/progressReducer.ts` — learning-cycle state transitions and WIP enforcement.
-- `src/domain/progress/storage.ts` — guarded `localStorage` access.
+- `src/domain/progress/storage.ts` — small guarded `localStorage` access.
 - `src/domain/progress/importExport.ts` — validated JSON backup/restore.
-- `src/domain/progress/migrations.ts` — versioned progress migrations.
 - `src/domain/recommendation/selectFocus.ts` — deterministic focus, queue, due-review, and reason selection.
 
 ### Application and features
@@ -86,9 +86,8 @@
 
 ### End-to-end tests
 
-- `e2e/learning-cycle.spec.ts` — start, pause, resume, review, persistence.
-- `e2e/import-export.spec.ts` — backup, reset, restore, invalid import.
-- `e2e/navigation-accessibility.spec.ts` — keyboard navigation, landmarks, responsive screens.
+- `e2e/core-flow.spec.ts` — start, pause, resume, review, persistence, and basic keyboard navigation.
+- `e2e/backup.spec.ts` — backup, reset, restore, and invalid import.
 
 ---
 
@@ -927,7 +926,7 @@ rtk git commit -m "feat: complete roadmap content migration"
 
 ---
 
-### Task 7: Implement Versioned Progress, Learning-Cycle Transitions, and Persistence
+### Task 7: Implement Progress, Learning-Cycle Transitions, and Persistence
 
 **Files:**
 - Create: `src/domain/progress/types.ts`
@@ -935,8 +934,6 @@ rtk git commit -m "feat: complete roadmap content migration"
 - Create: `src/domain/progress/progressReducer.test.ts`
 - Create: `src/domain/progress/storage.ts`
 - Create: `src/domain/progress/storage.test.ts`
-- Create: `src/domain/progress/migrations.ts`
-- Create: `src/domain/progress/migrations.test.ts`
 
 **Interfaces:**
 - Produces:
@@ -944,7 +941,6 @@ rtk git commit -m "feat: complete roadmap content migration"
   - `progressReducer(state, action): ProgressState`
   - `loadProgress(storage: Pick<Storage, 'getItem'>): LoadProgressResult`
   - `saveProgress(storage: Pick<Storage, 'setItem'>, state: ProgressState): SaveProgressResult`
-  - `migrateProgress(value: unknown): MigrationResult`
   - `PROGRESS_STORAGE_KEY = 'frontend-path/progress'`
 - Consumes: topic IDs and `StudyStepId`.
 
@@ -989,21 +985,14 @@ export interface ProgressState {
   }>
 }
 
-export type MigrationResult =
-  | { ok: true; state: ProgressState }
-  | { ok: false; reason: 'invalid' | 'future-version'; raw: unknown }
-
-export type LoadProgressResult =
-  | { ok: true; state: ProgressState }
-  | {
-      ok: false
-      reason: 'unavailable' | 'invalid' | 'future-version' | 'unknown'
-      raw?: string
-    }
+export interface LoadProgressResult {
+  state: ProgressState
+  warning?: 'unavailable' | 'invalid'
+}
 
 export type SaveProgressResult =
   | { ok: true }
-  | { ok: false; reason: 'unavailable' | 'quota' | 'unknown' }
+  | { ok: false; reason: 'unavailable' | 'quota' }
 ```
 
 Failing tests must prove:
@@ -1032,9 +1021,9 @@ type ProgressAction =
 
 `storage.ts` returns the tagged `LoadProgressResult` and `SaveProgressResult` contracts instead of throwing.
 
-- [ ] **Step 3: Add migration behavior**
+- [ ] **Step 3: Keep invalid local data recoverable but simple**
 
-Version `0` input without history migrates to version `1` with an empty history. Unknown future versions return an error and preserve the raw input for export. Unknown topic IDs remain in state until import validation reports them.
+If stored JSON is missing or invalid, return `createInitialProgress()` with warning `invalid`; never crash the roadmap. If storage is unavailable, return the initial state with warning `unavailable`. Do not implement a migration registry or future-version framework.
 
 - [ ] **Step 4: Verify and commit**
 
@@ -1042,7 +1031,7 @@ Version `0` input without history migrates to version `1` with an empty history.
 rtk npm test -- src/domain/progress
 rtk npm run build
 rtk git add src/domain/progress
-rtk git commit -m "feat: persist versioned learning progress"
+rtk git commit -m "feat: persist learning progress"
 ```
 
 ---
@@ -1180,11 +1169,11 @@ Load once through `loadProgress`, persist after reducer changes, expose:
 interface ProgressContextValue {
   state: ProgressState
   dispatch: Dispatch<ProgressAction>
-  storageStatus: 'ready' | 'unavailable' | 'error'
+  storageWarning?: 'unavailable' | 'invalid'
 }
 ```
 
-Never overwrite storage when initial parsing fails. Expose recovery state to Settings.
+Show a short warning when initial loading fails. Continue with an empty state so the personal roadmap remains usable.
 
 - [ ] **Step 4: Implement visual tokens**
 
@@ -1365,7 +1354,7 @@ Assert:
 - valid import requires confirmation;
 - reset dialog names local progress, queue, Obsidian links, and history;
 - reset never deletes built-in roadmap content;
-- unavailable storage shows recovery instructions and keeps roadmap readable.
+- unavailable storage shows one short warning and keeps roadmap readable.
 
 - [ ] **Step 3: Implement download and import flow**
 
@@ -1381,7 +1370,7 @@ Keep all irreversible-looking actions visually secondary. Reset requires explici
 rtk npm test -- src/features/progress src/features/settings src/domain/progress
 rtk npm run build
 rtk git add src/features/progress src/features/settings src/app/App.tsx
-rtk git commit -m "feat: expose progress backup and recovery"
+rtk git commit -m "feat: add progress backup and reset"
 ```
 
 ---
@@ -1390,9 +1379,8 @@ rtk git commit -m "feat: expose progress backup and recovery"
 
 **Files:**
 - Create: `playwright.config.ts`
-- Create: `e2e/learning-cycle.spec.ts`
-- Create: `e2e/import-export.spec.ts`
-- Create: `e2e/navigation-accessibility.spec.ts`
+- Create: `e2e/core-flow.spec.ts`
+- Create: `e2e/backup.spec.ts`
 - Modify: `src/styles/global.css`
 - Modify: `src/styles/components.css`
 - Create: `README.md`
@@ -1410,22 +1398,18 @@ import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './e2e',
-  fullyParallel: true,
-  forbidOnly: Boolean(process.env.CI),
-  retries: process.env.CI ? 2 : 0,
-  reporter: process.env.CI ? 'dot' : 'html',
+  reporter: 'list',
   use: {
     baseURL: 'http://127.0.0.1:4173',
     trace: 'on-first-retry',
   },
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'mobile-chromium', use: { ...devices['Pixel 7'] } }
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } }
   ],
   webServer: {
     command: 'npm run dev -- --host 127.0.0.1 --port 4173',
     url: 'http://127.0.0.1:4173',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
     timeout: 120_000,
   },
 })
@@ -1433,7 +1417,7 @@ export default defineConfig({
 
 - [ ] **Step 2: Write E2E learning-cycle scenarios**
 
-`learning-cycle.spec.ts` must:
+`core-flow.spec.ts` must:
 
 1. start `event-loop`;
 2. complete source and Obsidian steps;
@@ -1450,12 +1434,10 @@ Use Playwright download assertions for export. Save exported text, reset, import
 
 - [ ] **Step 4: Write keyboard and responsive scenarios**
 
-At desktop and Pixel 7 sizes:
+In the same core-flow test, use the desktop viewport and one explicit `page.setViewportSize({ width: 390, height: 844 })` check:
 
-- Tab through skip link, navigation, primary action, and next-topic links;
+- Tab through navigation and the primary action;
 - assert one `main`, one navigation label, and logical headings;
-- verify dialog focus enters the dialog and returns to trigger;
-- verify reduced-motion media query removes nonessential transitions;
 - verify no horizontal page overflow.
 
 - [ ] **Step 5: Add README**
@@ -1494,7 +1476,7 @@ Expected:
 - all Vitest suites pass;
 - content report shows `1338` inventory items, `0` orphaned, `0` unknown;
 - Vite production build succeeds;
-- desktop and mobile Chromium projects pass;
+- the single Chromium project passes;
 - no whitespace errors;
 - only intended task files remain uncommitted before the final commit.
 
