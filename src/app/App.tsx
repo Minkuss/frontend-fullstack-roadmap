@@ -1,5 +1,6 @@
 import { EmptyState } from '../ui/EmptyState'
 import { FocusPage } from '../features/focus/FocusPage'
+import { RoadmapPage } from '../features/roadmap/RoadmapPage'
 import { TopicPage } from '../features/topic/TopicPage'
 import { AppShell } from './AppShell'
 import { useHashRoute, type HashRoute } from './hashRoute'
@@ -80,6 +81,7 @@ export function App({ getNow = getSystemNow }: AppProps) {
   return (
     <AppShell route={route} storageWarning={storageWarning}>
       {route.page === 'focus' ? <FocusPage getNow={getNow} /> : null}
+      {route.page === 'roadmap' ? <RoadmapPage getNow={getNow} /> : null}
       {route.page === 'topic' ? (
         <TopicPage
           getNow={getNow}
@@ -87,7 +89,9 @@ export function App({ getNow = getSystemNow }: AppProps) {
           topicId={route.topicId}
         />
       ) : null}
-      {route.page !== 'focus' && route.page !== 'topic' ? (
+      {route.page !== 'focus' &&
+      route.page !== 'roadmap' &&
+      route.page !== 'topic' ? (
         <PlaceholderPage route={route} />
       ) : null}
     </AppShell>

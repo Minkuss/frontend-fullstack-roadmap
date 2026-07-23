@@ -41,4 +41,16 @@ describe('quiet study color contract', () => {
       'solid var(--focus)',
     )
   })
+
+  it('keeps the roadmap scannable with restrained rows and expandable modules', () => {
+    expect(declarations(componentsCss, '.roadmap-module > summary')).toContain(
+      'cursor: pointer',
+    )
+    expect(declarations(componentsCss, '.roadmap-topic {')).toContain(
+      'border-bottom: 0.0625rem solid var(--line)',
+    )
+    expect(
+      declarations(componentsCss, '.roadmap-queue__item--near'),
+    ).toContain('border-left: 0.25rem solid var(--focus)')
+  })
 })

@@ -80,4 +80,27 @@ describe('App', () => {
       }),
     ).toHaveValue('')
   })
+
+  it('renders the interactive roadmap instead of a placeholder', () => {
+    window.history.replaceState(null, '', '/#/roadmap')
+    const storage = {
+      getItem: () => null,
+      setItem: () => undefined,
+    }
+
+    render(
+      <ProgressProvider storage={storage}>
+        <App />
+      </ProgressProvider>,
+    )
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Ментальная модель фронтенда',
+      }),
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByText('Маршруты скоро появятся здесь'),
+    ).not.toBeInTheDocument()
+  })
 })
