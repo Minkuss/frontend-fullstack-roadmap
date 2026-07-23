@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 import type { HashRoute } from './hashRoute'
 
 interface AppShellProps {
@@ -47,9 +47,14 @@ export function AppShell({
   route,
   storageWarning,
 }: AppShellProps) {
+  function focusMain(event: MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault()
+    event.currentTarget.ownerDocument.getElementById('main-content')?.focus()
+  }
+
   return (
     <div className="app-shell">
-      <a className="skip-link" href="#main-content">
+      <a className="skip-link" href="#main-content" onClick={focusMain}>
         К содержанию
       </a>
 
@@ -90,7 +95,7 @@ export function AppShell({
         ) : null}
       </header>
 
-      <main className="app-shell__main" id="main-content">
+      <main className="app-shell__main" id="main-content" tabIndex={-1}>
         {children}
       </main>
     </div>

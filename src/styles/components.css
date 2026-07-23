@@ -90,7 +90,7 @@
 .app-navigation__link[aria-current='page'] {
   color: var(--ink);
   text-decoration: underline;
-  text-decoration-color: var(--accent);
+  text-decoration-color: var(--focus);
   text-decoration-thickness: 0.125rem;
   text-underline-offset: 0.35rem;
 }
@@ -101,7 +101,7 @@
 
 .storage-warning {
   padding: 0.75rem 1rem;
-  border-left: 0.25rem solid var(--accent);
+  border-left: 0.25rem solid var(--focus);
   border-radius: var(--radius-sm);
   background: var(--warning-bg);
   color: var(--ink);
@@ -124,7 +124,7 @@
 }
 
 .placeholder-page__eyebrow {
-  color: var(--accent);
+  color: var(--ink-muted);
   font-size: 0.75rem;
   font-weight: 750;
   letter-spacing: 0.08em;
@@ -197,8 +197,8 @@
 }
 
 .status-pill--active {
-  border-color: var(--accent);
-  color: var(--accent-hover);
+  border-color: var(--focus);
+  color: var(--focus);
 }
 
 .status-pill--paused,
@@ -232,7 +232,7 @@
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
-  color: var(--accent-hover);
+  color: var(--focus);
   font-weight: 700;
 }
 
